@@ -1,0 +1,22 @@
+AppBundle\Entity\Notice:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\NoticeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: date
+        subject:
+            type: string
+            length: '50'
+        publisherID:
+            type: integer
+        content:
+            type: text
+            nullable: true
+    lifecycleCallbacks: {  }

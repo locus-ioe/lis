@@ -1,0 +1,52 @@
+AppBundle\Entity\Member:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\MemberRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        firstname:
+            type: string
+            length: '20'
+        lastname:
+            type: string
+            length: '30'
+        address:
+            type: string
+            length: '50'
+            nullable: true
+        email:
+            type: string
+            length: '40'
+            unique: true
+        contact:
+            type: string
+            length: '15'
+        institutionID:
+            type: integer
+            nullable: true
+        crnPost:
+            type: string
+            length: '30'
+            nullable: true
+            column: crn_post
+        username:
+            type: string
+            length: '16'
+            unique: true
+        password:
+            type: string
+            length: '255'
+        token:
+            type: string
+            length: '255'
+            nullable: true
+        dp:
+            type: string
+            length: '30'
+            nullable: true
+    lifecycleCallbacks: {  }

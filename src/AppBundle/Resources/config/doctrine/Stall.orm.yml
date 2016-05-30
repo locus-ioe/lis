@@ -1,0 +1,19 @@
+AppBundle\Entity\Stall:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\StallRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        number:
+            type: integer
+        exhibitionID:
+            type: integer
+        size:
+            type: string
+            length: '1'
+    lifecycleCallbacks: {  }

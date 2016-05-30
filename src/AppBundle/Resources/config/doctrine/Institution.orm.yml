@@ -1,0 +1,28 @@
+AppBundle\Entity\Institution:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\InstitutionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '50'
+        address:
+            type: string
+            length: '75'
+        contact:
+            type: string
+            length: '15'
+        email:
+            type: string
+            length: '40'
+        logo:
+            type: string
+            length: '30'
+            nullable: true
+    lifecycleCallbacks: {  }

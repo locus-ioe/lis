@@ -1,0 +1,30 @@
+AppBundle\Entity\Letter:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\LetterRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: date
+        regNo:
+            type: string
+            length: '15'
+            unique: true
+            column: reg_no
+        subject:
+            type: string
+            length: '50'
+        salutationID:
+            type: integer
+            nullable: true
+        content:
+            type: text
+        publisherID:
+            type: integer
+            nullable: true
+    lifecycleCallbacks: {  }

@@ -1,0 +1,26 @@
+AppBundle\Entity\Project:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\ProjectRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: '30'
+        type:
+            type: string
+            length: '15'
+        themeID:
+            type: integer
+        stallID:
+            type: integer
+            nullable: true
+        description:
+            type: string
+            length: '255'
+    lifecycleCallbacks: {  }
