@@ -1,6 +1,6 @@
 {
-    "name": "raazpuspa/lis",
-    "license": "proprietary",
+    "name": "locus-ioe/lis",
+    "license": "GPL-3.0+",
     "type": "project",
     "autoload": {
         "psr-4": {
