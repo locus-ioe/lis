@@ -17,4 +17,5 @@ AppBundle\Entity\Advisor:
             nullable: true
         year:
             type: date
+            nullable: true
     lifecycleCallbacks: {  }

@@ -19,3 +19,4 @@ class ExhibitionController extends Controller
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
         ));
     }
+}

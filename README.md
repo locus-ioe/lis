@@ -19,6 +19,11 @@ php app/console doctrine:database:create
 php app/console doctrine:schema:create
 ```
 
+#### update database schema (if previously created)
+```bash
+php app/console doctrine:schema:update --force
+```
+
 ### usage
 ```bash
 php app/console server:run
