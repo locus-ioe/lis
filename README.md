@@ -13,12 +13,10 @@ lis
 git clone https://github.com/locus-ioe/lis.git
 ```
 
-### create database schema
+### create database and schema
 ```bash
-mysql -u [mysql-username] -p[mysql-password]
-create database LIS;
-exit
-php app/console doctrine:schema:update --force
+php app/console doctrine:database:create
+php app/console doctrine:schema:create
 ```
 
 ### usage
