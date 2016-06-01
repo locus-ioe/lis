@@ -6,41 +6,60 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Letter
+ *
+ * @ORM\Table(name="letter")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\LetterRepository")
  */
 class Letter
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date")
      */
     private $date;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="regNo", type="string", length=15, unique=true)
      */
     private $regNo;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="subject", type="string", length=50)
      */
     private $subject;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="salutationID", type="integer", nullable=true)
      */
     private $salutationID;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="content", type="text")
      */
     private $content;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="publisherID", type="integer", nullable=true)
      */
     private $publisherID;
 

@@ -6,26 +6,40 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Advisor
+ *
+ * @ORM\Table(name="advisor")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AdvisorRepository")
  */
 class Advisor
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="memberID", referencedColumnName="id")
      */
     private $memberID;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="post", type="string", length=50, nullable=true)
      */
     private $post;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="year", type="date", nullable=true)
      */
     private $year;
 
@@ -33,7 +47,7 @@ class Advisor
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -56,7 +70,7 @@ class Advisor
     /**
      * Get memberID
      *
-     * @return integer 
+     * @return integer
      */
     public function getMemberID()
     {
@@ -79,7 +93,7 @@ class Advisor
     /**
      * Get post
      *
-     * @return string 
+     * @return string
      */
     public function getPost()
     {
@@ -102,7 +116,7 @@ class Advisor
     /**
      * Get year
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getYear()
     {

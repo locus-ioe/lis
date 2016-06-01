@@ -6,41 +6,60 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Event
+ *
+ * @ORM\Table(name="event")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EventRepository")
  */
 class Event
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=50)
      */
     private $title;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="datetime", type="datetime")
      */
     private $datetime;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="venue", type="string", length=30)
      */
     private $venue;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=20)
      */
     private $type;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
-     * @var text
+     * @var string
+     *
+     * @ORM\Column(name="report", type="text", nullable=true)
      */
     private $report;
 
@@ -48,7 +67,7 @@ class Event
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -71,7 +90,7 @@ class Event
     /**
      * Get title
      *
-     * @return string
+     * @return string 
      */
     public function getTitle()
     {
@@ -94,7 +113,7 @@ class Event
     /**
      * Get datetime
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getDatetime()
     {
@@ -117,7 +136,7 @@ class Event
     /**
      * Get venue
      *
-     * @return string
+     * @return string 
      */
     public function getVenue()
     {
@@ -140,7 +159,7 @@ class Event
     /**
      * Get type
      *
-     * @return string
+     * @return string 
      */
     public function getType()
     {
@@ -163,7 +182,7 @@ class Event
     /**
      * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -186,7 +205,7 @@ class Event
     /**
      * Get report
      *
-     * @return string
+     * @return string 
      */
     public function getReport()
     {

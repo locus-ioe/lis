@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Stall
+ * ExhibitionEvent
  *
- * @ORM\Table(name="stall")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\StallRepository")
+ * @ORM\Table(name="exhibition_event")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ExhibitionEventRepository")
  */
-class Stall
+class ExhibitionEvent
 {
     /**
      * @var int
@@ -24,23 +24,16 @@ class Stall
     /**
      * @var int
      *
-     * @ORM\Column(name="number", type="integer")
-     */
-    private $number;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="exhibitionID", type="integer")
      */
     private $exhibitionID;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="size", type="string", length=1)
+     * @ORM\Column(name="eventID", type="integer")
      */
-    private $size;
+    private $eventID;
 
 
     /**
@@ -54,33 +47,10 @@ class Stall
     }
 
     /**
-     * Set number
-     *
-     * @param integer $number
-     * @return Stall
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Get number
-     *
-     * @return integer 
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
      * Set exhibitionID
      *
      * @param integer $exhibitionID
-     * @return Stall
+     * @return ExhibitionEvent
      */
     public function setExhibitionID($exhibitionID)
     {
@@ -100,25 +70,25 @@ class Stall
     }
 
     /**
-     * Set size
+     * Set eventID
      *
-     * @param string $size
-     * @return Stall
+     * @param integer $eventID
+     * @return ExhibitionEvent
      */
-    public function setSize($size)
+    public function setEventID($eventID)
     {
-        $this->size = $size;
+        $this->eventID = $eventID;
 
         return $this;
     }
 
     /**
-     * Get size
+     * Get eventID
      *
-     * @return string 
+     * @return integer 
      */
-    public function getSize()
+    public function getEventID()
     {
-        return $this->size;
+        return $this->eventID;
     }
 }

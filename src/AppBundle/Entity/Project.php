@@ -6,38 +6,62 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Project
+ *
+ * @ORM\Table(name="project")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
  */
 class Project
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=50)
      */
     private $title;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=20)
      */
     private $type;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="themeID", type="integer")
      */
     private $themeID;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="stallID", type="integer", nullable=true)
      */
     private $stallID;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="detail", type="text", nullable=true)
+     */
+    private $detail;
 
 
     /**
@@ -163,5 +187,28 @@ class Project
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set detail
+     *
+     * @param string $detail
+     * @return Project
+     */
+    public function setDetail($detail)
+    {
+        $this->detail = $detail;
+
+        return $this;
+    }
+
+    /**
+     * Get detail
+     *
+     * @return string 
+     */
+    public function getDetail()
+    {
+        return $this->detail;
     }
 }

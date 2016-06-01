@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Stall
+ * ExhibitionProject
  *
- * @ORM\Table(name="stall")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\StallRepository")
+ * @ORM\Table(name="exhibition_project")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ExhibitionProjectRepository")
  */
-class Stall
+class ExhibitionProject
 {
     /**
      * @var int
@@ -24,23 +24,16 @@ class Stall
     /**
      * @var int
      *
-     * @ORM\Column(name="number", type="integer")
-     */
-    private $number;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="exhibitionID", type="integer")
      */
     private $exhibitionID;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="size", type="string", length=1)
+     * @ORM\Column(name="projectID", type="integer")
      */
-    private $size;
+    private $projectID;
 
 
     /**
@@ -54,33 +47,10 @@ class Stall
     }
 
     /**
-     * Set number
-     *
-     * @param integer $number
-     * @return Stall
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Get number
-     *
-     * @return integer 
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
      * Set exhibitionID
      *
      * @param integer $exhibitionID
-     * @return Stall
+     * @return ExhibitionProject
      */
     public function setExhibitionID($exhibitionID)
     {
@@ -100,25 +70,25 @@ class Stall
     }
 
     /**
-     * Set size
+     * Set projectID
      *
-     * @param string $size
-     * @return Stall
+     * @param integer $projectID
+     * @return ExhibitionProject
      */
-    public function setSize($size)
+    public function setProjectID($projectID)
     {
-        $this->size = $size;
+        $this->projectID = $projectID;
 
         return $this;
     }
 
     /**
-     * Get size
+     * Get projectID
      *
-     * @return string 
+     * @return integer 
      */
-    public function getSize()
+    public function getProjectID()
     {
-        return $this->size;
+        return $this->projectID;
     }
 }

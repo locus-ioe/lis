@@ -6,36 +6,54 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Institution
+ *
+ * @ORM\Table(name="institution")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\InstitutionRepository")
  */
 class Institution
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\OneToMany(targetEntity="Member", mappedBy="institutionID")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=50)
      */
     private $name;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=99)
      */
     private $address;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="contact", type="string", length=15)
      */
     private $contact;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=40)
      */
     private $email;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=30, nullable=true, unique=true)
      */
     private $logo;
 
@@ -43,7 +61,7 @@ class Institution
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -66,7 +84,7 @@ class Institution
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -89,7 +107,7 @@ class Institution
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -112,7 +130,7 @@ class Institution
     /**
      * Get contact
      *
-     * @return string 
+     * @return string
      */
     public function getContact()
     {
@@ -135,7 +153,7 @@ class Institution
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -158,7 +176,7 @@ class Institution
     /**
      * Get logo
      *
-     * @return string 
+     * @return string
      */
     public function getLogo()
     {

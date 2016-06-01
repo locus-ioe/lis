@@ -6,31 +6,46 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Notice
+ *
+ * @ORM\Table(name="notice")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\NoticeRepository")
  */
 class Notice
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date")
      */
     private $date;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="subject", type="string", length=50)
      */
     private $subject;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="publisherID", type="integer", nullable=true)
      */
     private $publisherID;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="content", type="text")
      */
     private $content;
 

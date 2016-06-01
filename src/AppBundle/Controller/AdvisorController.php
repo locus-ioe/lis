@@ -2,18 +2,27 @@
 
 namespace AppBundle\Controller;
 
+// Sensio bundles
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+// Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+// Symfony form
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+// User-defined classes
 use AppBundle\Entity\Advisor;
+use AppBundle\Entity\Member;
 
 class AdvisorController extends Controller
 {
+    // Show Advisor Index Page
     /**
      * @Route("/advisor", name="advisorpage")
      */
@@ -22,30 +31,17 @@ class AdvisorController extends Controller
         return new Response('<p>Home page for advisors.</p>');
     }
 
+    // Handle Advisor Create Form Submission
     /**
     * @Route("/advisor/create", name="advisorcreatepost")
     * @Method("POST")
     */
     public function createAction(Request $request)
     {
-        $advisor = new Advisor();
-
-        $form = $this->createFormBuilder($advisor)
-        ->add('memberId', TextType::class)
-        ->add('post', TextType::class)
-        ->add('save', SubmitType::class, array('label' => 'Create Advisor'))->getForm();
-
-        $data = $form->getData();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid() ){
-            return new Response ('<p>Submitted Data:</p> <p>'.$data->getMemberId().'<br>'.$data->getPost().'</p>');
-        }
-
-        return new Response ('<p>Submission unsuccessful.</p>');
+        return new Response ('<p>Handle Advisor Create Form Submission.</p>');
     }
 
+    // Show Advisor Profile Page
     /**
      * @Route("/advisor/{id}", name="advisorshow", defaults={"id" = 1}, requirements={"id": "\d+"})
      * @Method({"GET","HEAD"})
@@ -55,6 +51,7 @@ class AdvisorController extends Controller
         return new Response ('<p>Individual advisor page.</p>');
     }
 
+    // Handle Advisor Update Form
     /**
      * @Route("/advisor/edit/{id}", name="advisoredit", defaults={"id" = 1}, requirements={"id": "\d+"})
      * @Method("PUT")
@@ -64,6 +61,7 @@ class AdvisorController extends Controller
         return new Response ('<p>Edit an advisor.</p>');
     }
 
+    // Handle Advisor Delete Form Submission
     /**
      * @Route("/advisor/delete/{id}", name="advisordelete", defaults={"id" = 1}, requirements={"id": "\d+"})
      * @Method("DELETE")
@@ -73,6 +71,7 @@ class AdvisorController extends Controller
         return new Response ('<p>Delete an advisor.</p>');
     }
 
+    // Show Advisor Create Form
     /**
      * @Route("/advisor/create", name="advisorcreate")
      */

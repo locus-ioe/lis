@@ -6,31 +6,46 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Meeting
+ *
+ * @ORM\Table(name="meeting")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\MeetingRepository")
  */
 class Meeting
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="datetime", type="datetime")
      */
     private $datetime;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="venue", type="string", length=30)
      */
     private $venue;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="agenda", type="text")
      */
     private $agenda;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="minute", type="text", nullable=true)
      */
     private $minute;
 

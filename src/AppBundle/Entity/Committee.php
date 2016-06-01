@@ -6,26 +6,40 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Committee
+ *
+ * @ORM\Table(name="committee")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CommitteeRepository")
  */
 class Committee
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="memberID", referencedColumnName="id")
      */
     private $memberID;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="post", type="string", length=30)
      */
     private $post;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="year", type="date")
      */
     private $year;
 
@@ -33,7 +47,7 @@ class Committee
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -56,7 +70,7 @@ class Committee
     /**
      * Get memberID
      *
-     * @return integer 
+     * @return integer
      */
     public function getMemberID()
     {
@@ -79,7 +93,7 @@ class Committee
     /**
      * Get post
      *
-     * @return string 
+     * @return string
      */
     public function getPost()
     {
@@ -102,7 +116,7 @@ class Committee
     /**
      * Get year
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getYear()
     {

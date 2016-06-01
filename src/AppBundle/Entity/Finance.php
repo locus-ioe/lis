@@ -5,52 +5,75 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Transaction
+ * Finance
+ *
+ * @ORM\Table(name="finance")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FinanceRepository")
  */
-class Transaction
+class Finance
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date")
      */
-    private $datetime;
+    private $date;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="billNumber", type="string", length=10, unique=true)
      */
     private $billNumber;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="institutionID", type="integer", nullable=true)
      */
     private $institutionID;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="eventID", type="integer", nullable=true)
      */
     private $eventID;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="amount", type="decimal", precision=10, scale=2)
      */
     private $amount;
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="receiverID", type="integer")
      */
     private $receiverID;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="remarks", type="string", length=50, nullable=true)
      */
     private $remarks;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="direction", type="string", length=3)
      */
     private $direction;
 
@@ -66,33 +89,33 @@ class Transaction
     }
 
     /**
-     * Set datetime
+     * Set date
      *
-     * @param \DateTime $datetime
-     * @return Transaction
+     * @param \DateTime $date
+     * @return Finance
      */
-    public function setDatetime($datetime)
+    public function setDate($date)
     {
-        $this->datetime = $datetime;
+        $this->date = $date;
 
         return $this;
     }
 
     /**
-     * Get datetime
+     * Get date
      *
      * @return \DateTime 
      */
-    public function getDatetime()
+    public function getDate()
     {
-        return $this->datetime;
+        return $this->date;
     }
 
     /**
      * Set billNumber
      *
      * @param string $billNumber
-     * @return Transaction
+     * @return Finance
      */
     public function setBillNumber($billNumber)
     {
@@ -115,7 +138,7 @@ class Transaction
      * Set institutionID
      *
      * @param integer $institutionID
-     * @return Transaction
+     * @return Finance
      */
     public function setInstitutionID($institutionID)
     {
@@ -138,7 +161,7 @@ class Transaction
      * Set eventID
      *
      * @param integer $eventID
-     * @return Transaction
+     * @return Finance
      */
     public function setEventID($eventID)
     {
@@ -161,7 +184,7 @@ class Transaction
      * Set amount
      *
      * @param string $amount
-     * @return Transaction
+     * @return Finance
      */
     public function setAmount($amount)
     {
@@ -184,7 +207,7 @@ class Transaction
      * Set receiverID
      *
      * @param integer $receiverID
-     * @return Transaction
+     * @return Finance
      */
     public function setReceiverID($receiverID)
     {
@@ -207,7 +230,7 @@ class Transaction
      * Set remarks
      *
      * @param string $remarks
-     * @return Transaction
+     * @return Finance
      */
     public function setRemarks($remarks)
     {
@@ -230,7 +253,7 @@ class Transaction
      * Set direction
      *
      * @param string $direction
-     * @return Transaction
+     * @return Finance
      */
     public function setDirection($direction)
     {
