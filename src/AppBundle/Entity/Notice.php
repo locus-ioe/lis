@@ -18,6 +18,8 @@ class Notice
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ORM\OneToMany(targetEntity="NoticeCCBCC", mappedBy="noticeID")
      */
     private $id;
 
@@ -38,7 +40,8 @@ class Notice
     /**
      * @var int
      *
-     * @ORM\Column(name="publisherID", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="publisherID", referencedColumnName="id")
      */
     private $publisherID;
 
@@ -53,7 +56,7 @@ class Notice
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,7 +79,7 @@ class Notice
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -99,7 +102,7 @@ class Notice
     /**
      * Get subject
      *
-     * @return string 
+     * @return string
      */
     public function getSubject()
     {
@@ -122,7 +125,7 @@ class Notice
     /**
      * Get publisherID
      *
-     * @return integer 
+     * @return integer
      */
     public function getPublisherID()
     {
@@ -145,7 +148,7 @@ class Notice
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {

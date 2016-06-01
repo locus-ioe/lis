@@ -22,16 +22,18 @@ class EventVolunteer
     private $id;
 
     /**
-     * @var int
+     * @var intint
      *
-     * @ORM\Column(name="eventID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="id")
+     * @ORM\JoinColumn(name="eventID", referencedColumnName="id")
      */
     private $eventID;
 
     /**
-     * @var int
+     * @var intint
      *
-     * @ORM\Column(name="volunteerID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="volunteerID", referencedColumnName="id")
      */
     private $volunteerID;
 
@@ -39,7 +41,7 @@ class EventVolunteer
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +64,7 @@ class EventVolunteer
     /**
      * Get eventID
      *
-     * @return integer 
+     * @return integer
      */
     public function getEventID()
     {
@@ -85,7 +87,7 @@ class EventVolunteer
     /**
      * Get volunteerID
      *
-     * @return integer 
+     * @return integer
      */
     public function getVolunteerID()
     {

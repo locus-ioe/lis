@@ -45,7 +45,8 @@ class Letter
     /**
      * @var int
      *
-     * @ORM\Column(name="salutationID", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="salutationID", referencedColumnName="id")
      */
     private $salutationID;
 
@@ -59,7 +60,8 @@ class Letter
     /**
      * @var int
      *
-     * @ORM\Column(name="publisherID", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="publisherID", referencedColumnName="id")
      */
     private $publisherID;
 
@@ -67,7 +69,7 @@ class Letter
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -90,7 +92,7 @@ class Letter
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -113,7 +115,7 @@ class Letter
     /**
      * Get regNo
      *
-     * @return string 
+     * @return string
      */
     public function getRegNo()
     {
@@ -136,7 +138,7 @@ class Letter
     /**
      * Get subject
      *
-     * @return string 
+     * @return string
      */
     public function getSubject()
     {
@@ -159,7 +161,7 @@ class Letter
     /**
      * Get salutationID
      *
-     * @return integer 
+     * @return integer
      */
     public function getSalutationID()
     {
@@ -182,7 +184,7 @@ class Letter
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -205,7 +207,7 @@ class Letter
     /**
      * Get publisherID
      *
-     * @return integer 
+     * @return integer
      */
     public function getPublisherID()
     {

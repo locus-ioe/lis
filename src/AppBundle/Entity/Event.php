@@ -18,6 +18,17 @@ class Event
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ORM\OneToMany(targetEntity="EventAttendee", mappedBy="eventID")
+     * @ORM\OneToMany(targetEntity="EventCollaborator", mappedBy="eventID")
+     * @ORM\OneToMany(targetEntity="EventOrganizer", mappedBy="eventID")
+     * @ORM\OneToMany(targetEntity="EventStall", mappedBy="eventID")
+     * @ORM\OneToMany(targetEntity="EventVolunteer", mappedBy="eventID")
+     * @ORM\OneToMany(targetEntity="ExhibitionEvent", mappedBy="eventID")
+     * @ORM\OneToMany(targetEntity="Finance", mappedBy="eventID")
+     * @ORM\OneToMany(targetEntity="ProjectCompetition", mappedBy="competitionID")
+     * @ORM\OneToMany(targetEntity="Finance", mappedBy="eventID")
+     * @ORM\OneToMany(targetEntity="ProjectCompetition", mappedBy="competitionID")
      */
     private $id;
 
@@ -67,7 +78,7 @@ class Event
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -90,7 +101,7 @@ class Event
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -113,7 +124,7 @@ class Event
     /**
      * Get datetime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDatetime()
     {
@@ -136,7 +147,7 @@ class Event
     /**
      * Get venue
      *
-     * @return string 
+     * @return string
      */
     public function getVenue()
     {
@@ -159,7 +170,7 @@ class Event
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -182,7 +193,7 @@ class Event
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -205,7 +216,7 @@ class Event
     /**
      * Get report
      *
-     * @return string 
+     * @return string
      */
     public function getReport()
     {

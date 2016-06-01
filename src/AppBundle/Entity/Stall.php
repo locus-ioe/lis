@@ -18,6 +18,9 @@ class Stall
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ORM\OneToMany(targetEntity="InstitutionStall", mappedBy="stallID")
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="stallID")
      */
     private $id;
 
@@ -46,7 +49,7 @@ class Stall
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -69,7 +72,7 @@ class Stall
     /**
      * Get number
      *
-     * @return integer 
+     * @return integer
      */
     public function getNumber()
     {
@@ -92,7 +95,7 @@ class Stall
     /**
      * Get exhibitionID
      *
-     * @return integer 
+     * @return integer
      */
     public function getExhibitionID()
     {
@@ -115,7 +118,7 @@ class Stall
     /**
      * Get size
      *
-     * @return string 
+     * @return string
      */
     public function getSize()
     {

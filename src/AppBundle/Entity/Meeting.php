@@ -18,6 +18,8 @@ class Meeting
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ORM\OneToMany(targetEntity="MeetingAttendee", mappedBy="meetingID")
      */
     private $id;
 
@@ -53,7 +55,7 @@ class Meeting
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,7 +78,7 @@ class Meeting
     /**
      * Get datetime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDatetime()
     {
@@ -99,7 +101,7 @@ class Meeting
     /**
      * Get venue
      *
-     * @return string 
+     * @return string
      */
     public function getVenue()
     {
@@ -122,7 +124,7 @@ class Meeting
     /**
      * Get agenda
      *
-     * @return string 
+     * @return string
      */
     public function getAgenda()
     {
@@ -145,7 +147,7 @@ class Meeting
     /**
      * Get minute
      *
-     * @return string 
+     * @return string
      */
     public function getMinute()
     {

@@ -24,14 +24,16 @@ class ProjectCompetition
     /**
      * @var int
      *
-     * @ORM\Column(name="projectID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="id")
+     * @ORM\JoinColumn(name="projectID", referencedColumnName="id")
      */
     private $projectID;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="competitionID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="id")
+     * @ORM\JoinColumn(name="competitionID", referencedColumnName="id")
      */
     private $competitionID;
 
@@ -39,7 +41,7 @@ class ProjectCompetition
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +64,7 @@ class ProjectCompetition
     /**
      * Get projectID
      *
-     * @return integer 
+     * @return integer
      */
     public function getProjectID()
     {
@@ -85,7 +87,7 @@ class ProjectCompetition
     /**
      * Get competitionID
      *
-     * @return integer 
+     * @return integer
      */
     public function getCompetitionID()
     {

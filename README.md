@@ -13,6 +13,17 @@ lis
 git clone https://github.com/locus-ioe/lis.git
 ```
 
+### install composer globally
+```bash
+sudo apt-get install composer
+```
+
+### install composer to the project
+```bash
+cd <path to project>
+composer install
+```
+
 ### create database and schema
 ```bash
 php app/console doctrine:database:create

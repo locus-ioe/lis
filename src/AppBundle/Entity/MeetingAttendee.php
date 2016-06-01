@@ -24,14 +24,16 @@ class MeetingAttendee
     /**
      * @var int
      *
-     * @ORM\Column(name="meetingID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Meeting", inversedBy="id")
+     * @ORM\JoinColumn(name="meetingID", referencedColumnName="id")
      */
     private $meetingID;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="attendeeID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="attendeeID", referencedColumnName="id")
      */
     private $attendeeID;
 
@@ -39,7 +41,7 @@ class MeetingAttendee
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +64,7 @@ class MeetingAttendee
     /**
      * Get meetingID
      *
-     * @return integer 
+     * @return integer
      */
     public function getMeetingID()
     {
@@ -85,7 +87,7 @@ class MeetingAttendee
     /**
      * Get attendeeID
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttendeeID()
     {

@@ -24,14 +24,16 @@ class InstitutionStall
     /**
      * @var int
      *
-     * @ORM\Column(name="institutionID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Institution", inversedBy="id")
+     * @ORM\JoinColumn(name="institutionID", referencedColumnName="id")
      */
     private $institutionID;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="stallID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Stall", inversedBy="id")
+     * @ORM\JoinColumn(name="stallID", referencedColumnName="id")
      */
     private $stallID;
 
@@ -39,7 +41,7 @@ class InstitutionStall
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +64,7 @@ class InstitutionStall
     /**
      * Get institutionID
      *
-     * @return integer 
+     * @return integer
      */
     public function getInstitutionID()
     {
@@ -85,7 +87,7 @@ class InstitutionStall
     /**
      * Get stallID
      *
-     * @return integer 
+     * @return integer
      */
     public function getStallID()
     {

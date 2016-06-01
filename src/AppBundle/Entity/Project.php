@@ -18,6 +18,10 @@ class Project
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ORM\OneToMany(targetEntity="ExhibitionEvent", mappedBy="projectID")
+     * @ORM\OneToMany(targetEntity="ProjectCompetition", mappedBy="projectID")
+     * @ORM\OneToMany(targetEntity="ProjectMembers", mappedBy="projectID")
      */
     private $id;
 
@@ -38,14 +42,16 @@ class Project
     /**
      * @var int
      *
-     * @ORM\Column(name="themeID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Theme", inversedBy="id")
+     * @ORM\JoinColumn(name="themeID", referencedColumnName="id")
      */
     private $themeID;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="stallID", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Stall", inversedBy="id")
+     * @ORM\JoinColumn(name="stallID", referencedColumnName="id")
      */
     private $stallID;
 
@@ -67,7 +73,7 @@ class Project
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -90,7 +96,7 @@ class Project
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -113,7 +119,7 @@ class Project
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -136,7 +142,7 @@ class Project
     /**
      * Get themeID
      *
-     * @return integer 
+     * @return integer
      */
     public function getThemeID()
     {
@@ -159,7 +165,7 @@ class Project
     /**
      * Get stallID
      *
-     * @return integer 
+     * @return integer
      */
     public function getStallID()
     {
@@ -182,7 +188,7 @@ class Project
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -205,7 +211,7 @@ class Project
     /**
      * Get detail
      *
-     * @return string 
+     * @return string
      */
     public function getDetail()
     {

@@ -38,14 +38,16 @@ class Finance
     /**
      * @var int
      *
-     * @ORM\Column(name="institutionID", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Institution", inversedBy="id")
+     * @ORM\JoinColumn(name="institutionID", referencedColumnName="id")
      */
     private $institutionID;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="eventID", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="id")
+     * @ORM\JoinColumn(name="eventID", referencedColumnName="id")
      */
     private $eventID;
 
@@ -59,7 +61,8 @@ class Finance
     /**
      * @var int
      *
-     * @ORM\Column(name="receiverID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="receiverID", referencedColumnName="id")
      */
     private $receiverID;
 
@@ -81,7 +84,7 @@ class Finance
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -104,7 +107,7 @@ class Finance
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -127,7 +130,7 @@ class Finance
     /**
      * Get billNumber
      *
-     * @return string 
+     * @return string
      */
     public function getBillNumber()
     {
@@ -150,7 +153,7 @@ class Finance
     /**
      * Get institutionID
      *
-     * @return integer 
+     * @return integer
      */
     public function getInstitutionID()
     {
@@ -173,7 +176,7 @@ class Finance
     /**
      * Get eventID
      *
-     * @return integer 
+     * @return integer
      */
     public function getEventID()
     {
@@ -196,7 +199,7 @@ class Finance
     /**
      * Get amount
      *
-     * @return string 
+     * @return string
      */
     public function getAmount()
     {
@@ -219,7 +222,7 @@ class Finance
     /**
      * Get receiverID
      *
-     * @return integer 
+     * @return integer
      */
     public function getReceiverID()
     {
@@ -242,7 +245,7 @@ class Finance
     /**
      * Get remarks
      *
-     * @return string 
+     * @return string
      */
     public function getRemarks()
     {
@@ -265,7 +268,7 @@ class Finance
     /**
      * Get direction
      *
-     * @return string 
+     * @return string
      */
     public function getDirection()
     {

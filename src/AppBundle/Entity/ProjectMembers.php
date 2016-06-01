@@ -22,16 +22,18 @@ class ProjectMembers
     private $id;
 
     /**
-     * @var int
+     * @var
      *
-     * @ORM\Column(name="projectID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="id")
+     * @ORM\JoinColumn(name="projectID", referencedColumnName="id")
      */
     private $projectID;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="memberID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="memberID", referencedColumnName="id")
      */
     private $memberID;
 
@@ -39,7 +41,7 @@ class ProjectMembers
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +64,7 @@ class ProjectMembers
     /**
      * Get projectID
      *
-     * @return integer 
+     * @return integer
      */
     public function getProjectID()
     {
@@ -85,7 +87,7 @@ class ProjectMembers
     /**
      * Get memberID
      *
-     * @return integer 
+     * @return integer
      */
     public function getMemberID()
     {

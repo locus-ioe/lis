@@ -24,14 +24,16 @@ class EventCollaborator
     /**
      * @var int
      *
-     * @ORM\Column(name="eventID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="id")
+     * @ORM\JoinColumn(name="eventID", referencedColumnName="id")
      */
     private $eventID;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="collaboratorID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="collaboratorID", referencedColumnName="id")
      */
     private $collaboratorID;
 
@@ -39,7 +41,7 @@ class EventCollaborator
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +64,7 @@ class EventCollaborator
     /**
      * Get eventID
      *
-     * @return integer 
+     * @return integer
      */
     public function getEventID()
     {
@@ -85,7 +87,7 @@ class EventCollaborator
     /**
      * Get collaboratorID
      *
-     * @return integer 
+     * @return integer
      */
     public function getCollaboratorID()
     {

@@ -24,14 +24,16 @@ class NoticeCCBCC
     /**
      * @var int
      *
-     * @ORM\Column(name="noticeID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Notice", inversedBy="id")
+     * @ORM\JoinColumn(name="noticeID", referencedColumnName="id")
      */
     private $noticeID;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="ccbccID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="ccbccID", referencedColumnName="id")
      */
     private $ccbccID;
 

@@ -24,14 +24,16 @@ class EventOrganizer
     /**
      * @var int
      *
-     * @ORM\Column(name="eventID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="id")
+     * @ORM\JoinColumn(name="eventID", referencedColumnName="id")
      */
     private $eventID;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="organizerID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
+     * @ORM\JoinColumn(name="organizerID", referencedColumnName="id")
      */
     private $organizerID;
 
@@ -108,7 +110,7 @@ class EventOrganizer
     /**
      * Get eventID
      *
-     * @return integer 
+     * @return integer
      */
     public function getEventID()
     {

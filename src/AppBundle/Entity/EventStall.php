@@ -22,16 +22,18 @@ class EventStall
     private $id;
 
     /**
-     * @var int
+     * @var intint
      *
-     * @ORM\Column(name="eventID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="id")
+     * @ORM\JoinColumn(name="eventID", referencedColumnName="id")
      */
     private $eventID;
 
     /**
-     * @var int
+     * @var intint
      *
-     * @ORM\Column(name="stallID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Stall", inversedBy="id")
+     * @ORM\JoinColumn(name="stallID", referencedColumnName="id")
      */
     private $stallID;
 
@@ -39,7 +41,7 @@ class EventStall
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +64,7 @@ class EventStall
     /**
      * Get eventID
      *
-     * @return integer 
+     * @return integer
      */
     public function getEventID()
     {
@@ -85,7 +87,7 @@ class EventStall
     /**
      * Get stallID
      *
-     * @return integer 
+     * @return integer
      */
     public function getStallID()
     {
