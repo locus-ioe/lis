@@ -21,6 +21,7 @@ use AppBundle\Entity\Committee;
 
 class CommitteeController extends Controller
 {
+    // Show Committee Index Page
     /**
      * @Route("/committee", name="committeepage")
      */

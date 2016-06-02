@@ -21,6 +21,7 @@ use AppBundle\Entity\Institution;
 
 class InstitutionController extends Controller
 {
+    // Show Institution Index Page
     /**
      * @Route("/institution", name="institutionpage")
      */

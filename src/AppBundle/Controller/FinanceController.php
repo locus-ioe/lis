@@ -17,12 +17,13 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 // User-defined classes
-use AppBundle\Entity\Transaction;
+use AppBundle\Entity\Finance;
 
-class TransactionController extends Controller
+class FinanceController extends Controller
 {
+    // Show Finance Index Page
     /**
-     * @Route("/transaction", name="transactionpage")
+     * @Route("/finance", name="financepage")
      */
     public function indexAction(Request $request)
     {

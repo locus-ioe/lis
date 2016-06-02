@@ -21,6 +21,7 @@ use AppBundle\Entity\Exhibition;
 
 class ExhibitionController extends Controller
 {
+    // Show Exhibition Index Page
     /**
      * @Route("/exhibition", name="exhibitionpage")
      */

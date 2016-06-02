@@ -21,6 +21,7 @@ use AppBundle\Entity\Project;
 
 class ProjectController extends Controller
 {
+    // Show Project Index Page
     /**
      * @Route("/project", name="projectpage")
      */

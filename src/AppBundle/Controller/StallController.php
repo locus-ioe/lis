@@ -21,6 +21,7 @@ use AppBundle\Entity\Stall;
 
 class StallController extends Controller
 {
+    // Show Stall Index Page
     /**
      * @Route("/stall", name="stallpage")
      */

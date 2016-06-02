@@ -21,6 +21,7 @@ use AppBundle\Entity\Meeting;
 
 class MeetingController extends Controller
 {
+    // Show Meeting Index Page
     /**
      * @Route("/meeting", name="meetingpage")
      */

@@ -21,6 +21,7 @@ use AppBundle\Entity\Notice;
 
 class NoticeController extends Controller
 {
+    // Show Notice Index Page
     /**
      * @Route("/notice", name="noticepage")
      */

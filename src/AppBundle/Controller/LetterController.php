@@ -21,6 +21,7 @@ use AppBundle\Entity\Letter;
 
 class LetterController extends Controller
 {
+    // Show Letter Index Page
     /**
      * @Route("/letter", name="letterpage")
      */

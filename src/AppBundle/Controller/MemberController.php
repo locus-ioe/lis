@@ -21,6 +21,7 @@ use AppBundle\Entity\Member;
 
 class MemberController extends Controller
 {
+    // Show Member Index Page
     /**
      * @Route("/member", name="memberpage")
      */

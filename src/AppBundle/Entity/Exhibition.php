@@ -41,6 +41,13 @@ class Exhibition
     /**
      * @var string
      *
+     * @ORM\Column(name="date", type="string", unique=true)
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="locationMap", type="string", length=50, nullable=true, unique=true)
      */
     private $locationMap;
