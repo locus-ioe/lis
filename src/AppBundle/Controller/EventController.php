@@ -12,10 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // Symfony form
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Form\Type\EventType;
 
 // User-defined classes
 use AppBundle\Entity\Event;
@@ -28,10 +25,15 @@ class EventController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('event/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-        ));
+        $em = $this->getDoctrine()->getManager();
+        $events = $em
+        ->getRepository('AppBundle:Event')->findall();
+
+        if (!$events) {
+            throw $this->createNotFoundException('No event found for id '.$eventId);
+        }
+
+        return $this->render('event/index.html.twig', array('events' => $events));
     }
 
     // Show the event-create form
@@ -43,15 +45,7 @@ class EventController extends Controller
     {
         $event = new Event();
 
-        $form = $this->createFormBuilder($event)
-        ->add('title', TextType::class)
-        ->add('datetime', DateTimeType::class, array('widget' => 'single_text'))
-        ->add('venue', TextType::class)
-        ->add('type', TextType::class)
-        ->add('description', TextType::class)
-        ->add('report', TextType::class)
-        ->add('save', SubmitType::class, array('label' => 'Create Event'))
-        ->getForm();
+        $form = $this->createForm(EventType::class, $event, array('forupdate' => false));
 
         return $this->render('event/create.html.twig', array('form' => $form->createView(),));
     }
@@ -65,15 +59,7 @@ class EventController extends Controller
     {
         $event = new Event();
 
-        $form = $this->createFormBuilder($event)
-        ->add('title', TextType::class)
-        ->add('datetime', DateTimeType::class, array('widget' => 'single_text'))
-        ->add('venue', TextType::class)
-        ->add('type', TextType::class)
-        ->add('description', TextType::class)
-        ->add('report', TextType::class)
-        ->add('save', SubmitType::class, array('label' => 'Create Event'))
-        ->getForm();
+        $form = $this->createForm(EventType::class, $event, array('forupdate' => false));
 
         $form->handleRequest($request);
 
@@ -81,7 +67,7 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
-            
+
             return $this->render('event/show.html.twig', array('event' => $event));
         }
 
@@ -103,15 +89,7 @@ class EventController extends Controller
             throw $this->createNotFoundException('No event found for id '.$eventId);
         }
 
-        $form = $this->createFormBuilder($event)
-        ->add('title', TextType::class)
-        ->add('datetime', DateTimeType::class, array('widget' => 'single_text'))
-        ->add('venue', TextType::class)
-        ->add('type', TextType::class)
-        ->add('description', TextType::class)
-        ->add('report', TextType::class)
-        ->add('save', SubmitType::class, array('label' => 'Update Event'))
-        ->getForm();
+        $form = $this->createForm(EventType::class, $event, array('forupdate' => true));
 
         return $this->render('event/create.html.twig', array('form' => $form->createView(),));
     }
@@ -125,15 +103,7 @@ class EventController extends Controller
     {
         $event = new Event();
 
-        $form = $this->createFormBuilder($event)
-        ->add('title', TextType::class)
-        ->add('datetime', DateTimeType::class, array('widget' => 'single_text'))
-        ->add('venue', TextType::class)
-        ->add('type', TextType::class)
-        ->add('description', TextType::class)
-        ->add('report', TextType::class)
-        ->add('save', SubmitType::class, array('label' => 'Update Event'))
-        ->getForm();
+        $form = $this->createForm(EventType::class, $event, array('forupdate' => true));
 
         $form->handleRequest($request);
 
@@ -155,10 +125,30 @@ class EventController extends Controller
 
             $em->flush();
 
-            return $this->render('event/show.html.twig', array('event' => $event));
+            return $this->render('event/show.html.twig', array('event' => $fetched));
         }
 
         return $this->render('event/create.html.twig', array('form' => $form->createView(),));
+    }
+
+    // Display the specified event
+    /**
+     * @Route("/event/delete/{eventId}", name="eventdelete", requirements={"page": "\d+"})
+     */
+    public function deleteAction(Request $request, $eventId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $event = $em
+        ->getRepository('AppBundle:Event')->find($eventId);
+
+        if (!$event) {
+            throw $this->createNotFoundException('No event found for id '.$eventId);
+        }
+
+        $em->remove($event);
+        $em->flush();
+
+        return $this->render('event/index.html.twig', array('message' => 'Event with eventId = '.$eventId.' deleted'));
     }
 
     // Display the specified event

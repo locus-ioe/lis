@@ -1,12 +1,17 @@
-{% extends 'event/index.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ event.title }} | {{ parent() }} {% endblock %}
 
 {% block body %}
     <div id="wrapper">
         <div id="container">
+            <a href="{{ url('eventedit' , {'eventId': event.id}) }}"><strong>Edit</strong></a>
+            <a href="{{ url('eventdelete' , {'eventId': event.id}) }}"><strong>Delete</strong></a>
             <div id="welcome">
+                <h1>Event</h1>
                 <p>{{ event.id }}</p>
                 <p><strong><u>{{ event.title }}</u></strong></p>
-                <p>{{ event.datetime|date('M d, Y H:i:s') }}
+                <p>{{ event.datetime|date('M d, Y H:i:s') }}</p>
                 <p>{{ event.venue }}</p>
                 <p>{{ event.type }}</p>
                 <p>{{ event.description }}</p>

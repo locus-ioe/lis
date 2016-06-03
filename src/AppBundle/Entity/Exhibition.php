@@ -110,6 +110,29 @@ class Exhibition
     }
 
     /**
+     * Set date
+     *
+     * @param string $date
+     * @return Exhibition
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return string
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
      * Set locationMap
      *
      * @param string $locationMap

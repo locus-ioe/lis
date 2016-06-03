@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ meeting.datetime|date('M d, Y H:i') }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <a href="{{ url('meetingedit' , {'meetingId': meeting.id}) }}"><strong>Edit</strong></a>
+            <a href="{{ url('meetingdelete' , {'meetingId': meeting.id}) }}"><strong>Delete</strong></a>
+            <div id="welcome">
+                <h1>Meeting</h1>
+                <p>{{ meeting.id }}</p>
+                <p><strong><u>{{ meeting.datetime|date('M d, Y H:i') }}</u></strong></p>
+                <p>{{ meeting.venue }}</p>
+                <p>{{ meeting.agenda }}</p>
+                <p>{{ meeting.minute }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

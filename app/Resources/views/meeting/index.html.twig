@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Meeting | {{ parent() }} {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Meeting</h1>
+                <a href="{{ url('meetingcreate') }}">Create</a>
+            </div>
+            <table>
+                <tr id="header">
+                    <td>ID</a></td>
+                    <td>Datetime</a></td>
+                    <td>Venue</a></td>
+                    <td>Agenda</a></td>
+                    <td>Minute</a></td>
+                </tr>
+                {% for meeting in meetings %}
+                <tr id="data">
+                    <td>{{ meeting.id }}</a></td>
+                    <td><a href="{{ url('meetingshow' , {'meetingId': meeting.id}) }}"><strong>{{ meeting.datetime|date('M d, Y H:i') }}</strong></a></td>
+                    <td>{{ meeting.venue }}</a></td>
+                    <td>{{ meeting.agenda }}</a></td>
+                    <td>{{ meeting.minute }}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

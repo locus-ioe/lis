@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Exhibition | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>Exhibition</h1>
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_errors(form) }}
+                <table>
+                <tr>
+                    <td>{{ form_label(form.theme) }}</td>
+                    <td>{{ form_widget(form.theme) }}</td>
+                    <td>{{ form_errors(form.theme) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.year) }}</td>
+                    <td>{{ form_widget(form.year) }}</td>
+                    <td>{{ form_errors(form.year) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.date) }}</td>
+                    <td>{{ form_widget(form.date) }}</td>
+                    <td>{{ form_errors(form.date) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.locationMap) }}</td>
+                    <td>{{ form_widget(form.locationMap) }}</td>
+                    <td>{{ form_errors(form.locationMap) }}</td>
+                </tr>
+                </table>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

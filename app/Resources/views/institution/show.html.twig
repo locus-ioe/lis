@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ institution.name }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <a href="{{ url('institutionedit' , {'institutionId': institution.id}) }}"><strong>Edit</strong></a>
+            <a href="{{ url('institutiondelete' , {'institutionId': institution.id}) }}"><strong>Delete</strong></a>
+            <div id="welcome">
+                <h1>Institution</h1>
+                <p>{{ institution.id }}</p>
+                <p><strong><u>{{ institution.name }}</u></strong></p>
+                <p>{{ institution.address }}</p>
+                <p>{{ institution.contact }}</p>
+                <p>{{ institution.email }}</p>
+                <p>{{ institution.logo }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

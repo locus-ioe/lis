@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Event
@@ -24,7 +26,6 @@ class Event
      * @ORM\OneToMany(targetEntity="EventOrganizer", mappedBy="eventID")
      * @ORM\OneToMany(targetEntity="EventStall", mappedBy="eventID")
      * @ORM\OneToMany(targetEntity="EventVolunteer", mappedBy="eventID")
-     * @ORM\OneToMany(targetEntity="ExhibitionEvent", mappedBy="eventID")
      * @ORM\OneToMany(targetEntity="Finance", mappedBy="eventID")
      * @ORM\OneToMany(targetEntity="ProjectCompetition", mappedBy="competitionID")
      * @ORM\OneToMany(targetEntity="Finance", mappedBy="eventID")
@@ -33,9 +34,25 @@ class Event
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\OneToMany(targetEntity="ExhibitionEvent", mappedBy="eventID")
+     */
+    private $exhibitions;
+    public function __construct()
+    {
+        $this->exhibition = new ArrayCollection();
+    }
+    public function getExhibitions()
+    {
+        return $this->exhibitions;
+    }
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=50)
+     * @Assert\NotBlank()
      */
     private $title;
 
@@ -43,6 +60,8 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(name="datetime", type="datetime")
+     * @Assert\NotBlank()
+     * @Assert\Type("\DateTime")
      */
     private $datetime;
 
@@ -50,6 +69,7 @@ class Event
      * @var string
      *
      * @ORM\Column(name="venue", type="string", length=30)
+     * @Assert\NotBlank()
      */
     private $venue;
 
@@ -57,6 +77,7 @@ class Event
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=20)
+     * @Assert\NotBlank()
      */
     private $type;
 
@@ -64,6 +85,7 @@ class Event
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $description;
 

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Locus {{ exhibition.year|date('Y') }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <a href="{{ url('exhibitionedit' , {'exhibitionId': exhibition.id}) }}"><strong>Edit</strong></a>
+            <a href="{{ url('exhibitiondelete' , {'exhibitionId': exhibition.id}) }}"><strong>Delete</strong></a>
+            <div id="welcome">
+                <h1>Exhibition</h1>
+                <p>{{ exhibition.id }}</p>
+                <p><strong><u>{{ exhibition.theme }}</u></strong></p>
+                <p>{{ exhibition.year|date('Y') }}</p>
+                <p>{{ exhibition.date }}</p>
+                <p>{{ exhibition.locationMap }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,11 +1,37 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} Events | {{ parent() }} {% endblock %}
+
 {% block body %}
+    {{ parent() }}
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
                 <h1><span>Event</h1>
+                <a href="{{ url('eventcreate') }}">Create</a>
             </div>
+            <table>
+                <tr id="header">
+                    <td>ID</a></td>
+                    <td>Title</a></td>
+                    <td>Datetime</a></td>
+                    <td>Venue</a></td>
+                    <td>Type</a></td>
+                    <td>Description</a></td>
+                    <td>Report</a></td>
+                </tr>
+                {% for event in events %}
+                <tr id="data">
+                    <td>{{ event.id }}</a></td>
+                    <td><a href="{{ url('eventshow' , {'eventId': event.id}) }}"><strong>{{ event.title }}</strong></a></td>
+                    <td>{{ event.datetime|date('M d, Y H:i:s') }}</a></td>
+                    <td>{{ event.venue }}</a></td>
+                    <td>{{ event.type }}</a></td>
+                    <td>{{ event.description }}</a></td>
+                    <td>{{ event.report }}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
 {% endblock %}

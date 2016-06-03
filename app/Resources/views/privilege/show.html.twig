@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ privilege.name }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <a href="{{ url('privilegeedit' , {'privilegeId': privilege.id}) }}"><strong>Edit</strong></a>
+            <a href="{{ url('privilegedelete' , {'privilegeId': privilege.id}) }}"><strong>Delete</strong></a>
+            <div id="welcome">
+                <h1>Privilege</h1>
+                <p>{{ privilege.id }}</p>
+                <p><strong><u>{{ privilege.name }}</u></strong></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

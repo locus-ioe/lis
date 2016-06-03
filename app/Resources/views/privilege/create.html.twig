@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Privilege | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>Privilege</h1>
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_errors(form) }}
+                <table>
+                <tr>
+                    <td>{{ form_label(form.name) }}</td>
+                    <td>{{ form_widget(form.name) }}</td>
+                    <td>{{ form_errors(form.name) }}</td>
+                </tr>
+                </table>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
