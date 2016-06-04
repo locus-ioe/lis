@@ -2,8 +2,8 @@
 
 namespace AppBundle\Form\Type;
 
+// Symfony component
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 // Symfony form
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -1,4 +1,4 @@
-lis
+LIS - Locus Information System
 ===
 
 ## Requirements

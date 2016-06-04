@@ -20,35 +20,10 @@ class Event
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @ORM\OneToMany(targetEntity="EventAttendee", mappedBy="eventID")
-     * @ORM\OneToMany(targetEntity="EventCollaborator", mappedBy="eventID")
-     * @ORM\OneToMany(targetEntity="EventOrganizer", mappedBy="eventID")
-     * @ORM\OneToMany(targetEntity="EventStall", mappedBy="eventID")
-     * @ORM\OneToMany(targetEntity="EventVolunteer", mappedBy="eventID")
-     * @ORM\OneToMany(targetEntity="Finance", mappedBy="eventID")
-     * @ORM\OneToMany(targetEntity="ProjectCompetition", mappedBy="competitionID")
-     * @ORM\OneToMany(targetEntity="Finance", mappedBy="eventID")
-     * @ORM\OneToMany(targetEntity="ProjectCompetition", mappedBy="competitionID")
      */
     private $id;
 
-    /**
-     * @var int
-     *
-     * @ORM\OneToMany(targetEntity="ExhibitionEvent", mappedBy="eventID")
-     */
-    private $exhibitions;
-    public function __construct()
-    {
-        $this->exhibition = new ArrayCollection();
-    }
-    public function getExhibitions()
-    {
-        return $this->exhibitions;
-    }
-
-    /**
+    /*
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=50)

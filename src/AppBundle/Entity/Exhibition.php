@@ -18,9 +18,6 @@ class Exhibition
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @ORM\OneToMany(targetEntity="ExhibitionEvent", mappedBy="exhibitionID")
-     * @ORM\OneToMany(targetEntity="ExhibitionProject", mappedBy="exhibitionID")
      */
     private $id;
 

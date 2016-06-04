@@ -18,10 +18,6 @@ class Institution
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @ORM\OneToMany(targetEntity="Member", mappedBy="institutionID")
-     * @ORM\OneToMany(targetEntity="Finance", mappedBy="institutionID")
-     * @ORM\OneToMany(targetEntity="InstitutionStall", mappedBy="institutionID")
      */
     private $id;
 

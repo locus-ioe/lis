@@ -18,9 +18,6 @@ class Stall
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @ORM\OneToMany(targetEntity="InstitutionStall", mappedBy="stallID")
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="stallID")
      */
     private $id;
 

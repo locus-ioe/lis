@@ -20,20 +20,6 @@ class Member
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @ORM\OneToMany(targetEntity="Advisor", mappedBy="memberID")
-     * @ORM\OneToOne(targetEntity="Committee", mappedBy="memberID")
-     * @ORM\OneToMany(targetEntity="EventAttendee", mappedBy="attendeeID")
-     * @ORM\OneToMany(targetEntity="EventCollaborator", mappedBy="collaboratorID")
-     * @ORM\OneToMany(targetEntity="EventOrganizer", mappedBy="organizerID")
-     * @ORM\OneToMany(targetEntity="EventVolunteer", mappedBy="volunteerID")
-     * @ORM\OneToMany(targetEntity="Finance", mappedBy="receiverID")
-     * @ORM\OneToMany(targetEntity="Letter", mappedBy="publisherID")
-     * @ORM\OneToOne(targetEntity="Letter", mappedBy="salutationID")
-     * @ORM\OneToMany(targetEntity="MeetingAttendee", mappedBy="attendeeID")
-     * @ORM\OneToMany(targetEntity="Notice", mappedBy="publisherID")
-     * @ORM\OneToMany(targetEntity="NoticeCCBCC", mappedBy="ccbccID")
-     * @ORM\OneToMany(targetEntity="ProjectMembers", mappedBy="memberID")
      */
     private $id;
 

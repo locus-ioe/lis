@@ -1,19 +1,15 @@
 <?php
 
 namespace AppBundle\Controller;
-
 // Sensio bundles
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 // Symfony form
 use AppBundle\Form\Type\MeetingType;
-
 // User-defined classes
 use AppBundle\Entity\Meeting;
 
@@ -28,11 +24,9 @@ class MeetingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $meetings = $em
         ->getRepository('AppBundle:Meeting')->findall();
-
         if (!$meetings) {
-            throw $this->createNotFoundException('No meeting found for id '.$meetingId);
+            throw $this->createNotFoundException('No meeting found');
         }
-
         return $this->render('meeting/index.html.twig', array('meetings' => $meetings));
     }
 
@@ -44,10 +38,8 @@ class MeetingController extends Controller
     public function createAction(Request $request)
     {
         $meeting = new Meeting();
-
         $form = $this->createForm(MeetingType::class, $meeting, array('forupdate' => false));
-
-        return $this->render('meeting/create.html.twig', array('form' => $form->createView(),));
+        return $this->render('meeting/create.html.twig', array('form' => $form->createView(), 'title' => 'Create'));
     }
 
     // Handle the create form and store created meeting
@@ -58,20 +50,15 @@ class MeetingController extends Controller
     public function storeAction(Request $request)
     {
         $meeting = new Meeting();
-
         $form = $this->createForm(MeetingType::class, $meeting, array('forupdate' => false));
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($meeting);
             $em->flush();
-
             return $this->render('meeting/show.html.twig', array('meeting' => $meeting));
         }
-
-        return $this->render('meeting/create.html.twig', array('form' => $form->createView(),));
+        return $this->render('meeting/create.html.twig', array('form' => $form->createView(), 'title' => 'Create', 'message' => 'Unable to proceed the submitted form and/or form data'));
     }
 
     // Show the meeting-edit form
@@ -82,16 +69,12 @@ class MeetingController extends Controller
     public function editAction(Request $request, $meetingId)
     {
         $meeting = $this->getDoctrine()
-        ->getRepository('AppBundle:Meeting')
-        ->find($meetingId);
-
+        ->getRepository('AppBundle:Meeting')->find($meetingId);
         if (!$meeting) {
             throw $this->createNotFoundException('No meeting found for id '.$meetingId);
         }
-
         $form = $this->createForm(MeetingType::class, $meeting, array('forupdate' => true));
-
-        return $this->render('meeting/create.html.twig', array('form' => $form->createView(),));
+        return $this->render('meeting/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
     }
 
     // Handle the create form and store created meeting
@@ -101,33 +84,19 @@ class MeetingController extends Controller
      */
     public function updateAction(Request $request, $meetingId)
     {
-        $meeting = new Meeting();
-
+        $em = $this->getDoctrine()->getManager();
+        $meeting = $em->getRepository('AppBundle:Meeting')->find($meetingId);
         $form = $this->createForm(MeetingType::class, $meeting, array('forupdate' => true));
-
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $fetched = $em
-            ->getRepository('AppBundle:Meeting')->find($meetingId);
-
-            if (!$fetched) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            if (!$meeting) {
                 throw $this->createNotFoundException('No meeting found for id '.$meetingId);
+                $em->flush();
+                return $this->render('meeting/show.html.twig', array('meeting' => $meeting));
             }
-
-            $fetched->setName($meeting->getName());
-            $fetched->setAddress($meeting->getAddress());
-            $fetched->setContact($meeting->getContact());
-            $fetched->setEmail($meeting->getEmail());
-            $fetched->setLogo($meeting->getLogo());
-
-            $em->flush();
-
-            return $this->render('meeting/show.html.twig', array('meeting' => $fetched));
         }
-
-        return $this->render('meeting/create.html.twig', array('form' => $form->createView(),));
+        return $this->render('meeting/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
     }
 
     // Display the specified meeting
@@ -139,14 +108,11 @@ class MeetingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $meeting = $em
         ->getRepository('AppBundle:Meeting')->find($meetingId);
-
         if (!$meeting) {
             throw $this->createNotFoundException('No meeting found for id '.$meetingId);
         }
-
         $em->remove($meeting);
         $em->flush();
-
         return $this->render('meeting/index.html.twig', array('message' => 'Meeting with meetingId = '.$meetingId.' deleted'));
     }
 
@@ -158,33 +124,9 @@ class MeetingController extends Controller
     {
         $meeting = $this->getDoctrine()
         ->getRepository('AppBundle:Meeting')->find($meetingId);
-
         if (!$meeting) {
             throw $this->createNotFoundException('No meeting found for id '.$meetingId);
         }
-
         return $this->render('meeting/show.html.twig', array('meeting' => $meeting));
-    }
-
-    /**
-     * @Route("/api/meeting/{meetingId}", name="apimeetingshow")
-     */
-    public function apiShowAction($meetingId)
-    {
-        $meeting = $this->getDoctrine()
-        ->getRepository('AppBundle:Meeting')->find($meetingId);
-
-        if (!$meeting) {
-            throw $this->createNotFoundException('No meeting found for id '.$meetingId);
-        }
-
-        $data = array(
-            'id' => $meeting->getId(),
-            'datetime' => $meeting->getDatetime(),
-            'venue' => $meeting->getVenue(),
-            'agenda' => $meeting->getAgenda(),
-            'minute' => $meeting->getMinute()
-        );
-        return new Response(json_encode($data),200,array('Content-Type' =>'application/json'));
     }
 }

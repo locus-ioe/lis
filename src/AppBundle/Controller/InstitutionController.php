@@ -1,19 +1,15 @@
 <?php
 
 namespace AppBundle\Controller;
-
 // Sensio bundles
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 // Symfony form
 use AppBundle\Form\Type\InstitutionType;
-
 // User-defined classes
 use AppBundle\Entity\Institution;
 
@@ -28,11 +24,9 @@ class InstitutionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $institutions = $em
         ->getRepository('AppBundle:Institution')->findall();
-
         if (!$institutions) {
-            throw $this->createNotFoundException('No institution found for id '.$institutionId);
+            throw $this->createNotFoundException('No institution found');
         }
-
         return $this->render('institution/index.html.twig', array('institutions' => $institutions));
     }
 
@@ -44,10 +38,8 @@ class InstitutionController extends Controller
     public function createAction(Request $request)
     {
         $institution = new Institution();
-
         $form = $this->createForm(InstitutionType::class, $institution, array('forupdate' => false));
-
-        return $this->render('institution/create.html.twig', array('form' => $form->createView(),));
+        return $this->render('institution/create.html.twig', array('form' => $form->createView(), 'title' => 'Create'));
     }
 
     // Handle the create form and store created institution
@@ -58,20 +50,15 @@ class InstitutionController extends Controller
     public function storeAction(Request $request)
     {
         $institution = new Institution();
-
         $form = $this->createForm(InstitutionType::class, $institution, array('forupdate' => false));
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($institution);
             $em->flush();
-
             return $this->render('institution/show.html.twig', array('institution' => $institution));
         }
-
-        return $this->render('institution/create.html.twig', array('form' => $form->createView(),));
+        return $this->render('institution/create.html.twig', array('form' => $form->createView(), 'title' => 'Create', 'message' => 'Unable to proceed the submitted form and/or form data'));
     }
 
     // Show the institution-edit form
@@ -82,16 +69,12 @@ class InstitutionController extends Controller
     public function editAction(Request $request, $institutionId)
     {
         $institution = $this->getDoctrine()
-        ->getRepository('AppBundle:Institution')
-        ->find($institutionId);
-
+        ->getRepository('AppBundle:Institution')->find($institutionId);
         if (!$institution) {
             throw $this->createNotFoundException('No institution found for id '.$institutionId);
         }
-
         $form = $this->createForm(InstitutionType::class, $institution, array('forupdate' => true));
-
-        return $this->render('institution/create.html.twig', array('form' => $form->createView(),));
+        return $this->render('institution/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
     }
 
     // Handle the create form and store created institution
@@ -101,33 +84,19 @@ class InstitutionController extends Controller
      */
     public function updateAction(Request $request, $institutionId)
     {
-        $institution = new Institution();
-
+        $em = $this->getDoctrine()->getManager();
+        $institution = $em->getRepository('AppBundle:Institution')->find($institutionId);
         $form = $this->createForm(InstitutionType::class, $institution, array('forupdate' => true));
-
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $fetched = $em
-            ->getRepository('AppBundle:Institution')->find($institutionId);
-
-            if (!$fetched) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            if (!$institution) {
                 throw $this->createNotFoundException('No institution found for id '.$institutionId);
+                $em->flush();
+                return $this->render('institution/show.html.twig', array('institution' => $institution));
             }
-
-            $fetched->setName($institution->getName());
-            $fetched->setAddress($institution->getAddress());
-            $fetched->setContact($institution->getContact());
-            $fetched->setEmail($institution->getEmail());
-            $fetched->setLogo($institution->getLogo());
-
-            $em->flush();
-
-            return $this->render('institution/show.html.twig', array('institution' => $fetched));
         }
-
-        return $this->render('institution/create.html.twig', array('form' => $form->createView(),));
+        return $this->render('institution/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
     }
 
     // Display the specified institution
@@ -139,14 +108,11 @@ class InstitutionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $institution = $em
         ->getRepository('AppBundle:Institution')->find($institutionId);
-
         if (!$institution) {
             throw $this->createNotFoundException('No institution found for id '.$institutionId);
         }
-
         $em->remove($institution);
         $em->flush();
-
         return $this->render('institution/index.html.twig', array('message' => 'Institution with institutionId = '.$institutionId.' deleted'));
     }
 
@@ -158,34 +124,9 @@ class InstitutionController extends Controller
     {
         $institution = $this->getDoctrine()
         ->getRepository('AppBundle:Institution')->find($institutionId);
-
         if (!$institution) {
             throw $this->createNotFoundException('No institution found for id '.$institutionId);
         }
-
         return $this->render('institution/show.html.twig', array('institution' => $institution));
-    }
-
-    /**
-     * @Route("/api/institution/{institutionId}", name="apiinstitutionshow")
-     */
-    public function apiShowAction($institutionId)
-    {
-        $institution = $this->getDoctrine()
-        ->getRepository('AppBundle:Institution')->find($institutionId);
-
-        if (!$institution) {
-            throw $this->createNotFoundException('No institution found for id '.$institutionId);
-        }
-
-        $data = array(
-            'id' => $institution->getId(),
-            'name' => $institution->getName(),
-            'address' => $institution->getAddress(),
-            'contact' => $institution->getContact(),
-            'email' => $institution->getEmail(),
-            'logo' => $institution->getLogo()
-        );
-        return new Response(json_encode($data),200,array('Content-Type' =>'application/json'));
     }
 }

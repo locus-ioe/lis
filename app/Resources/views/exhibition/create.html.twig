@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Exhibition | {{ parent() }} {% endblock %}
+{% block title %} {{ title }} Exhibition | {{ parent() }} {% endblock %}
 
 {% block body %}
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1>Exhibition</h1>
+                <h1>{{ title }} Exhibition</h1>
                 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                 {{ form_errors(form) }}
                 <table>
