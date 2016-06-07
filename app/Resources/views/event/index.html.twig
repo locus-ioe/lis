@@ -23,7 +23,7 @@
                 {% for event in events %}
                 <tr id="data">
                     <td>{{ event.id }}</a></td>
-                    <td><a href="{{ url('eventshow' , {'eventId': event.id}) }}"><strong>{{ event.title }}</strong></a></td>
+                    <td><a href="{{ url('eventshow' , {'slug': event.slug}) }}"><strong>{{ event.title }}</strong></a></td>
                     <td>{{ event.datetime|date('M d, Y H:i:s') }}</a></td>
                     <td>{{ event.venue }}</a></td>
                     <td>{{ event.type }}</a></td>

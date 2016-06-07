@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class InstitutionType extends AbstractType
@@ -23,7 +22,7 @@ class InstitutionType extends AbstractType
         ->add('address', TextType::class)
         ->add('contact', TextType::class)
         ->add('email', TextType::class)
-        ->add('logo', FileType::class)
+        ->add('logo', TextType::class)
         ->add('save', SubmitType::class, array('label' => $submitlabel));
     }
 

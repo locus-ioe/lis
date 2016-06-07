@@ -3,7 +3,12 @@
 parameters:
 #    parameter_name: value
 
+    slugger.class: AppBundle\Utils\Slugger
+
 services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    app.slugger:
+        class: '%slugger.class%'

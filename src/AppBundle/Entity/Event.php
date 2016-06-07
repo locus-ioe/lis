@@ -23,13 +23,20 @@ class Event
      */
     private $id;
 
-    /*
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=50)
      * @Assert\NotBlank()
      */
     private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=50, nullable=true, unique=true)
+     */
+    private $slug;
 
     /**
      * @var \DateTime
@@ -103,6 +110,29 @@ class Event
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Event
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**

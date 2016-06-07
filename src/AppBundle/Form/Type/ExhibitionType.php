@@ -22,7 +22,7 @@ class ExhibitionType extends AbstractType
         ->add('theme', TextType::class)
         ->add('year', DateType::class, array('widget' => 'single_text'))
         ->add('date', TextType::class)
-        ->add('locationMap', FileType::class)
+        ->add('locationMap', TextType::class)
         ->add('save', SubmitType::class, array('label' => $submitlabel));
     }
 

@@ -53,6 +53,8 @@ class EventController extends Controller
         $form = $this->createForm(EventType::class, $event, array('forupdate' => false));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $this->get('app.slugger')->slugify($event->getTitle());
+            $event->setSlug($slug);
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -86,15 +88,19 @@ class EventController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('AppBundle:Event')->find($eventId);
+        if (!$event) {
+            throw $this->createNotFoundException('No event found for id '.$eventId);
+        }
         $form = $this->createForm(EventType::class, $event, array('forupdate' => true));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            if (!$event) {
-                throw $this->createNotFoundException('No event found for id '.$eventId);
-                $em->flush();
-                return $this->render('event/show.html.twig', array('event' => $event));
-            }
+            $year = $event->getDatetime()->format('M d Y');
+            $slug = $event->getTitle(). ' ' . $year;
+            $slug = $this->get('app.slugger')->slugify($slug);
+            $event->setSlug($slug);
+            $em->flush();
+            return $this->render('event/show.html.twig', array('event' => $event));
         }
         return $this->render('event/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
     }
@@ -118,14 +124,14 @@ class EventController extends Controller
 
     // Display the specified event
     /**
-     * @Route("/event/{eventId}", name="eventshow", requirements={"page": "\d+"})
+     * @Route("/event/{slug}", name="eventshow")
      */
-    public function showAction(Request $request, $eventId)
+    public function showAction(Request $request, $slug)
     {
         $event = $this->getDoctrine()
-        ->getRepository('AppBundle:Event')->find($eventId);
+        ->getRepository('AppBundle:Event')->findOneBySlug($slug);
         if (!$event) {
-            throw $this->createNotFoundException('No event found for id '.$eventId);
+            throw $this->createNotFoundException('No event found for id '.$slug);
         }
         return $this->render('event/show.html.twig', array('event' => $event));
     }
