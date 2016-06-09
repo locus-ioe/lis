@@ -21,7 +21,7 @@
                 {% for exhibition in exhibitions %}
                 <tr id="data">
                     <td>{{ exhibition.id }}</a></td>
-                    <td><a href="{{ url('exhibitionshow' , {'exhibitionId': exhibition.id}) }}"><strong>{{ exhibition.theme }}</strong></a></td>
+                    <td><a href="{{ url('exhibitionshow' , {'slug': exhibition.slug}) }}"><strong>{{ exhibition.theme }}</strong></a></td>
                     <td>{{ exhibition.year|date('Y') }}</a></td>
                     <td>{{ exhibition.date }}</a></td>
                     <td>{{ exhibition.locationMap }}</a></td>

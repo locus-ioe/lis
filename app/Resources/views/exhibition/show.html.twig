@@ -5,8 +5,8 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            <a href="{{ url('exhibitionedit' , {'exhibitionId': exhibition.id}) }}"><strong>Edit</strong></a>
-            <a href="{{ url('exhibitiondelete' , {'exhibitionId': exhibition.id}) }}"><strong>Delete</strong></a>
+            <a href="{{ url('exhibitionedit' , {'slug': exhibition.slug}) }}"><strong>Edit</strong></a>
+            <a href="{{ url('exhibitiondelete' , {'slug': exhibition.slug}) }}"><strong>Delete</strong></a>
             <div id="welcome">
                 <h1>Exhibition</h1>
                 <p>{{ exhibition.id }}</p>

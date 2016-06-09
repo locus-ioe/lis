@@ -53,6 +53,10 @@ class ExhibitionController extends Controller
         $form = $this->createForm(ExhibitionType::class, $exhibition, array('forupdate' => false));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $year = $exhibition->getYear()->format('Y');
+            $slug = 'Locus ' . $year;
+            $slug = $this->get('app.slugger')->slugify($slug);
+            $exhibition->setSlug($slug);
             $em = $this->getDoctrine()->getManager();
             $em->persist($exhibition);
             $em->flush();
@@ -63,15 +67,15 @@ class ExhibitionController extends Controller
 
     // Show the exhibition-edit form
     /**
-     * @Route("/exhibition/edit/{exhibitionId}", name="exhibitionedit")
+     * @Route("/exhibition/edit/{slug}", name="exhibitionedit")
      * @Method({"GET", "HEAD"})
      */
-    public function editAction(Request $request, $exhibitionId)
+    public function editAction(Request $request, $slug)
     {
         $exhibition = $this->getDoctrine()
-        ->getRepository('AppBundle:Exhibition')->find($exhibitionId);
+        ->getRepository('AppBundle:Exhibition')->findOneBySlug($slug);
         if (!$exhibition) {
-            throw $this->createNotFoundException('No exhibition found for id '.$exhibitionId);
+            throw $this->createNotFoundException('No exhibition found for id '.$slug);
         }
         $form = $this->createForm(ExhibitionType::class, $exhibition, array('forupdate' => true));
         return $this->render('exhibition/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
@@ -79,53 +83,57 @@ class ExhibitionController extends Controller
 
     // Handle the create form and store created exhibition
     /**
-     * @Route("/exhibition/edit/{exhibitionId}", name="exhibitionupdate")
+     * @Route("/exhibition/edit/{slug}", name="exhibitionupdate")
      * @Method("POST")
      */
-    public function updateAction(Request $request, $exhibitionId)
+    public function updateAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $exhibition = $em->getRepository('AppBundle:Exhibition')->find($exhibitionId);
+        $exhibition = $em->getRepository('AppBundle:Exhibition')->findOneBySlug($slug);
+        if (!$exhibition) {
+            throw $this->createNotFoundException('No exhibition found for id '.$slug);
+        }
         $form = $this->createForm(ExhibitionType::class, $exhibition, array('forupdate' => true));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            if (!$exhibition) {
-                throw $this->createNotFoundException('No exhibition found for id '.$exhibitionId);
-                $em->flush();
-                return $this->render('exhibition/show.html.twig', array('exhibition' => $exhibition));
-            }
+            $year = $exhibition->getYear()->format('Y');
+            $slug = 'Locus ' . $year;
+            $slug = $this->get('app.slugger')->slugify($slug);
+            $exhibition->setSlug($slug);
+            $em->flush();
+            return $this->render('exhibition/show.html.twig', array('exhibition' => $exhibition));
         }
         return $this->render('exhibition/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
     }
 
     // Display the specified exhibition
     /**
-     * @Route("/exhibition/delete/{exhibitionId}", name="exhibitiondelete", requirements={"page": "\d+"})
+     * @Route("/exhibition/delete/{slug}", name="exhibitiondelete")
      */
-    public function deleteAction(Request $request, $exhibitionId)
+    public function deleteAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $exhibition = $em
-        ->getRepository('AppBundle:Exhibition')->find($exhibitionId);
+        ->getRepository('AppBundle:Exhibition')->findOneBySlug($slug);
         if (!$exhibition) {
-            throw $this->createNotFoundException('No exhibition found for id '.$exhibitionId);
+            throw $this->createNotFoundException('No exhibition found for id '.$slug);
         }
         $em->remove($exhibition);
         $em->flush();
-        return $this->render('exhibition/index.html.twig', array('message' => 'Exhibition with exhibitionId = '.$exhibitionId.' deleted'));
+        return $this->render('exhibition/index.html.twig', array('message' => 'Exhibition with slug = '.$slug.' deleted'));
     }
 
     // Display the specified exhibition
     /**
-     * @Route("/exhibition/{exhibitionId}", name="exhibitionshow", requirements={"page": "\d+"})
+     * @Route("/exhibition/{slug}", name="exhibitionshow")
      */
-    public function showAction(Request $request, $exhibitionId)
+    public function showAction(Request $request, $slug)
     {
         $exhibition = $this->getDoctrine()
-        ->getRepository('AppBundle:Exhibition')->find($exhibitionId);
+        ->getRepository('AppBundle:Exhibition')->findOneBySlug($slug);
         if (!$exhibition) {
-            throw $this->createNotFoundException('No exhibition found for id '.$exhibitionId);
+            throw $this->createNotFoundException('No exhibition found for id '.$slug);
         }
         return $this->render('exhibition/show.html.twig', array('exhibition' => $exhibition));
     }

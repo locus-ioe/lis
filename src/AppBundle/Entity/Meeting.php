@@ -31,6 +31,13 @@ class Meeting
     /**
      * @var string
      *
+     * @ORM\Column(name="slug", type="string", length=50, nullable=true, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="venue", type="string", length=30)
      */
     private $venue;
@@ -81,6 +88,29 @@ class Meeting
     public function getDatetime()
     {
         return $this->datetime;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Exhibiion
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**

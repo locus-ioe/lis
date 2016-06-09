@@ -28,6 +28,13 @@ class Privilege
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=50, nullable=true, unique=true)
+     */
+    private $slug;
+
 
     /**
      * Get id
@@ -60,5 +67,28 @@ class Privilege
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Exhibiion
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

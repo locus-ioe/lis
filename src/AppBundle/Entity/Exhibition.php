@@ -29,6 +29,13 @@ class Exhibition
     private $theme;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=50, nullable=true, unique=true)
+     */
+    private $slug;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="year", type="date", unique=true)
@@ -81,6 +88,29 @@ class Exhibition
     public function getTheme()
     {
         return $this->theme;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Exhibiion
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**

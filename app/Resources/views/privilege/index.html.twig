@@ -18,7 +18,7 @@
                 {% for privilege in privileges %}
                 <tr id="data">
                     <td>{{ privilege.id }}</a></td>
-                    <td><a href="{{ url('privilegeshow' , {'privilegeId': privilege.id}) }}"><strong>{{ privilege.name }}</strong></a></td>
+                    <td><a href="{{ url('privilegeshow' , {'slug': privilege.slug}) }}"><strong>{{ privilege.name }}</strong></a></td>
                 </tr>
                 {% endfor %}
             </table>

@@ -22,7 +22,7 @@
                 {% for institution in institutions %}
                 <tr id="data">
                     <td>{{ institution.id }}</a></td>
-                    <td><a href="{{ url('institutionshow' , {'institutionId': institution.id}) }}"><strong>{{ institution.name }}</strong></a></td>
+                    <td><a href="{{ url('institutionshow' , {'slug': institution.slug}) }}"><strong>{{ institution.name }}</strong></a></td>
                     <td>{{ institution.address }}</a></td>
                     <td>{{ institution.contact }}</a></td>
                     <td>{{ institution.email }}</a></td>

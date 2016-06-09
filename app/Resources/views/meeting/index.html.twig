@@ -21,7 +21,7 @@
                 {% for meeting in meetings %}
                 <tr id="data">
                     <td>{{ meeting.id }}</a></td>
-                    <td><a href="{{ url('meetingshow' , {'meetingId': meeting.id}) }}"><strong>{{ meeting.datetime|date('M d, Y H:i') }}</strong></a></td>
+                    <td><a href="{{ url('meetingshow' , {'slug': meeting.slug}) }}"><strong>{{ meeting.datetime|date('M d, Y H:i') }}</strong></a></td>
                     <td>{{ meeting.venue }}</a></td>
                     <td>{{ meeting.agenda }}</a></td>
                     <td>{{ meeting.minute }}</a></td>

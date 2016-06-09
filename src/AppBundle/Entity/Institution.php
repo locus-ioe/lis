@@ -31,6 +31,13 @@ class Institution
     /**
      * @var string
      *
+     * @ORM\Column(name="slug", type="string", length=50, nullable=true, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="address", type="string", length=99)
      */
     private $address;
@@ -88,6 +95,29 @@ class Institution
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Exhibiion
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**

@@ -53,6 +53,8 @@ class InstitutionController extends Controller
         $form = $this->createForm(InstitutionType::class, $institution, array('forupdate' => false));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $this->get('app.slugger')->slugify($institution->getName());
+            $institution->setSlug($slug);
             $em = $this->getDoctrine()->getManager();
             $em->persist($institution);
             $em->flush();
@@ -63,15 +65,15 @@ class InstitutionController extends Controller
 
     // Show the institution-edit form
     /**
-     * @Route("/institution/edit/{institutionId}", name="institutionedit")
+     * @Route("/institution/edit/{slug}", name="institutionedit")
      * @Method({"GET", "HEAD"})
      */
-    public function editAction(Request $request, $institutionId)
+    public function editAction(Request $request, $slug)
     {
         $institution = $this->getDoctrine()
-        ->getRepository('AppBundle:Institution')->find($institutionId);
+        ->getRepository('AppBundle:Institution')->findOneBySlug($slug);
         if (!$institution) {
-            throw $this->createNotFoundException('No institution found for id '.$institutionId);
+            throw $this->createNotFoundException('No institution found for id '.$slug);
         }
         $form = $this->createForm(InstitutionType::class, $institution, array('forupdate' => true));
         return $this->render('institution/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
@@ -79,53 +81,55 @@ class InstitutionController extends Controller
 
     // Handle the create form and store created institution
     /**
-     * @Route("/institution/edit/{institutionId}", name="institutionupdate")
+     * @Route("/institution/edit/{slug}", name="institutionupdate")
      * @Method("POST")
      */
-    public function updateAction(Request $request, $institutionId)
+    public function updateAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $institution = $em->getRepository('AppBundle:Institution')->find($institutionId);
+        $institution = $em->getRepository('AppBundle:Institution')->findOneBySlug($slug);
+        if (!$institution) {
+            throw $this->createNotFoundException('No institution found for id '.$slug);
+        }
         $form = $this->createForm(InstitutionType::class, $institution, array('forupdate' => true));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            if (!$institution) {
-                throw $this->createNotFoundException('No institution found for id '.$institutionId);
-                $em->flush();
-                return $this->render('institution/show.html.twig', array('institution' => $institution));
-            }
+            $slug = $this->get('app.slugger')->slugify($institution->getName());
+            $institution->setSlug($slug);
+            $em->flush();
+            return $this->render('institution/show.html.twig', array('institution' => $institution));
         }
         return $this->render('institution/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
     }
 
     // Display the specified institution
     /**
-     * @Route("/institution/delete/{institutionId}", name="institutiondelete", requirements={"page": "\d+"})
+     * @Route("/institution/delete/{slug}", name="institutiondelete")
      */
-    public function deleteAction(Request $request, $institutionId)
+    public function deleteAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $institution = $em
-        ->getRepository('AppBundle:Institution')->find($institutionId);
+        ->getRepository('AppBundle:Institution')->findOneBySlug($slug);
         if (!$institution) {
-            throw $this->createNotFoundException('No institution found for id '.$institutionId);
+            throw $this->createNotFoundException('No institution found for id '.$slug);
         }
         $em->remove($institution);
         $em->flush();
-        return $this->render('institution/index.html.twig', array('message' => 'Institution with institutionId = '.$institutionId.' deleted'));
+        return $this->render('institution/index.html.twig', array('message' => 'Institution with slug = '.$slug.' deleted'));
     }
 
     // Display the specified institution
     /**
-     * @Route("/institution/{institutionId}", name="institutionshow", requirements={"page": "\d+"})
+     * @Route("/institution/{slug}", name="institutionshow")
      */
-    public function showAction(Request $request, $institutionId)
+    public function showAction(Request $request, $slug)
     {
         $institution = $this->getDoctrine()
-        ->getRepository('AppBundle:Institution')->find($institutionId);
+        ->getRepository('AppBundle:Institution')->findOneBySlug($slug);
         if (!$institution) {
-            throw $this->createNotFoundException('No institution found for id '.$institutionId);
+            throw $this->createNotFoundException('No institution found for id '.$slug);
         }
         return $this->render('institution/show.html.twig', array('institution' => $institution));
     }

@@ -65,15 +65,15 @@ class EventController extends Controller
 
     // Show the event-edit form
     /**
-     * @Route("/event/edit/{eventId}", name="eventedit")
+     * @Route("/event/edit/{slug}", name="eventedit")
      * @Method({"GET", "HEAD"})
      */
-    public function editAction(Request $request, $eventId)
+    public function editAction(Request $request, $slug)
     {
         $event = $this->getDoctrine()
-        ->getRepository('AppBundle:Event')->find($eventId);
+        ->getRepository('AppBundle:Event')->findOneBySlug($slug);
         if (!$event) {
-            throw $this->createNotFoundException('No event found for id '.$eventId);
+            throw $this->createNotFoundException('No event found for id '.$slug);
         }
         $form = $this->createForm(EventType::class, $event, array('forupdate' => true));
         return $this->render('event/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
@@ -81,15 +81,15 @@ class EventController extends Controller
 
     // Handle the create form and store created event
     /**
-     * @Route("/event/edit/{eventId}", name="eventupdate")
+     * @Route("/event/edit/{slug}", name="eventupdate")
      * @Method("POST")
      */
-    public function updateAction(Request $request, $eventId)
+    public function updateAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $event = $em->getRepository('AppBundle:Event')->find($eventId);
+        $event = $em->getRepository('AppBundle:Event')->findOneBySlug($slug);
         if (!$event) {
-            throw $this->createNotFoundException('No event found for id '.$eventId);
+            throw $this->createNotFoundException('No event found for id '.$slug);
         }
         $form = $this->createForm(EventType::class, $event, array('forupdate' => true));
         $form->handleRequest($request);
@@ -107,19 +107,19 @@ class EventController extends Controller
 
     // Display the specified event
     /**
-     * @Route("/event/delete/{eventId}", name="eventdelete", requirements={"page": "\d+"})
+     * @Route("/event/delete/{slug}", name="eventdelete", requirements={"page": "\d+"})
      */
-    public function deleteAction(Request $request, $eventId)
+    public function deleteAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $event = $em
-        ->getRepository('AppBundle:Event')->find($eventId);
+        ->getRepository('AppBundle:Event')->findOneBySlug($slug);
         if (!$event) {
-            throw $this->createNotFoundException('No event found for id '.$eventId);
+            throw $this->createNotFoundException('No event found for id '.$slug);
         }
         $em->remove($event);
         $em->flush();
-        return $this->render('event/index.html.twig', array('message' => 'Event with eventId = '.$eventId.' deleted'));
+        return $this->render('event/index.html.twig', array('message' => 'Event with slug = '.$slug.' deleted'));
     }
 
     // Display the specified event

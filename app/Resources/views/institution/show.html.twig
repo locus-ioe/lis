@@ -5,8 +5,8 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            <a href="{{ url('institutionedit' , {'institutionId': institution.id}) }}"><strong>Edit</strong></a>
-            <a href="{{ url('institutiondelete' , {'institutionId': institution.id}) }}"><strong>Delete</strong></a>
+            <a href="{{ url('institutionedit' , {'slug': institution.slug}) }}"><strong>Edit</strong></a>
+            <a href="{{ url('institutiondelete' , {'slug': institution.slug}) }}"><strong>Delete</strong></a>
             <div id="welcome">
                 <h1>Institution</h1>
                 <p>{{ institution.id }}</p>

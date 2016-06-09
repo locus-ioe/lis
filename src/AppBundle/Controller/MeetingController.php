@@ -53,6 +53,9 @@ class MeetingController extends Controller
         $form = $this->createForm(MeetingType::class, $meeting, array('forupdate' => false));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $meeting->getDatetime()->format('Ymd Hi');
+            $slug = $this->get('app.slugger')->slugify($slug);
+            $meeting->setSlug($slug);
             $em = $this->getDoctrine()->getManager();
             $em->persist($meeting);
             $em->flush();
@@ -63,15 +66,15 @@ class MeetingController extends Controller
 
     // Show the meeting-edit form
     /**
-     * @Route("/meeting/edit/{meetingId}", name="meetingedit")
+     * @Route("/meeting/edit/{slug}", name="meetingedit")
      * @Method({"GET", "HEAD"})
      */
-    public function editAction(Request $request, $meetingId)
+    public function editAction(Request $request, $slug)
     {
         $meeting = $this->getDoctrine()
-        ->getRepository('AppBundle:Meeting')->find($meetingId);
+        ->getRepository('AppBundle:Meeting')->findOneBySlug($slug);
         if (!$meeting) {
-            throw $this->createNotFoundException('No meeting found for id '.$meetingId);
+            throw $this->createNotFoundException('No meeting found for id '.$slug);
         }
         $form = $this->createForm(MeetingType::class, $meeting, array('forupdate' => true));
         return $this->render('meeting/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
@@ -79,53 +82,56 @@ class MeetingController extends Controller
 
     // Handle the create form and store created meeting
     /**
-     * @Route("/meeting/edit/{meetingId}", name="meetingupdate")
+     * @Route("/meeting/edit/{slug}", name="meetingupdate")
      * @Method("POST")
      */
-    public function updateAction(Request $request, $meetingId)
+    public function updateAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $meeting = $em->getRepository('AppBundle:Meeting')->find($meetingId);
+        $meeting = $em->getRepository('AppBundle:Meeting')->findOneBySlug($slug);
+        if (!$meeting) {
+            throw $this->createNotFoundException('No meeting found for id '.$slug);
+        }
         $form = $this->createForm(MeetingType::class, $meeting, array('forupdate' => true));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            if (!$meeting) {
-                throw $this->createNotFoundException('No meeting found for id '.$meetingId);
-                $em->flush();
-                return $this->render('meeting/show.html.twig', array('meeting' => $meeting));
-            }
+            $slug = $meeting->getDatetime()->format('Ymd Hi');
+            $slug = $this->get('app.slugger')->slugify($slug);
+            $meeting->setSlug($slug);
+            $em->flush();
+            return $this->render('meeting/show.html.twig', array('meeting' => $meeting));
         }
         return $this->render('meeting/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
     }
 
     // Display the specified meeting
     /**
-     * @Route("/meeting/delete/{meetingId}", name="meetingdelete", requirements={"page": "\d+"})
+     * @Route("/meeting/delete/{slug}", name="meetingdelete")
      */
-    public function deleteAction(Request $request, $meetingId)
+    public function deleteAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $meeting = $em
-        ->getRepository('AppBundle:Meeting')->find($meetingId);
+        ->getRepository('AppBundle:Meeting')->findOneBySlug($slug);
         if (!$meeting) {
-            throw $this->createNotFoundException('No meeting found for id '.$meetingId);
+            throw $this->createNotFoundException('No meeting found for id '.$slug);
         }
         $em->remove($meeting);
         $em->flush();
-        return $this->render('meeting/index.html.twig', array('message' => 'Meeting with meetingId = '.$meetingId.' deleted'));
+        return $this->render('meeting/index.html.twig', array('message' => 'Meeting with slug = '.$slug.' deleted'));
     }
 
     // Display the specified meeting
     /**
-     * @Route("/meeting/{meetingId}", name="meetingshow", requirements={"page": "\d+"})
+     * @Route("/meeting/{slug}", name="meetingshow")
      */
-    public function showAction(Request $request, $meetingId)
+    public function showAction(Request $request, $slug)
     {
         $meeting = $this->getDoctrine()
-        ->getRepository('AppBundle:Meeting')->find($meetingId);
+        ->getRepository('AppBundle:Meeting')->findOneBySlug($slug);
         if (!$meeting) {
-            throw $this->createNotFoundException('No meeting found for id '.$meetingId);
+            throw $this->createNotFoundException('No meeting found for id '.$slug);
         }
         return $this->render('meeting/show.html.twig', array('meeting' => $meeting));
     }

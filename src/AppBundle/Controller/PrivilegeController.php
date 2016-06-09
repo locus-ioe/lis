@@ -53,6 +53,8 @@ class PrivilegeController extends Controller
         $form = $this->createForm(PrivilegeType::class, $privilege, array('forupdate' => false));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $this->get('app.slugger')->slugify($privilege->getName());
+            $privilege->setSlug($slug);
             $em = $this->getDoctrine()->getManager();
             $em->persist($privilege);
             $em->flush();
@@ -63,15 +65,15 @@ class PrivilegeController extends Controller
 
     // Show the privilege-edit form
     /**
-     * @Route("/privilege/edit/{privilegeId}", name="privilegeedit")
+     * @Route("/privilege/edit/{slug}", name="privilegeedit")
      * @Method({"GET", "HEAD"})
      */
-    public function editAction(Request $request, $privilegeId)
+    public function editAction(Request $request, $slug)
     {
         $privilege = $this->getDoctrine()
-        ->getRepository('AppBundle:Privilege')->find($privilegeId);
+        ->getRepository('AppBundle:Privilege')->findOneBySlug($slug);
         if (!$privilege) {
-            throw $this->createNotFoundException('No privilege found for id '.$privilegeId);
+            throw $this->createNotFoundException('No privilege found for id '.$slug);
         }
         $form = $this->createForm(PrivilegeType::class, $privilege, array('forupdate' => true));
         return $this->render('privilege/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
@@ -79,53 +81,55 @@ class PrivilegeController extends Controller
 
     // Handle the create form and store created privilege
     /**
-     * @Route("/privilege/edit/{privilegeId}", name="privilegeupdate")
+     * @Route("/privilege/edit/{slug}", name="privilegeupdate")
      * @Method("POST")
      */
-    public function updateAction(Request $request, $privilegeId)
+    public function updateAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $privilege = $em->getRepository('AppBundle:Privilege')->find($privilegeId);
+        $privilege = $em->getRepository('AppBundle:Privilege')->findOneBySlug($slug);
+        if (!$privilege) {
+            throw $this->createNotFoundException('No privilege found for id '.$slug);
+        }
         $form = $this->createForm(PrivilegeType::class, $privilege, array('forupdate' => true));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            if (!$privilege) {
-                throw $this->createNotFoundException('No privilege found for id '.$privilegeId);
-                $em->flush();
-                return $this->render('privilege/show.html.twig', array('privilege' => $privilege));
-            }
+            $slug = $this->get('app.slugger')->slugify($privilege->getName());
+            $privilege->setSlug($slug);
+            $em->flush();
+            return $this->render('privilege/show.html.twig', array('privilege' => $privilege));
         }
         return $this->render('privilege/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit'));
     }
 
     // Display the specified privilege
     /**
-     * @Route("/privilege/delete/{privilegeId}", name="privilegedelete", requirements={"page": "\d+"})
+     * @Route("/privilege/delete/{slug}", name="privilegedelete")
      */
-    public function deleteAction(Request $request, $privilegeId)
+    public function deleteAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $privilege = $em
-        ->getRepository('AppBundle:Privilege')->find($privilegeId);
+        ->getRepository('AppBundle:Privilege')->findOneBySlug($slug);
         if (!$privilege) {
-            throw $this->createNotFoundException('No privilege found for id '.$privilegeId);
+            throw $this->createNotFoundException('No privilege found for id '.$slug);
         }
         $em->remove($privilege);
         $em->flush();
-        return $this->render('privilege/index.html.twig', array('message' => 'Privilege with privilegeId = '.$privilegeId.' deleted'));
+        return $this->render('privilege/index.html.twig', array('message' => 'Privilege with slug = '.$slug.' deleted'));
     }
 
     // Display the specified privilege
     /**
-     * @Route("/privilege/{privilegeId}", name="privilegeshow", requirements={"page": "\d+"})
+     * @Route("/privilege/{slug}", name="privilegeshow")
      */
-    public function showAction(Request $request, $privilegeId)
+    public function showAction(Request $request, $slug)
     {
         $privilege = $this->getDoctrine()
-        ->getRepository('AppBundle:Privilege')->find($privilegeId);
+        ->getRepository('AppBundle:Privilege')->findOneBySlug($slug);
         if (!$privilege) {
-            throw $this->createNotFoundException('No privilege found for id '.$privilegeId);
+            throw $this->createNotFoundException('No privilege found for id '.$slug);
         }
         return $this->render('privilege/show.html.twig', array('privilege' => $privilege));
     }
