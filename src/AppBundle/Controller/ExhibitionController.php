@@ -4,16 +4,18 @@ namespace AppBundle\Controller;
 // Sensio bundles
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 // Symfony form
 use AppBundle\Form\Type\ExhibitionType;
+
 // User-defined classes
 use AppBundle\Entity\Exhibition;
 
-class ExhibitionController extends Controller
+class ExhibitionController extends BaseController
 {
     // Show Exhibition Index Page
     /**
@@ -25,7 +27,8 @@ class ExhibitionController extends Controller
         $exhibitions = $em
         ->getRepository('AppBundle:Exhibition')->findall();
         if (!$exhibitions) {
-            throw $this->createNotFoundException('No exhibition found');
+            return $this->redirectToRoute('exhibitioncreate', array());
+            // throw $this->createNotFoundException('No exhibition found');
         }
         return $this->render('exhibition/index.html.twig', array('exhibitions' => $exhibitions));
     }

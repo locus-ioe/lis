@@ -4,16 +4,18 @@ namespace AppBundle\Controller;
 // Sensio bundles
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 // Symfony form
 use AppBundle\Form\Type\InstitutionType;
+
 // User-defined classes
 use AppBundle\Entity\Institution;
 
-class InstitutionController extends Controller
+class InstitutionController extends BaseController
 {
     // Show Institution Index Page
     /**
@@ -25,7 +27,8 @@ class InstitutionController extends Controller
         $institutions = $em
         ->getRepository('AppBundle:Institution')->findall();
         if (!$institutions) {
-            throw $this->createNotFoundException('No institution found');
+            return $this->redirectToRoute('institutioncreate', array());
+            // throw $this->createNotFoundException('No institution found');
         }
         return $this->render('institution/index.html.twig', array('institutions' => $institutions));
     }

@@ -36,12 +36,16 @@ class Notice
     private $subject;
 
     /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
-     * @ORM\JoinColumn(name="publisherID", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Member")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $publisherID;
+    protected $publisher;
+    public function getPublisher(){
+        return $this->publisher;
+    }
+    public function setPublisher(Member $publisher){
+        $this->publisher = $publisher;
+    }
 
     /**
      * @var string

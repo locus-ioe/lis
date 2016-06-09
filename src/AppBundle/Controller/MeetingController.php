@@ -4,16 +4,18 @@ namespace AppBundle\Controller;
 // Sensio bundles
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 // Symfony form
 use AppBundle\Form\Type\MeetingType;
+
 // User-defined classes
 use AppBundle\Entity\Meeting;
 
-class MeetingController extends Controller
+class MeetingController extends BaseController
 {
     // Show Meeting Index Page
     /**
@@ -25,7 +27,8 @@ class MeetingController extends Controller
         $meetings = $em
         ->getRepository('AppBundle:Meeting')->findall();
         if (!$meetings) {
-            throw $this->createNotFoundException('No meeting found');
+            return $this->redirectToRoute('meetingcreate', array());
+            // throw $this->createNotFoundException('No meeting found');
         }
         return $this->render('meeting/index.html.twig', array('meetings' => $meetings));
     }

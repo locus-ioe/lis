@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Exhibition
@@ -20,6 +21,9 @@ class Exhibition
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * @var string
@@ -27,6 +31,13 @@ class Exhibition
      * @ORM\Column(name="theme", type="string", length=50)
      */
     private $theme;
+    public function setTheme($theme) {
+        $this->theme = $theme;
+        return $this;
+    }
+    public function getTheme() {
+        return $this->theme;
+    }
 
     /**
      * @var string
@@ -34,6 +45,13 @@ class Exhibition
      * @ORM\Column(name="slug", type="string", length=50, nullable=true, unique=true)
      */
     private $slug;
+    public function setSlug($slug) {
+        $this->slug = $slug;
+        return $this;
+    }
+    public function getSlug() {
+        return $this->slug;
+    }
 
     /**
      * @var \DateTime
@@ -41,6 +59,13 @@ class Exhibition
      * @ORM\Column(name="year", type="date", unique=true)
      */
     private $year;
+    public function setYear($year) {
+        $this->year = $year;
+        return $this;
+    }
+    public function getYear() {
+        return $this->year;
+    }
 
     /**
      * @var string
@@ -48,6 +73,13 @@ class Exhibition
      * @ORM\Column(name="date", type="string", unique=true)
      */
     private $date;
+    public function setDate($date) {
+        $this->date = $date;
+        return $this;
+    }
+    public function getDate() {
+        return $this->date;
+    }
 
     /**
      * @var string
@@ -55,130 +87,41 @@ class Exhibition
      * @ORM\Column(name="locationMap", type="string", length=50, nullable=true, unique=true)
      */
     private $locationMap;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set theme
-     *
-     * @param string $theme
-     * @return Exhibition
-     */
-    public function setTheme($theme)
-    {
-        $this->theme = $theme;
-
-        return $this;
-    }
-
-    /**
-     * Get theme
-     *
-     * @return string
-     */
-    public function getTheme()
-    {
-        return $this->theme;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Exhibiion
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set year
-     *
-     * @param \DateTime $year
-     * @return Exhibition
-     */
-    public function setYear($year)
-    {
-        $this->year = $year;
-
-        return $this;
-    }
-
-    /**
-     * Get year
-     *
-     * @return \DateTime
-     */
-    public function getYear()
-    {
-        return $this->year;
-    }
-
-    /**
-     * Set date
-     *
-     * @param string $date
-     * @return Exhibition
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return string
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set locationMap
-     *
-     * @param string $locationMap
-     * @return Exhibition
-     */
-    public function setLocationMap($locationMap)
-    {
+    public function setLocationMap($locationMap) {
         $this->locationMap = $locationMap;
-
         return $this;
+    }
+    public function getLocationMap() {
+        return $this->locationMap;
     }
 
     /**
-     * Get locationMap
-     *
-     * @return string
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="exhibition")
      */
-    public function getLocationMap()
-    {
-        return $this->locationMap;
+    protected $events;
+    public function getEvents(){
+        return $this->events;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Theme", mappedBy="exhibition")
+     */
+    protected $themes;
+    public function getThemes(){
+        return $this->themes;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Stall", mappedBy="exhibition")
+     */
+    protected $stalls;
+    public function getStalls(){
+        return $this->stalls;
+    }
+
+    public function __construct() {
+        $this->events = new ArrayCollection();
+        $this->stalls = new ArrayCollection();
+        $this->themes = new ArrayCollection();
     }
 }

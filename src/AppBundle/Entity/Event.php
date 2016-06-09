@@ -22,6 +22,9 @@ class Event
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * @var string
@@ -30,6 +33,13 @@ class Event
      * @Assert\NotBlank()
      */
     private $title;
+    public function setTitle($title) {
+        $this->title = $title;
+        return $this;
+    }
+    public function getTitle() {
+        return $this->title;
+    }
 
     /**
      * @var string
@@ -37,6 +47,13 @@ class Event
      * @ORM\Column(name="slug", type="string", length=50, nullable=true, unique=true)
      */
     private $slug;
+    public function setSlug($slug) {
+        $this->slug = $slug;
+        return $this;
+    }
+    public function getSlug() {
+        return $this->slug;
+    }
 
     /**
      * @var \DateTime
@@ -46,6 +63,13 @@ class Event
      * @Assert\Type("\DateTime")
      */
     private $datetime;
+    public function setDatetime($datetime) {
+        $this->datetime = $datetime;
+        return $this;
+    }
+    public function getDatetime() {
+        return $this->datetime;
+    }
 
     /**
      * @var string
@@ -54,6 +78,13 @@ class Event
      * @Assert\NotBlank()
      */
     private $venue;
+    public function setVenue($venue) {
+        $this->venue = $venue;
+        return $this;
+    }
+    public function getVenue() {
+        return $this->venue;
+    }
 
     /**
      * @var string
@@ -62,6 +93,13 @@ class Event
      * @Assert\NotBlank()
      */
     private $type;
+    public function setType($type) {
+        $this->type = $type;
+        return $this;
+    }
+    public function getType() {
+        return $this->type;
+    }
 
     /**
      * @var string
@@ -70,6 +108,13 @@ class Event
      * @Assert\NotBlank()
      */
     private $description;
+    public function setDescription($description) {
+        $this->description = $description;
+        return $this;
+    }
+    public function getDescription() {
+        return $this->description;
+    }
 
     /**
      * @var string
@@ -77,176 +122,95 @@ class Event
      * @ORM\Column(name="report", type="text", nullable=true)
      */
     private $report;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Event
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Event
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set datetime
-     *
-     * @param \DateTime $datetime
-     * @return Event
-     */
-    public function setDatetime($datetime)
-    {
-        $this->datetime = $datetime;
-
-        return $this;
-    }
-
-    /**
-     * Get datetime
-     *
-     * @return \DateTime
-     */
-    public function getDatetime()
-    {
-        return $this->datetime;
-    }
-
-    /**
-     * Set venue
-     *
-     * @param string $venue
-     * @return Event
-     */
-    public function setVenue($venue)
-    {
-        $this->venue = $venue;
-
-        return $this;
-    }
-
-    /**
-     * Get venue
-     *
-     * @return string
-     */
-    public function getVenue()
-    {
-        return $this->venue;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     * @return Event
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Event
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set report
-     *
-     * @param string $report
-     * @return Event
-     */
-    public function setReport($report)
-    {
+    public function setReport($report) {
         $this->report = $report;
-
         return $this;
+    }
+    public function getReport() {
+        return $this->report;
     }
 
     /**
-     * Get report
-     *
-     * @return string
+     * @ORM\ManyToOne(targetEntity="Member")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    public function getReport()
-    {
-        return $this->report;
+    protected $owner;
+    public function setOwner(Member $owner) {
+        $this->owner = $owner;
+    }
+    public function getOwner() {
+        return $this->owner;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Exhibition", inversedBy="events")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $exhibition;
+    public function setExhibition(Exhibition $exhibition) {
+        $this->exhibition = $exhibition;
+    }
+    public function getExhibition() {
+        return $this->exhibition;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Member")
+     * @ORM\JoinTable("event_attendees")
+     */
+    protected $attendees;
+    public function getAttendees() {
+        return $this->attendees;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Institution", mappedBy="collaborations")
+     */
+    protected $collaborators;
+    public function getCollaborators() {
+        return $this->collaborators;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Member")
+     * @ORM\JoinTable("event_organizers")
+     */
+    protected $organizers;
+    public function getOrganizers() {
+        return $this->organizers;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Stall")
+     * @ORM\JoinTable("event_stalls")
+     */
+    protected $stalls;
+    public function getStalls() {
+        return $this->stalls;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Member")
+     * @ORM\JoinTable("event_volunteers")
+     */
+    protected $volunteers;
+    public function getVolunteers() {
+        return $this->volunteers;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Finance", mappedBy="event")
+     */
+    protected $finances;
+    public function getFinances(){
+        return $this->finances;
+    }
+
+    public function __construct() {
+        $this->attendees = new ArrayCollection();
+        $this->collaborators = new ArrayCollection();
+        $this->organizers = new ArrayCollection();
+        $this->stalls = new ArrayCollection();
+        $this->volunteers = new ArrayCollection();
     }
 }

@@ -20,6 +20,9 @@ class Stall
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * @var int
@@ -27,13 +30,26 @@ class Stall
      * @ORM\Column(name="number", type="integer")
      */
     private $number;
+    public function setNumber($number) {
+        $this->number = $number;
+        return $this;
+    }
+    public function getNumber() {
+        return $this->number;
+    }
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="exhibitionID", type="integer")
+     * @ORM\ManyToOne(targetEntity="Exhibition", inversedBy="stalls")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $exhibitionID;
+    private $exhibition;
+    public function setExhibition($exhibition) {
+        $this->exhibition = $exhibition;
+        return $this;
+    }
+    public function getExhibition() {
+        return $this->exhibition;
+    }
 
     /**
      * @var string
@@ -41,84 +57,11 @@ class Stall
      * @ORM\Column(name="size", type="string", length=1)
      */
     private $size;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set number
-     *
-     * @param integer $number
-     * @return Stall
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Get number
-     *
-     * @return integer
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
-     * Set exhibitionID
-     *
-     * @param integer $exhibitionID
-     * @return Stall
-     */
-    public function setExhibitionID($exhibitionID)
-    {
-        $this->exhibitionID = $exhibitionID;
-
-        return $this;
-    }
-
-    /**
-     * Get exhibitionID
-     *
-     * @return integer
-     */
-    public function getExhibitionID()
-    {
-        return $this->exhibitionID;
-    }
-
-    /**
-     * Set size
-     *
-     * @param string $size
-     * @return Stall
-     */
-    public function setSize($size)
-    {
+    public function setSize($size) {
         $this->size = $size;
-
         return $this;
     }
-
-    /**
-     * Get size
-     *
-     * @return string
-     */
-    public function getSize()
-    {
+    public function getSize() {
         return $this->size;
     }
 }

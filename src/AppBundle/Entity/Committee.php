@@ -20,106 +20,47 @@ class Committee
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
-     * @ORM\JoinColumn(name="memberID", referencedColumnName="id")
-     */
-    private $memberID;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="post", type="string", length=30)
-     */
-    private $post;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="year", type="date")
-     */
-    private $year;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
-     * Set memberID
-     *
-     * @param integer $memberID
-     * @return Committee
+     * @ORM\ManyToOne(targetEntity="Member")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    public function setMemberID($memberID)
-    {
-        $this->memberID = $memberID;
-
-        return $this;
+    protected $member;
+    public function getMember() {
+        return $this->member;
+    }
+    public function setMember(Member $member) {
+        $this->member = $member;
     }
 
     /**
-     * Get memberID
+     * @var string
      *
-     * @return integer
+     * @ORM\Column(name="post", type="string", length=50, nullable=true)
      */
-    public function getMemberID()
-    {
-        return $this->memberID;
-    }
-
-    /**
-     * Set post
-     *
-     * @param string $post
-     * @return Committee
-     */
-    public function setPost($post)
-    {
+    private $post;
+    public function setPost($post) {
         $this->post = $post;
-
         return $this;
     }
-
-    /**
-     * Get post
-     *
-     * @return string
-     */
-    public function getPost()
-    {
+    public function getPost() {
         return $this->post;
     }
 
     /**
-     * Set year
+     * @var \DateTime
      *
-     * @param \DateTime $year
-     * @return Committee
+     * @ORM\Column(name="year", type="date", nullable=true)
      */
-    public function setYear($year)
-    {
+    private $year;
+    public function setYear($year) {
         $this->year = $year;
-
         return $this;
     }
-
-    /**
-     * Get year
-     *
-     * @return \DateTime
-     */
-    public function getYear()
-    {
+    public function getYear() {
         return $this->year;
     }
 }

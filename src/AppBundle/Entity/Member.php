@@ -22,6 +22,9 @@ class Member
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    public function getId(){
+        return $this->id;
+    }
 
     /**
      * @var string
@@ -29,6 +32,13 @@ class Member
      * @ORM\Column(name="firstname", type="string", length=20)
      */
     private $firstname;
+    public function setFirstname($firstname){
+        $this->firstname = $firstname;
+        return $this;
+    }
+    public function getFirstname(){
+        return $this->firstname;
+    }
 
     /**
      * @var string
@@ -36,6 +46,13 @@ class Member
      * @ORM\Column(name="lastname", type="string", length=30)
      */
     private $lastname;
+    public function setLastname($lastname){
+        $this->lastname = $lastname;
+        return $this;
+    }
+    public function getLastname(){
+        return $this->lastname;
+    }
 
     /**
      * @var string
@@ -43,6 +60,13 @@ class Member
      * @ORM\Column(name="username", type="string", length=20, unique=true)
      */
     private $username;
+    public function setUsername($username){
+        $this->username = $username;
+        return $this;
+    }
+    public function getUsername(){
+        return $this->username;
+    }
 
     /**
      * @var string
@@ -50,6 +74,13 @@ class Member
      * @ORM\Column(name="address", type="string", length=50, nullable=true)
      */
     private $address;
+    public function setAddress($address){
+        $this->address = $address;
+        return $this;
+    }
+    public function getAddress(){
+        return $this->address;
+    }
 
     /**
      * @var string
@@ -57,6 +88,13 @@ class Member
      * @ORM\Column(name="email", type="string", length=40, nullable=true)
      */
     private $email;
+    public function setEmail($email){
+        $this->email = $email;
+        return $this;
+    }
+    public function getEmail(){
+        return $this->email;
+    }
 
     /**
      * @var string
@@ -64,6 +102,13 @@ class Member
      * @ORM\Column(name="contact", type="string", length=15, nullable=true)
      */
     private $contact;
+    public function setContact($contact){
+        $this->contact = $contact;
+        return $this;
+    }
+    public function getContact(){
+        return $this->contact;
+    }
 
     /**
      * @var string
@@ -71,14 +116,26 @@ class Member
      * @ORM\Column(name="crnPost", type="string", length=30, nullable=true)
      */
     private $crnPost;
+    public function setCrnPost($crnPost){
+        $this->crnPost = $crnPost;
+        return $this;
+    }
+    public function getCrnPost(){
+        return $this->crnPost;
+    }
 
     /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="Institution", inversedBy="id")
-     * @ORM\JoinColumn(name="institutionID", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Institution", inversedBy="members")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $institutionID;
+    private $institution;
+    public function setInstitution($institution){
+        $this->institution = $institution;
+        return $this;
+    }
+    public function getInstitution(){
+        return $this->institution;
+    }
 
     /**
      * @var string
@@ -86,6 +143,13 @@ class Member
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
+    public function setPassword($password){
+        $this->password = $password;
+        return $this;
+    }
+    public function getPassword(){
+        return $this->password;
+    }
 
     /**
      * @var string
@@ -93,6 +157,13 @@ class Member
      * @ORM\Column(name="token", type="string", length=255, nullable=true)
      */
     private $token;
+    public function setToken($token){
+        $this->token = $token;
+        return $this;
+    }
+    public function getToken(){
+        return $this->token;
+    }
 
     /**
      * @var string
@@ -100,299 +171,24 @@ class Member
      * @ORM\Column(name="dp", type="string", length=30, nullable=true)
      */
     private $dp;
-
-    /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="Privilege", inversedBy="id")
-     * @ORM\JoinColumn(name="privilegeID", referencedColumnName="id")
-     */
-    private $privilegeID;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set firstname
-     *
-     * @param string $firstname
-     * @return Member
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    /**
-     * Get firstname
-     *
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     * @return Member
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get lastname
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return Member
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set address
-     *
-     * @param string $address
-     * @return Member
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Member
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set contact
-     *
-     * @param string $contact
-     * @return Member
-     */
-    public function setContact($contact)
-    {
-        $this->contact = $contact;
-
-        return $this;
-    }
-
-    /**
-     * Get contact
-     *
-     * @return string
-     */
-    public function getContact()
-    {
-        return $this->contact;
-    }
-
-    /**
-     * Set crnPost
-     *
-     * @param string $crnPost
-     * @return Member
-     */
-    public function setCrnPost($crnPost)
-    {
-        $this->crnPost = $crnPost;
-
-        return $this;
-    }
-
-    /**
-     * Get crnPost
-     *
-     * @return string
-     */
-    public function getCrnPost()
-    {
-        return $this->crnPost;
-    }
-
-    /**
-     * Set institutionID
-     *
-     * @param integer $institutionID
-     * @return Member
-     */
-    public function setInstitutionID($institutionID)
-    {
-        $this->institutionID = $institutionID;
-
-        return $this;
-    }
-
-    /**
-     * Get institutionID
-     *
-     * @return integer
-     */
-    public function getInstitutionID()
-    {
-        return $this->institutionID;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return Member
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set token
-     *
-     * @param string $token
-     * @return Member
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
-    /**
-     * Get token
-     *
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
-     * Set dp
-     *
-     * @param string $dp
-     * @return Member
-     */
-    public function setDp($dp)
-    {
+    public function setDp($dp){
         $this->dp = $dp;
-
         return $this;
     }
-
-    /**
-     * Get dp
-     *
-     * @return string
-     */
-    public function getDp()
-    {
+    public function getDp(){
         return $this->dp;
     }
 
     /**
-     * Set privilegeID
-     *
-     * @param integer $privilegeID
-     * @return Member
+     * @ORM\ManyToOne(targetEntity="Privilege", inversedBy="members")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    public function setPrivilegeID($privilegeID)
-    {
-        $this->privilegeID = $privilegeID;
-
+    private $privilege;
+    public function setPrivilege($privilege){
+        $this->privilege = $privilege;
         return $this;
     }
-
-    /**
-     * Get privilegeID
-     *
-     * @return integer
-     */
-    public function getPrivilegeID()
-    {
-        return $this->privilegeID;
+    public function getPrivilege(){
+        return $this->privilege;
     }
 }

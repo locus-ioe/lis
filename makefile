@@ -19,3 +19,6 @@ smacreate:
 
 smaupdate:
 	php app/console doctrine:schema:update --force
+
+smadump:
+	php app/console doctrine:schema:update --dump-sql

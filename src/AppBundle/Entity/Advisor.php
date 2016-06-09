@@ -20,14 +20,21 @@ class Advisor
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    public function getId() {
+        return $this->id;
+    }
 
     /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="Member", inversedBy="id")
-     * @ORM\JoinColumn(name="memberID", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Member")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $memberID;
+    protected $member;
+    public function getMember() {
+        return $this->member;
+    }
+    public function setMember(Member $member) {
+        $this->member = $member;
+    }
 
     /**
      * @var string
@@ -35,6 +42,13 @@ class Advisor
      * @ORM\Column(name="post", type="string", length=50, nullable=true)
      */
     private $post;
+    public function setPost($post) {
+        $this->post = $post;
+        return $this;
+    }
+    public function getPost() {
+        return $this->post;
+    }
 
     /**
      * @var \DateTime
@@ -42,84 +56,11 @@ class Advisor
      * @ORM\Column(name="year", type="date", nullable=true)
      */
     private $year;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set memberID
-     *
-     * @param integer $memberID
-     * @return Advisor
-     */
-    public function setMemberID($memberID)
-    {
-        $this->memberID = $memberID;
-
-        return $this;
-    }
-
-    /**
-     * Get memberID
-     *
-     * @return integer
-     */
-    public function getMemberID()
-    {
-        return $this->memberID;
-    }
-
-    /**
-     * Set post
-     *
-     * @param string $post
-     * @return Advisor
-     */
-    public function setPost($post)
-    {
-        $this->post = $post;
-
-        return $this;
-    }
-
-    /**
-     * Get post
-     *
-     * @return string
-     */
-    public function getPost()
-    {
-        return $this->post;
-    }
-
-    /**
-     * Set year
-     *
-     * @param \DateTime $year
-     * @return Advisor
-     */
-    public function setYear($year)
-    {
+    public function setYear($year) {
         $this->year = $year;
-
         return $this;
     }
-
-    /**
-     * Get year
-     *
-     * @return \DateTime
-     */
-    public function getYear()
-    {
+    public function getYear() {
         return $this->year;
     }
 }

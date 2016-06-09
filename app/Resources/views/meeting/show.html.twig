@@ -15,6 +15,17 @@
                 <p>{{ meeting.agenda }}</p>
                 <p>{{ meeting.minute }}</p>
             </div>
+            <div class="attendees">
+            <h3>{{ meeting.attendees|length }}
+            {% if meeting.attendees|length == 1 %}
+            attendee
+            {% else %}
+            attendees
+            {% endif %}</h3>
+            <p>{% for attendee in meeting.attendees %}
+            {{ attendee.username }},
+            {% endfor %}</p>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -4,16 +4,18 @@ namespace AppBundle\Controller;
 // Sensio bundles
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 // Symfony form
 use AppBundle\Form\Type\PrivilegeType;
+
 // User-defined classes
 use AppBundle\Entity\Privilege;
 
-class PrivilegeController extends Controller
+class PrivilegeController extends BaseController
 {
     // Show Privilege Index Page
     /**
@@ -25,7 +27,8 @@ class PrivilegeController extends Controller
         $privileges = $em
         ->getRepository('AppBundle:Privilege')->findall();
         if (!$privileges) {
-            throw $this->createNotFoundException('No privilege found');
+            return $this->redirectToRoute('privilegecreate', array());
+            // throw $this->createNotFoundException('No privilege found');
         }
         return $this->render('privilege/index.html.twig', array('privileges' => $privileges));
     }

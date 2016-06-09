@@ -4,16 +4,18 @@ namespace AppBundle\Controller;
 // Sensio bundles
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 // Symfony form
 use AppBundle\Form\Type\EventType;
+
 // User-defined classes
 use AppBundle\Entity\Event;
 
-class EventController extends Controller
+class EventController extends BaseController
 {
     // Show Event Index Page
     /**
@@ -25,7 +27,8 @@ class EventController extends Controller
         $events = $em
         ->getRepository('AppBundle:Event')->findall();
         if (!$events) {
-            throw $this->createNotFoundException('No event found');
+            return $this->redirectToRoute('eventcreate', array());
+            // throw $this->createNotFoundException('No event found');
         }
         return $this->render('event/index.html.twig', array('events' => $events));
     }
@@ -53,7 +56,8 @@ class EventController extends Controller
         $form = $this->createForm(EventType::class, $event, array('forupdate' => false));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $slug = $this->get('app.slugger')->slugify($event->getTitle());
+            $toslugify = $event->getTitle() .' '. $event->getDatetime()->format('M d Y');
+            $slug = $this->get('app.slugger')->slugify($toslugify);
             $event->setSlug($slug);
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
@@ -95,9 +99,8 @@ class EventController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            $year = $event->getDatetime()->format('M d Y');
-            $slug = $event->getTitle(). ' ' . $year;
-            $slug = $this->get('app.slugger')->slugify($slug);
+            $toslugify = $event->getTitle() .' '. $event->getDatetime()->format('M d Y');
+            $slug = $this->get('app.slugger')->slugify($toslugify);
             $event->setSlug($slug);
             $em->flush();
             return $this->render('event/show.html.twig', array('event' => $event));

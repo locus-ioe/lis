@@ -12,6 +12,17 @@
                 <p>{{ privilege.id }}</p>
                 <p><strong><u>{{ privilege.name }}</u></strong></p>
             </div>
+            <div class="members">
+                <h3>{{ privilege.members|length }}
+                {% if privilege.members|length == 1 %}
+                    member
+                {% else %}
+                    members
+                {% endif %}</h3>
+                <p>{% for member in privilege.members %}
+                {{ member.username }}
+                {% endfor %}</p>
+            </div>
         </div>
     </div>
 {% endblock %}

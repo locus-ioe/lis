@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Institution
@@ -20,6 +21,9 @@ class Institution
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    public function getId(){
+        return $this->id;
+    }
 
     /**
      * @var string
@@ -27,6 +31,13 @@ class Institution
      * @ORM\Column(name="name", type="string", length=50)
      */
     private $name;
+    public function setName($name){
+        $this->name = $name;
+        return $this;
+    }
+    public function getName(){
+        return $this->name;
+    }
 
     /**
      * @var string
@@ -34,6 +45,13 @@ class Institution
      * @ORM\Column(name="slug", type="string", length=50, nullable=true, unique=true)
      */
     private $slug;
+    public function setSlug($slug){
+        $this->slug = $slug;
+        return $this;
+    }
+    public function getSlug(){
+        return $this->slug;
+    }
 
     /**
      * @var string
@@ -41,6 +59,13 @@ class Institution
      * @ORM\Column(name="address", type="string", length=99)
      */
     private $address;
+    public function setAddress($address){
+        $this->address = $address;
+        return $this;
+    }
+    public function getAddress(){
+        return $this->address;
+    }
 
     /**
      * @var string
@@ -48,6 +73,13 @@ class Institution
      * @ORM\Column(name="contact", type="string", length=15)
      */
     private $contact;
+    public function setContact($contact){
+        $this->contact = $contact;
+        return $this;
+    }
+    public function getContact(){
+        return $this->contact;
+    }
 
     /**
      * @var string
@@ -55,6 +87,13 @@ class Institution
      * @ORM\Column(name="email", type="string", length=40)
      */
     private $email;
+    public function setEmail($email){
+        $this->email = $email;
+        return $this;
+    }
+    public function getEmail(){
+        return $this->email;
+    }
 
     /**
      * @var string
@@ -62,153 +101,52 @@ class Institution
      * @ORM\Column(name="logo", type="string", length=30, nullable=true, unique=true)
      */
     private $logo;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Institution
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Exhibiion
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set address
-     *
-     * @param string $address
-     * @return Institution
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Set contact
-     *
-     * @param string $contact
-     * @return Institution
-     */
-    public function setContact($contact)
-    {
-        $this->contact = $contact;
-
-        return $this;
-    }
-
-    /**
-     * Get contact
-     *
-     * @return string
-     */
-    public function getContact()
-    {
-        return $this->contact;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Institution
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set logo
-     *
-     * @param string $logo
-     * @return Institution
-     */
-    public function setLogo($logo)
-    {
+    public function setLogo($logo){
         $this->logo = $logo;
-
         return $this;
+    }
+    public function getLogo(){
+        return $this->logo;
     }
 
     /**
-     * Get logo
-     *
-     * @return string
+     * @ORM\OneToMany(targetEntity="Member", mappedBy="institution")
      */
-    public function getLogo()
-    {
-        return $this->logo;
+    protected $members;
+    public function getMembers(){
+        return $this->members;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Event", inversedBy="collaborators")
+     * @ORM\JoinTable("event_collaborators")
+     */
+    protected $collaborations;
+    public function getCollaborations() {
+        return $this->collaborations;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Stall")
+     * @ORM\JoinTable("institution_stalls")
+     */
+    protected $stalls;
+    public function getStalls() {
+        return $this->stalls;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Finance", mappedBy="institution")
+     */
+    protected $finances;
+    public function getFinances(){
+        return $this->finances;
+    }
+
+    public function __construct() {
+        $this->collaborations = new ArrayCollection();
+        $this->finances = new ArrayCollection();
+        $this->members = new ArrayCollection();
+        $this->stalls = new ArrayCollection();
     }
 }

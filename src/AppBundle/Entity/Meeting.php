@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Meeting
@@ -20,6 +21,9 @@ class Meeting
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    public function getId(){
+        return $this->id;
+    }
 
     /**
      * @var \DateTime
@@ -27,6 +31,13 @@ class Meeting
      * @ORM\Column(name="datetime", type="datetime")
      */
     private $datetime;
+    public function setDatetime($datetime){
+        $this->datetime = $datetime;
+        return $this;
+    }
+    public function getDatetime(){
+        return $this->datetime;
+    }
 
     /**
      * @var string
@@ -34,6 +45,13 @@ class Meeting
      * @ORM\Column(name="slug", type="string", length=50, nullable=true, unique=true)
      */
     private $slug;
+    public function setSlug($slug){
+        $this->slug = $slug;
+        return $this;
+    }
+    public function getSlug(){
+        return $this->slug;
+    }
 
     /**
      * @var string
@@ -41,6 +59,13 @@ class Meeting
      * @ORM\Column(name="venue", type="string", length=30)
      */
     private $venue;
+    public function setVenue($venue){
+        $this->venue = $venue;
+        return $this;
+    }
+    public function getVenue(){
+        return $this->venue;
+    }
 
     /**
      * @var string
@@ -48,6 +73,13 @@ class Meeting
      * @ORM\Column(name="agenda", type="text")
      */
     private $agenda;
+    public function setAgenda($agenda){
+        $this->agenda = $agenda;
+        return $this;
+    }
+    public function getAgenda(){
+        return $this->agenda;
+    }
 
     /**
      * @var string
@@ -55,130 +87,23 @@ class Meeting
      * @ORM\Column(name="minute", type="text", nullable=true)
      */
     private $minute;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set datetime
-     *
-     * @param \DateTime $datetime
-     * @return Meeting
-     */
-    public function setDatetime($datetime)
-    {
-        $this->datetime = $datetime;
-
-        return $this;
-    }
-
-    /**
-     * Get datetime
-     *
-     * @return \DateTime
-     */
-    public function getDatetime()
-    {
-        return $this->datetime;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Exhibiion
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set venue
-     *
-     * @param string $venue
-     * @return Meeting
-     */
-    public function setVenue($venue)
-    {
-        $this->venue = $venue;
-
-        return $this;
-    }
-
-    /**
-     * Get venue
-     *
-     * @return string
-     */
-    public function getVenue()
-    {
-        return $this->venue;
-    }
-
-    /**
-     * Set agenda
-     *
-     * @param string $agenda
-     * @return Meeting
-     */
-    public function setAgenda($agenda)
-    {
-        $this->agenda = $agenda;
-
-        return $this;
-    }
-
-    /**
-     * Get agenda
-     *
-     * @return string
-     */
-    public function getAgenda()
-    {
-        return $this->agenda;
-    }
-
-    /**
-     * Set minute
-     *
-     * @param string $minute
-     * @return Meeting
-     */
-    public function setMinute($minute)
-    {
+    public function setMinute($minute){
         $this->minute = $minute;
-
         return $this;
     }
-
-    /**
-     * Get minute
-     *
-     * @return string
-     */
-    public function getMinute()
-    {
+    public function getMinute(){
         return $this->minute;
+    }
+    /**
+     * @ORM\ManyToMany(targetEntity="Member")
+     * @ORM\JoinTable("meeting_attendees")
+     */
+    protected $attendees;
+    public function getAttendees() {
+        return $this->attendees;
+    }
+
+    public function __construct() {
+        $this->attendees = new ArrayCollection();
     }
 }

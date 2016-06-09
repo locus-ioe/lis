@@ -20,6 +20,9 @@ class Theme
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * @var string
@@ -27,91 +30,24 @@ class Theme
      * @ORM\Column(name="name", type="string", length=30)
      */
     private $name;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="exhibitionID", type="integer")
-     */
-    private $exhibitionID;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Theme
-     */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-
         return $this;
     }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
     /**
-     * Set year
-     *
-     * @param integer $year
-     * @return Theme
+     * @ORM\ManyToOne(targetEntity="Exhibition", inversedBy="themes")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    public function setYear($year)
-    {
-        $this->year = $year;
-
+    private $exhibition;
+    public function setExhibition($exhibition) {
+        $this->exhibition = $exhibition;
         return $this;
     }
-
-    /**
-     * Get year
-     *
-     * @return integer
-     */
-    public function getYear()
-    {
-        return $this->year;
-    }
-
-    /**
-     * Set exhibitionID
-     *
-     * @param integer $exhibitionID
-     * @return Theme
-     */
-    public function setExhibitionID($exhibitionID)
-    {
-        $this->exhibitionID = $exhibitionID;
-
-        return $this;
-    }
-
-    /**
-     * Get exhibitionID
-     *
-     * @return integer
-     */
-    public function getExhibitionID()
-    {
-        return $this->exhibitionID;
+    public function getExhibition() {
+        return $this->exhibition;
     }
 }

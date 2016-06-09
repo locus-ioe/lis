@@ -16,6 +16,52 @@
                 <p>{{ institution.email }}</p>
                 <p>{{ institution.logo }}</p>
             </div>
+            <div class="members">
+                <h3>{{ institution.members|length }}
+                {% if institution.members|length == 1 %}
+                    member
+                {% else %}
+                    members
+                {% endif %}</h3>
+                <p>{% for member in institution.members %}
+                {{ member.username }},
+                {% endfor %}</p>
+            </div>
+            <div class="collaborations">
+                <h3>Associated with {{ institution.collaborations|length }}
+                {% if institution.collaborations|length == 1 %}
+                    event
+                {% else %}
+                    events
+                {% endif %}</h3>
+                <p>{% for collaboration in institution.collaborations %}
+                <a href="{{ path('eventshow', {'slug': collaboration.slug}) }}">{{ collaboration.title }}</a>,
+                {% else %}
+                no collaborations yet!
+                {% endfor %}</p>
+            </div>
+            <div class="finances">
+                <h3>{{ institution.finances|length }}
+                {% if institution.finances|length == 1 %}
+                    financial transaction
+                {% else %}
+                    financial transactions
+                {% endif %}</h3>
+                <p>{% for finance in institution.finances %}
+                    {{ finance.date|date('M d, Y') }} - {{ finance.billNumber }} - {{ finance.event.title }} - {{ finance.receiver.username }} - {{ finance.direction }} - {{ finance.amount }} - {{ finance.remarks }}<br>
+                {% endfor %}</p>
+            </div>
+            <div class="stalls">
+                <h3>{{ institution.stalls|length }}
+                {% if institution.stalls|length == 1 %}
+                    stall
+                {% else %}
+                    stalls
+                {% endif %}</h3>
+                <p>{% for stall in institution.stalls %}
+                    {{ stall.number }},
+                {% endfor %}</p>
+            </div>
         </div>
     </div>
 {% endblock %}
