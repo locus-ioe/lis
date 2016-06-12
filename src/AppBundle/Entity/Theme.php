@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Theme
@@ -49,5 +50,17 @@ class Theme
     }
     public function getExhibition() {
         return $this->exhibition;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="theme")
+     */
+    protected $projects;
+    public function getProjects(){
+        return $this->projects;
+    }
+
+    public function __construct() {
+        $this->projects = new ArrayCollection();
     }
 }

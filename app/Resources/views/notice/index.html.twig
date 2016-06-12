@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Notices | {{ parent() }} {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Notices</h1>
+                <a href="{{ url('noticecreate') }}">Create</a>
+            </div>
+            <table>
+                <tr id="header">
+                    <td>ID</a></td>
+                    <td>Date</a></td>
+                    <td>Subject</a></td>
+                    <td>Content</a></td>
+                    <td>Publisher</a></td>
+                </tr>
+                {% for notice in notices %}
+                <tr id="data">
+                    <td>{{ notice.id }}</td>
+                    <td>{{ notice.date|date('M d, Y') }}</td>
+                    <td><a href="{{ url('noticeshow' , {'id': notice.id}) }}"><strong>{{ notice.subject }}</strong></a></td>
+                    <td>{{ notice.content }}</td>
+                    <td><a href="{{ path('membershow', {'id': notice.publisher.id}) }}">{{ notice.publisher.username }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -131,15 +131,57 @@ class Event
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Member")
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="Member", inversedBy="participating")
+     * @ORM\JoinTable("event_attendees")
      */
-    protected $owner;
-    public function setOwner(Member $owner) {
-        $this->owner = $owner;
+    protected $attendees;
+    public function getAttendees() {
+        return $this->attendees;
     }
-    public function getOwner() {
-        return $this->owner;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Institution", inversedBy="collaborating")
+     * @ORM\JoinTable("event_collaborators")
+     */
+    protected $collaborators;
+    public function getCollaborators() {
+        return $this->collaborators;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Member", inversedBy="organizing")
+     * @ORM\JoinTable("event_organizers")
+     */
+    protected $organizers;
+    public function getOrganizers() {
+        return $this->organizers;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Stall", inversedBy="events")
+     * @ORM\JoinTable("event_stalls")
+     */
+    protected $stalls;
+    public function getStalls() {
+        return $this->stalls;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Member", inversedBy="volunteering")
+     * @ORM\JoinTable("event_volunteers")
+     */
+    protected $volunteers;
+    public function getVolunteers() {
+        return $this->volunteers;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Project", inversedBy="events")
+     * @ORM\JoinTable("event_projects")
+     */
+    protected $projects;
+    public function getProjects() {
+        return $this->projects;
     }
 
     /**
@@ -155,47 +197,15 @@ class Event
     }
 
     /**
-     * @ORM\ManyToMany(targetEntity="Member")
-     * @ORM\JoinTable("event_attendees")
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="owing")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    protected $attendees;
-    public function getAttendees() {
-        return $this->attendees;
+    protected $owner;
+    public function setOwner(Member $owner) {
+        $this->owner = $owner;
     }
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Institution", mappedBy="collaborations")
-     */
-    protected $collaborators;
-    public function getCollaborators() {
-        return $this->collaborators;
-    }
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Member")
-     * @ORM\JoinTable("event_organizers")
-     */
-    protected $organizers;
-    public function getOrganizers() {
-        return $this->organizers;
-    }
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Stall")
-     * @ORM\JoinTable("event_stalls")
-     */
-    protected $stalls;
-    public function getStalls() {
-        return $this->stalls;
-    }
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Member")
-     * @ORM\JoinTable("event_volunteers")
-     */
-    protected $volunteers;
-    public function getVolunteers() {
-        return $this->volunteers;
+    public function getOwner() {
+        return $this->owner;
     }
 
     /**
@@ -209,8 +219,10 @@ class Event
     public function __construct() {
         $this->attendees = new ArrayCollection();
         $this->collaborators = new ArrayCollection();
+        $this->finances = new ArrayCollection();
         $this->organizers = new ArrayCollection();
         $this->stalls = new ArrayCollection();
         $this->volunteers = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 }

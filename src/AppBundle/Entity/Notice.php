@@ -20,6 +20,9 @@ class Notice
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    public function getId(){
+        return $this->id;
+    }
 
     /**
      * @var \DateTime
@@ -27,6 +30,13 @@ class Notice
      * @ORM\Column(name="date", type="date")
      */
     private $date;
+    public function setDate($date){
+        $this->date = $date;
+        return $this;
+    }
+    public function getDate(){
+        return $this->date;
+    }
 
     /**
      * @var string
@@ -34,17 +44,12 @@ class Notice
      * @ORM\Column(name="subject", type="string", length=50)
      */
     private $subject;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Member")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    protected $publisher;
-    public function getPublisher(){
-        return $this->publisher;
+    public function setSubject($subject){
+        $this->subject = $subject;
+        return $this;
     }
-    public function setPublisher(Member $publisher){
-        $this->publisher = $publisher;
+    public function getSubject(){
+        return $this->subject;
     }
 
     /**
@@ -53,107 +58,23 @@ class Notice
      * @ORM\Column(name="content", type="text")
      */
     private $content;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     * @return Notice
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set subject
-     *
-     * @param string $subject
-     * @return Notice
-     */
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
-
-        return $this;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return string
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    /**
-     * Set publisherID
-     *
-     * @param integer $publisherID
-     * @return Notice
-     */
-    public function setPublisherID($publisherID)
-    {
-        $this->publisherID = $publisherID;
-
-        return $this;
-    }
-
-    /**
-     * Get publisherID
-     *
-     * @return integer
-     */
-    public function getPublisherID()
-    {
-        return $this->publisherID;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content
-     * @return Notice
-     */
-    public function setContent($content)
-    {
+    public function setContent($content){
         $this->content = $content;
-
         return $this;
+    }
+    public function getContent(){
+        return $this->content;
     }
 
     /**
-     * Get content
-     *
-     * @return string
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="noticing")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    public function getContent()
-    {
-        return $this->content;
+    protected $publisher;
+    public function getPublisher(){
+        return $this->publisher;
+    }
+    public function setPublisher(Member $publisher){
+        $this->publisher = $publisher;
     }
 }

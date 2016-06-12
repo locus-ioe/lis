@@ -53,32 +53,6 @@ class Finance
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Institution", inversedBy="finances")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    protected $institution;
-    public function setInstitution($institution) {
-        $this->institution = $institution;
-        return $this;
-    }
-    public function getInstitution() {
-        return $this->institution;
-    }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Event", inversedBy="finances")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    protected $event;
-    public function setEvent($event) {
-        $this->event = $event;
-        return $this;
-    }
-    public function getEvent() {
-        return $this->event;
-    }
-
-    /**
      * @var string
      *
      * @ORM\Column(name="amount", type="decimal", precision=10, scale=2)
@@ -90,19 +64,6 @@ class Finance
     }
     public function getAmount() {
         return $this->amount;
-    }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Member")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    protected $receiver;
-    public function setReceiver($receiver) {
-        $this->receiver = $receiver;
-        return $this;
-    }
-    public function getReceiver() {
-        return $this->receiver;
     }
 
     /**
@@ -131,5 +92,44 @@ class Finance
     }
     public function getDirection() {
         return $this->direction;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="finances")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $event;
+    public function setEvent($event) {
+        $this->event = $event;
+        return $this;
+    }
+    public function getEvent() {
+        return $this->event;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Institution", inversedBy="finances")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $institution;
+    public function setInstitution($institution) {
+        $this->institution = $institution;
+        return $this;
+    }
+    public function getInstitution() {
+        return $this->institution;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="receiving")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $receiver;
+    public function setReceiver($receiver) {
+        $this->receiver = $receiver;
+        return $this;
+    }
+    public function getReceiver() {
+        return $this->receiver;
     }
 }

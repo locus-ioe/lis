@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Themes | {{ parent() }} {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Themes</h1>
+                <a href="{{ url('themecreate') }}">Create</a>
+            </div>
+            <table>
+                <tr id="header">
+                    <td>ID</a></td>
+                    <td>Name</a></td>
+                    <td>Exhibition</a></td>
+                </tr>
+                {% for theme in themes %}
+                <tr id="data">
+                    <td>{{ theme.id }}</td>
+                    <td><a href="{{ url('themeshow' , {'id': theme.id}) }}"><strong>{{ theme.name }}</strong></a></td>
+                    <td>{{ theme.exhibition.year|date('Y') }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

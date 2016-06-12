@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Committees | {{ parent() }} {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Committee members</h1>
+                <a href="{{ url('committeecreate') }}">Create</a>
+            </div>
+            <table>
+                <tr id="header">
+                    <td>ID</a></td>
+                    <td>Name</a></td>
+                    <td>Post</a></td>
+                    <td>Year</a></td>
+                </tr>
+                {% for committee in committees %}
+                <tr id="data">
+                    <td>{{ committee.id }}</a></td>
+                    <td><a href="{{ url('committeeshow' , {'id': committee.id}) }}"><strong>{{ committee.member.username }}</strong></a></td>
+                    <td>{{ committee.post }}</td>
+                    <td>{{ committee.year|date('Y') }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

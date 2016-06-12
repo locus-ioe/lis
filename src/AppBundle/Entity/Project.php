@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Project
@@ -53,32 +54,6 @@ class Project
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Theme")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    private $theme;
-    public function setTheme($theme){
-        $this->theme = $theme;
-        return $this;
-    }
-    public function getTheme(){
-        return $this->theme;
-    }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Stall")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    private $stall;
-    public function setStall($stall){
-        $this->stall = $stall;
-        return $this;
-    }
-    public function getStall(){
-        return $this->stall;
-    }
-
-    /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255)
@@ -104,5 +79,53 @@ class Project
     }
     public function getDetail(){
         return $this->detail;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Stall", inversedBy="projects")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private $stall;
+    public function setStall($stall){
+        $this->stall = $stall;
+        return $this;
+    }
+    public function getStall(){
+        return $this->stall;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Theme", inversedBy="projects")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private $theme;
+    public function setTheme($theme){
+        $this->theme = $theme;
+        return $this;
+    }
+    public function getTheme(){
+        return $this->theme;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Event", mappedBy="projects")
+     */
+    protected $events;
+    public function getEvents() {
+        return $this->events;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Member", inversedBy="developing")
+     * @ORM\JoinTable("project_members")
+     */
+    protected $members;
+    public function getMembers() {
+        return $this->members;
+    }
+
+    public function __construct() {
+        $this->events = new ArrayCollection();
+        $this->members = new ArrayCollection();
     }
 }

@@ -104,19 +104,19 @@ class Exhibition
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="Theme", mappedBy="exhibition")
-     */
-    protected $themes;
-    public function getThemes(){
-        return $this->themes;
-    }
-
-    /**
      * @ORM\OneToMany(targetEntity="Stall", mappedBy="exhibition")
      */
     protected $stalls;
     public function getStalls(){
         return $this->stalls;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Theme", mappedBy="exhibition")
+     */
+    protected $themes;
+    public function getThemes(){
+        return $this->themes;
     }
 
     public function __construct() {

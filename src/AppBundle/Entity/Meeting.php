@@ -94,8 +94,9 @@ class Meeting
     public function getMinute(){
         return $this->minute;
     }
+
     /**
-     * @ORM\ManyToMany(targetEntity="Member")
+     * @ORM\ManyToMany(targetEntity="Member", inversedBy="attending")
      * @ORM\JoinTable("meeting_attendees")
      */
     protected $attendees;

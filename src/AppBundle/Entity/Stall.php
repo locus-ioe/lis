@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Stall
@@ -39,6 +40,28 @@ class Stall
     }
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="size", type="string", length=1)
+     */
+    private $size;
+    public function setSize($size) {
+        $this->size = $size;
+        return $this;
+    }
+    public function getSize() {
+        return $this->size;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Event", mappedBy="stalls")
+     */
+    protected $events;
+    public function getEvents() {
+        return $this->events;
+    }
+
+    /**
      * @ORM\ManyToOne(targetEntity="Exhibition", inversedBy="stalls")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
@@ -52,16 +75,24 @@ class Stall
     }
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="size", type="string", length=1)
+     * @ORM\ManyToMany(targetEntity="Institution", mappedBy="stalls")
      */
-    private $size;
-    public function setSize($size) {
-        $this->size = $size;
-        return $this;
+    protected $institutions;
+    public function getInstitutions() {
+        return $this->institutions;
     }
-    public function getSize() {
-        return $this->size;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="stall")
+     */
+    protected $projects;
+    public function getProjects(){
+        return $this->projects;
+    }
+
+    public function __construct() {
+        $this->events = new ArrayCollection();
+        $this->institutions = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 }

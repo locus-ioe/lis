@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ theme.name }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>Theme</h1>
+                <a href="{{ url('themeedit' , {'id': theme.id}) }}"><strong>Edit</strong></a>
+                <a href="{{ url('themedelete' , {'id': theme.id}) }}"><strong>Delete</strong></a>
+                <p>{{ theme.id }}</p>
+                <p><strong><u>{{ theme.name }}</u></strong></p>
+                <p><a href="{{ path('exhibitionshow', {'slug': theme.exhibition.slug}) }}">Locus {{ theme.exhibition.year|date('Y') }}</a></p>
+            </div>
+            <div class="projects">
+                <h3>{{ theme.projects|length }}
+                {% if theme.projects|length == 1 %}
+                    project
+                {% else %}
+                    projects
+                {% endif %}</h3>
+                <p>{% for project in theme.projects %}
+                    <a href="{{ path('projectshow', {'id': project.id}) }}">{{ project.title }}</a>,
+                {% endfor %}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

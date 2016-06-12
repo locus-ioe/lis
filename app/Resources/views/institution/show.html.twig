@@ -24,17 +24,17 @@
                     members
                 {% endif %}</h3>
                 <p>{% for member in institution.members %}
-                {{ member.username }},
+                <a href="{{ path('membershow', {'id': member.id}) }}">{{ member.username }}</a>,
                 {% endfor %}</p>
             </div>
             <div class="collaborations">
-                <h3>Associated with {{ institution.collaborations|length }}
-                {% if institution.collaborations|length == 1 %}
+                <h3>Associated with {{ institution.collaborating|length }}
+                {% if institution.collaborating|length == 1 %}
                     event
                 {% else %}
                     events
                 {% endif %}</h3>
-                <p>{% for collaboration in institution.collaborations %}
+                <p>{% for collaboration in institution.collaborating %}
                 <a href="{{ path('eventshow', {'slug': collaboration.slug}) }}">{{ collaboration.title }}</a>,
                 {% else %}
                 no collaborations yet!
@@ -48,7 +48,7 @@
                     financial transactions
                 {% endif %}</h3>
                 <p>{% for finance in institution.finances %}
-                    {{ finance.date|date('M d, Y') }} - {{ finance.billNumber }} - {{ finance.event.title }} - {{ finance.receiver.username }} - {{ finance.direction }} - {{ finance.amount }} - {{ finance.remarks }}<br>
+                    {{ finance.date|date('M d, Y') }} - <a href="{{ path('financeshow', {'id': finance.id}) }}">{{ finance.billNumber }}</a> - {{ finance.event.title }} - {{ finance.receiver.username }} - {{ finance.direction }} - {{ finance.amount }} - {{ finance.remarks }}<br>
                 {% endfor %}</p>
             </div>
             <div class="stalls">
@@ -59,7 +59,7 @@
                     stalls
                 {% endif %}</h3>
                 <p>{% for stall in institution.stalls %}
-                    {{ stall.number }},
+                    <a href="{{ path('stallshow', {'id': stall.id}) }}">{{ stall.number }}</a>,
                 {% endfor %}</p>
             </div>
         </div>

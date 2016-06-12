@@ -25,18 +25,6 @@ class Advisor
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Member")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    protected $member;
-    public function getMember() {
-        return $this->member;
-    }
-    public function setMember(Member $member) {
-        $this->member = $member;
-    }
-
-    /**
      * @var string
      *
      * @ORM\Column(name="post", type="string", length=50, nullable=true)
@@ -62,5 +50,17 @@ class Advisor
     }
     public function getYear() {
         return $this->year;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="advisers")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $member;
+    public function getMember() {
+        return $this->member;
+    }
+    public function setMember(Member $member) {
+        $this->member = $member;
     }
 }

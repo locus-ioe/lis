@@ -110,24 +110,15 @@ class Institution
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="Member", mappedBy="institution")
+     * @ORM\ManyToMany(targetEntity="Event", mappedBy="collaborators")
      */
-    protected $members;
-    public function getMembers(){
-        return $this->members;
+    protected $collaborating;
+    public function getCollaborating() {
+        return $this->collaborating;
     }
 
     /**
-     * @ORM\ManyToMany(targetEntity="Event", inversedBy="collaborators")
-     * @ORM\JoinTable("event_collaborators")
-     */
-    protected $collaborations;
-    public function getCollaborations() {
-        return $this->collaborations;
-    }
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Stall")
+     * @ORM\ManyToMany(targetEntity="Stall", inversedBy="institutions")
      * @ORM\JoinTable("institution_stalls")
      */
     protected $stalls;
@@ -143,8 +134,16 @@ class Institution
         return $this->finances;
     }
 
+    /**
+     * @ORM\OneToMany(targetEntity="Member", mappedBy="institution")
+     */
+    protected $members;
+    public function getMembers(){
+        return $this->members;
+    }
+
     public function __construct() {
-        $this->collaborations = new ArrayCollection();
+        $this->collaborating = new ArrayCollection();
         $this->finances = new ArrayCollection();
         $this->members = new ArrayCollection();
         $this->stalls = new ArrayCollection();

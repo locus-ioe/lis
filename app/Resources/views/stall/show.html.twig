@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ stall.number }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>Stall</h1>
+                <a href="{{ url('stalledit' , {'id': stall.id}) }}"><strong>Edit</strong></a>
+                <a href="{{ url('stalldelete' , {'id': stall.id}) }}"><strong>Delete</strong></a>
+                <p>{{ stall.id }}</p>
+                <p><strong><u>{{ stall.number }}</u></strong></p>
+                <p>{{ stall.size }}</p>
+                <p><a href="{{ path('exhibitionshow', {'slug': stall.exhibition.slug}) }}">Locus {{ stall.exhibition.year|date('Y') }}</a></p>
+            </div>
+            <div class="events">
+                <h3>{{ stall.events|length }}
+                {% if stall.events|length == 1 %}
+                    event
+                {% else %}
+                    events
+                {% endif %}</h3>
+                <p>{% for event in stall.events %}
+                    <a href="{{ path('eventshow', {'slug': event.slug}) }}">{{ event.title }}</a>,
+                {% endfor %}</p>
+            </div>
+            <div class="projects">
+                <h3>{{ stall.projects|length }}
+                {% if stall.projects|length == 1 %}
+                    project
+                {% else %}
+                    projects
+                {% endif %}</h3>
+                <p>{% for project in stall.projects %}
+                    <a href="{{ path('projectshow', {'id': project.id}) }}">{{ project.title }}</a>,
+                {% endfor %}</p>
+            </div>
+            <div class="institutions">
+                <h3>{{ stall.institutions|length }}
+                {% if stall.institutions|length == 1 %}
+                    institution
+                {% else %}
+                    institutions
+                {% endif %}</h3>
+                <p>{% for institution in stall.institutions %}
+                    <a href="{{ path('institutionshow', {'id': institution.id}) }}">{{ institution.name }}</a>,
+                {% endfor %}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

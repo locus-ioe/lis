@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ letter.regNo }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>Letter</h1>
+                <a href="{{ url('letteredit' , {'id': letter.id}) }}"><strong>Edit</strong></a>
+                <a href="{{ url('letterdelete' , {'id': letter.id}) }}"><strong>Delete</strong></a>
+                <p>{{ letter.id }}</p>
+                <p><strong><u>{{ letter.regNo }}</u></strong></p>
+                <p>{{ letter.date|date('M d, Y') }}</p>
+                <p><a href="{{ url('membershow', {'id': letter.publisher.id}) }}">{{ letter.publisher.username }}</a></p>
+                <p><a href="{{ url('membershow', {'id': letter.salutation.id}) }}">{{ letter.salutation.username }}</a></p>
+                <p>{{ letter.subject }}</p>
+                <p>{{ letter.content }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

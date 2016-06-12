@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ member.username }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>Member</h1>
+                <a href="{{ url('memberedit' , {'id': member.id}) }}"><strong>Edit</strong></a>
+                <a href="{{ url('memberdelete' , {'id': member.id}) }}"><strong>Delete</strong></a>
+                <p>{{ member.id }}</p>
+                <p>{{ member.firstname }} {{ member.lastname}}</p>
+                <p><strong><u>{{ member.username }}</u></strong></p>
+                <p>{{ member.address }}</p>
+                <p>{{ member.email }}</p>
+                <p>{{ member.contact }}</p>
+                <p>{{ member.crnPost }}</p>
+                <p><a href="{{ path('institutionshow', {'slug': member.institution.slug}) }}">{{ member.institution.name }}</a></p>
+                <p><a href="{{ path('privilegeshow', {'slug': member.privilege.slug}) }}">{{ member.privilege.name }}</a></p>
+                {% if member.committee != '' %}<p><a href="{{ path('committeeshow', {'id': member.committee.id}) }}">{{ member.committee.post }} ({{ member.committee.year|date('Y') }})</a></p>{% endif %}
+            </div>
+            <div class="advisers">
+                <h3>Advisor {{ member.advisers|length }}
+                {% if member.advisers|length == 1 %}
+                    time
+                {% else %}
+                    times
+                {% endif %}</h3>
+                <p>{% for advisor in member.advisers %}
+                    <a href="{{ path('advisorshow', {'id': advisor.id}) }}">Locus {{ advisor.year|date('Y') }}</a>,
+                {% endfor %}</p>
+            </div>
+            <div class="participating">
+                <h3>Participating in {{ member.participating|length }}
+                {% if member.participating|length == 1 %}
+                    event
+                {% else %}
+                    events
+                {% endif %}</h3>
+                <p>{% for event in member.participating %}
+                    <a href="{{ path('eventshow', {'slug': event.slug}) }}">{{ event.title }}</a>,
+                {% endfor %}</p>
+            </div>
+            <div class="organizing">
+                <h3>Organizing {{ member.organizing|length }}
+                {% if member.organizing|length == 1 %}
+                    event
+                {% else %}
+                    events
+                {% endif %}</h3>
+                <p>{% for event in member.organizing %}
+                    <a href="{{ path('eventshow', {'slug': event.slug}) }}">{{ event.title }}</a>,
+                {% endfor %}</p>
+            </div>
+            <div class="developing">
+                <h3>Developing {{ member.developing|length }}
+                {% if member.developing|length == 1 %}
+                    project
+                {% else %}
+                    projects
+                {% endif %}</h3>
+                <p>{% for project in member.developing %}
+                    <a href="{{ path('projectshow', {'id': project.id}) }}">{{ project.title }}</a>,
+                {% endfor %}</p>
+            </div>
+            <div class="volunteering">
+                <h3>Volunteering in {{ member.volunteering|length }}
+                {% if member.volunteering|length == 1 %}
+                    event
+                {% else %}
+                    events
+                {% endif %}</h3>
+                <p>{% for event in member.volunteering %}
+                    <a href="{{ path('eventshow', {'slug': event.slug}) }}">{{ event.title }}</a>,
+                {% endfor %}</p>
+            </div>
+            <div class="attending">
+                <h3>Attended {{ member.attending|length }}
+                {% if member.attending|length == 1 %}
+                    meeting
+                {% else %}
+                    meetings
+                {% endif %}</h3>
+                <p>{% for meeting in member.attending %}
+                    <a href="{{ path('meetingshow', {'slug': meeting.slug}) }}">{{ meeting.slug }}</a>,
+                {% endfor %}</p>
+            </div>
+            <div class="owing">
+                <h3>Owing {{ member.owing|length }}
+                {% if member.owing|length == 1 %}
+                    event
+                {% else %}
+                    events
+                {% endif %}</h3>
+                <p>{% for event in member.owing %}
+                    <a href="{{ path('eventshow', {'slug': event.slug}) }}">{{ event.title }}</a>,
+                {% endfor %}</p>
+            </div>
+            <div class="receiving">
+                <h3>Dealt {{ member.receiving|length }} financial
+                {% if member.receiving|length == 1 %}
+                    transaction
+                {% else %}
+                    transactions
+                {% endif %}</h3>
+                <p>{% for finance in member.receiving %}
+                    <a href="{{ path('financeshow', {'id': finance.id}) }}">{{ finance.billNumber }}</a>,
+                {% endfor %}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

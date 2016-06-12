@@ -67,19 +67,6 @@ class Letter
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Member")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    private $salutation;
-    public function setSalutation($salutation){
-        $this->salutation = $salutation;
-        return $this;
-    }
-    public function getSalutation(){
-        return $this->salutation;
-    }
-
-    /**
      * @var string
      *
      * @ORM\Column(name="content", type="text")
@@ -94,7 +81,7 @@ class Letter
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Member")
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="publishing")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $publisher;
@@ -104,5 +91,18 @@ class Letter
     }
     public function getPublisher(){
         return $this->publisher;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="salutations")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private $salutation;
+    public function setSalutation($salutation){
+        $this->salutation = $salutation;
+        return $this;
+    }
+    public function getSalutation(){
+        return $this->salutation;
     }
 }

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ notice.subject }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>Notice</h1>
+                <a href="{{ url('noticeedit' , {'id': notice.id}) }}"><strong>Edit</strong></a>
+                <a href="{{ url('noticedelete' , {'id': notice.id}) }}"><strong>Delete</strong></a>
+                <p>{{ notice.id }}</p>
+                <p>{{ notice.date|date('M d, Y') }}</p>
+                <p><strong><u>{{ notice.subject }}</u></strong></p>
+                <p>{{ notice.content }}</p>
+                <p><a href="{{ path('membershow', {'id': notice.publisher.id}) }}">{{ notice.publisher.username }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -16,7 +16,7 @@
                 <p>Type:        {{ event.type }}</p>
                 <p>Description: {{ event.description }}</p>
                 <p>Report:      {{ event.report }}</p>
-                <p>Owner:       {{ event.owner.username }}</p>
+                <p>Owner:       <a href="{{ path('membershow', {'id': event.owner.id}) }}">{{ event.owner.username }}</a></p>
                 <p>Exhibition:  <a href="{{ path('exhibitionshow', {'slug': event.exhibition.slug}) }}">LOCUS-{{ event.exhibition.year|date('Y') }}</a></p>
             </div>
             <div class="organizers">
@@ -27,7 +27,7 @@
                     organizers
                 {% endif %}</h3>
                 <p>{% for organizer in event.organizers %}
-                    {{ organizer.username }},
+                    <a href="{{ path('membershow', {'id': organizer.id}) }}">{{ organizer.username }}</a>,
                 {% endfor %}</p>
             </div>
             <div class="collaborators">
@@ -49,7 +49,7 @@
                     attendees
                 {% endif %}</h3>
                 <p>{% for attendee in event.attendees %}
-                    {{ attendee.username }},
+                    <a href="{{ path('membershow', {'id': attendee.id}) }}">{{ attendee.username }}</a>,
                 {% endfor %}</p>
             </div>
             <div class="volunteers">
@@ -60,7 +60,7 @@
                     volunteers
                 {% endif %}</h3>
                 <p>{% for volunteer in event.volunteers %}
-                    {{ volunteer.username }},
+                    <a href="{{ path('membershow', {'id': volunteer.id}) }}">{{ volunteer.username }}</a>,
                 {% endfor %}</p>
             </div>
             <div class="stalls">
@@ -71,7 +71,7 @@
                     stalls
                 {% endif %}</h3>
                 <p>{% for stall in event.stalls %}
-                    {{ stall.number }},
+                    <a href="{{ path('stallshow', {'id': stall.id}) }}">{{ stall.number }}</a>,
                 {% endfor %}</p>
             </div>
             <div class="finances">
@@ -82,7 +82,18 @@
                     financial transactions
                 {% endif %}</h3>
                 <p>{% for finance in event.finances %}
-                    {{ finance.date|date('M d, Y') }} - {{ finance.billNumber }} - {{ finance.institution.name }} - {{ finance.receiver.username }} - {{ finance.direction }} - {{ finance.amount }} - {{ finance.remarks }}<br>
+                    {{ finance.date|date('M d, Y') }} - <a href="{{ path('financeshow', {'id': finance.id}) }}">{{ finance.billNumber }}</a> - {{ finance.institution.name }} - {{ finance.receiver.username }} - {{ finance.direction }} - {{ finance.amount }} - {{ finance.remarks }}<br>
+                {% endfor %}</p>
+            </div>
+            <div class="projects">
+                <h3>{{ event.projects|length }}
+                {% if event.projects|length == 1 %}
+                    project
+                {% else %}
+                    projects
+                {% endif %} participating</h3>
+                <p>{% for project in event.projects %}
+                    <a href="{{ path('projectshow', {'id': project.id}) }}">{{ project.title }}</a>,
                 {% endfor %}</p>
             </div>
         </div>

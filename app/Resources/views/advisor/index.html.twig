@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Advisors | {{ parent() }} {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Advisors</h1>
+                <a href="{{ url('advisorcreate') }}">Create</a>
+            </div>
+            <table>
+                <tr id="header">
+                    <td>ID</a></td>
+                    <td>Name</a></td>
+                    <td>Post</a></td>
+                    <td>Institution</a></td>
+                    <td>Year</a></td>
+                </tr>
+                {% for advisor in advisors %}
+                <tr id="data">
+                    <td>{{ advisor.id }}</a></td>
+                    <td><a href="{{ url('advisorshow' , {'id': advisor.id}) }}"><strong>{{ advisor.member.firstname }} {{ advisor.member.lastname}}</strong></a></td>
+                    <td>{{ advisor.post }}</td>
+                    <td>{{ advisor.member.institution.name }}</td>
+                    <td>{{ advisor.year|date('Y') }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

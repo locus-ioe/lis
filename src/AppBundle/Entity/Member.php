@@ -125,19 +125,6 @@ class Member
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Institution", inversedBy="members")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    private $institution;
-    public function setInstitution($institution){
-        $this->institution = $institution;
-        return $this;
-    }
-    public function getInstitution(){
-        return $this->institution;
-    }
-
-    /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
@@ -180,6 +167,19 @@ class Member
     }
 
     /**
+     * @ORM\ManyToOne(targetEntity="Institution", inversedBy="members")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private $institution;
+    public function setInstitution($institution){
+        $this->institution = $institution;
+        return $this;
+    }
+    public function getInstitution(){
+        return $this->institution;
+    }
+
+    /**
      * @ORM\ManyToOne(targetEntity="Privilege", inversedBy="members")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
@@ -190,5 +190,115 @@ class Member
     }
     public function getPrivilege(){
         return $this->privilege;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Advisor", mappedBy="member")
+     */
+    protected $advisers;
+    public function getAdvisers(){
+        return $this->advisers;
+    }
+
+    /**
+     * @ORM\OneToOne(targetEntity="Committee", mappedBy="member")
+     */
+    protected $committee;
+    public function getCommittee(){
+        return $this->committee;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Event", mappedBy="attendees")
+     */
+    protected $participating;
+    public function getParticipating() {
+        return $this->participating;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Event", mappedBy="organizers")
+     */
+    protected $organizing;
+    public function getOrganizing() {
+        return $this->organizing;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Event", mappedBy="volunteers")
+     */
+    protected $volunteering;
+    public function getVolunteering() {
+        return $this->volunteering;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Meeting", mappedBy="attendees")
+     */
+    protected $attending;
+    public function getAttending() {
+        return $this->attending;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Project", mappedBy="members")
+     */
+    protected $developing;
+    public function getDeveloping() {
+        return $this->developing;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="owner")
+     */
+    protected $owing;
+    public function getOwing() {
+        return $this->owing;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Finance", mappedBy="receiver")
+     */
+    protected $receiving;
+    public function getReceiving() {
+        return $this->receiving;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Notice", mappedBy="publisher")
+     */
+    protected $noticing;
+    public function getNoticing() {
+        return $this->noticing;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Letter", mappedBy="salutation")
+     */
+    protected $salutations;
+    public function getSalutations() {
+        return $this->salutations;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Letter", mappedBy="publisher")
+     */
+    protected $publishing;
+    public function getPublishing() {
+        return $this->publishing;
+    }
+
+    public function __construct() {
+        $this->attending = new ArrayCollection();
+        $this->advisers = new ArrayCollection();
+        $this->participating = new ArrayCollection();
+        $this->noticing = new ArrayCollection();
+        $this->organizing = new ArrayCollection();
+        $this->volunteering = new ArrayCollection();
+        $this->owing = new ArrayCollection();
+        $this->receiving = new ArrayCollection();
+        $this->developing = new ArrayCollection();
+        $this->salutations = new ArrayCollection();
+        $this->publishing = new ArrayCollection();
     }
 }

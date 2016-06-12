@@ -36,7 +36,7 @@
                     themes
                 {% endif %}</h3>
                 <p>{% for theme in exhibition.themes %}
-                    {{ theme.name }},
+                    <a href="{{ path('themeshow', {'id': theme.id}) }}">{{ theme.name }}</a>,
                 {% else %}
                 no themes yet!
                 {% endfor %}</p>
@@ -49,7 +49,7 @@
                     stalls
                 {% endif %}</h3>
                 <p>{% for stall in exhibition.stalls %}
-                    {{ stall.number }} ({{ stall.size }}),
+                    <a href="{{ path('stallshow', {'id': stall.id}) }}">{{ stall.number }} ({{ stall.size }})</a>,
                 {% else %}
                 no stalls yet!
                 {% endfor %}</p>
