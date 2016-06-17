@@ -42,33 +42,33 @@ class MemberController extends BaseController
 
     // Show the member-edit form
     /**
-     * @Route("/member/edit/{id}", name="memberedit")
+     * @Route("/member/edit/{username}", name="memberedit")
      * @Method({"GET", "HEAD"})
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $username)
     {
         return $this->render('member/create.html.twig', array('title' => 'Edit'));
     }
 
     // Display the specified member
     /**
-     * @Route("/member/delete/{id}", name="memberdelete", requirements={"page": "\d+"})
+     * @Route("/member/delete/{username}", name="memberdelete", requirements={"page": "\d+"})
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $username)
     {
-        return new Response('<html><title>Delete Member</title><body><h1>Delete Member <small><i>with id ' .$id. '</i></small></h1></body></html>');
+        return new Response('<html><title>Delete Member</title><body><h1>Delete Member <small><i>with username ' .$username. '</i></small></h1></body></html>');
     }
 
     // Display the specified member
     /**
-     * @Route("/member/{id}", name="membershow")
+     * @Route("/member/{username}", name="membershow")
      */
-    public function showAction(Request $request, $id)
+    public function showAction(Request $request, $username)
     {
         $member = $this->getDoctrine()
-        ->getRepository('AppBundle:Member')->find($id);
+        ->getRepository('AppBundle:Member')->findOneByUsername($username);
         if (!$member) {
-            throw $this->createNotFoundException('No member found for id '.$id);
+            throw $this->createNotFoundException('No member found for username '.$username);
         }
         return $this->render('member/show.html.twig', array('member' => $member));
     }

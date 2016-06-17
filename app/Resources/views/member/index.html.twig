@@ -3,39 +3,39 @@
 {% block title %} Members | {{ parent() }} {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Members</h1>
-                <a href="{{ url('membercreate') }}">Create</a>
-            </div>
-            <table>
-                <tr id="header">
-                    <td>ID</a></td>
-                    <td>Name</a></td>
-                    <td>Username</a></td>
-                    <td>Address</a></td>
-                    <td>Email</a></td>
-                    <td>Contact</a></td>
-                    <td>Post</a></td>
-                    <td>Institution</a></td>
-                    <td>Privilege</a></td>
-                </tr>
-                {% for member in members %}
-                <tr id="data">
-                    <td>{{ member.id }}</td>
-                    <td>{{ member.firstname }} {{ member.lastname}}</td>
-                    <td><a href="{{ url('membershow' , {'id': member.id}) }}"><strong>{{ member.username }}</strong></a></td>
-                    <td>{{ member.address }}</td>
-                    <td>{{ member.email }}</td>
-                    <td>{{ member.contact }}</td>
-                    <td>{{ member.crnPost }}</td>
-                    <td>{{ member.institution.name }}</td>
-                    <td>{{ member.privilege.name }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+  {{ parent() }}
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1><span>Members</h1>
+        <a href="{{ url('membercreate') }}">Create</a>
+      </div>
+      <table>
+        <tr id="header">
+          <td>ID</a></td>
+          <td>Name</a></td>
+          <td>Username</a></td>
+          <td>Address</a></td>
+          <td>Email</a></td>
+          <td>Contact</a></td>
+          <td>Post</a></td>
+          <td>Institution</a></td>
+          <td>Privilege</a></td>
+        </tr>
+        {% for member in members %}
+          <tr id="data">
+            <td>{{ member.id }}</td>
+            <td>{{ member.firstname }} {{ member.lastname}}</td>
+            <td><a href="{{ url('membershow' , {'username': member.username}) }}"><strong>{{ member.username }}</strong></a></td>
+            <td>{{ member.address }}</td>
+            <td>{{ member.email }}</td>
+            <td>{{ member.contact }}</td>
+            <td>{{ member.crnPost }}</td>
+            <td>{{ member.institution.name }}</td>
+            <td>{{ member.privilege.name }}</td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
+  </div>
 {% endblock %}

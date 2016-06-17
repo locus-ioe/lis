@@ -3,12 +3,62 @@
 {% block title %} {{ title }} Finance | {{ parent() }} {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>{{ title }} Finance</h1>
-            </div>
-        </div>
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1>{{ title }} Finance</h1>
+        {% if title == 'Delete' %}
+          {{ form_start(form) }}
+          {{ form_widget(form) }}
+          {{ form_end(form) }}
+        {% else %}
+          {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+          {{ form_errors(form) }}
+          <table>
+          <tr>
+            <td>{{ form_label(form.date) }}</td>
+            <td>{{ form_widget(form.date) }}</td>
+            <td>{{ form_errors(form.date) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.billNumber) }}</td>
+            <td>{{ form_widget(form.billNumber) }}</td>
+            <td>{{ form_errors(form.billNumber) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.amount) }}</td>
+            <td>{{ form_widget(form.amount) }}</td>
+            <td>{{ form_errors(form.amount) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.remarks) }}</td>
+            <td>{{ form_widget(form.remarks) }}</td>
+            <td>{{ form_errors(form.remarks) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.direction) }}</td>
+            <td>{{ form_widget(form.direction) }}</td>
+            <td>{{ form_errors(form.direction) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.institution) }}</td>
+            <td>{{ form_widget(form.institution) }}</td>
+            <td>{{ form_errors(form.institution) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.event) }}</td>
+            <td>{{ form_widget(form.event) }}</td>
+            <td>{{ form_errors(form.event) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.receiver) }}</td>
+            <td>{{ form_widget(form.receiver) }}</td>
+            <td>{{ form_errors(form.receiver) }}</td>
+          </tr>
+          </table>
+          {{ form_end(form) }}
+        {% endif %}
+      </div>
     </div>
+  </div>
 {% endblock %}

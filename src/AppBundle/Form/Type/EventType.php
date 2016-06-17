@@ -25,6 +25,46 @@ class EventType extends AbstractType
         ->add('type', TextType::class)
         ->add('description', TextType::class)
         ->add('report', TextType::class)
+        ->add('organizers', 'entity',
+            [
+              'class' => 'AppBundle\Entity\Member',
+              'property' => 'username',
+              'multiple' => TRUE,
+              'expanded' => TRUE,
+            ]
+        )
+        ->add('collaborators', 'entity',
+            [
+              'class' => 'AppBundle\Entity\Institution',
+              'property' => 'name',
+              'multiple' => TRUE,
+              'expanded' => TRUE,
+            ]
+        )
+        ->add('attendees', 'entity',
+            [
+              'class' => 'AppBundle\Entity\Member',
+              'property' => 'username',
+              'multiple' => TRUE,
+              'expanded' => TRUE,
+            ]
+        )
+        ->add('volunteers', 'entity',
+            [
+              'class' => 'AppBundle\Entity\Member',
+              'property' => 'username',
+              'multiple' => TRUE,
+              'expanded' => TRUE,
+            ]
+        )
+        ->add('stalls', 'entity',
+            [
+              'class' => 'AppBundle\Entity\Stall',
+              'property' => 'number',
+              'multiple' => TRUE,
+              'expanded' => TRUE,
+            ]
+        )
         ->add('save', SubmitType::class, array('label' => $submitlabel));
     }
 

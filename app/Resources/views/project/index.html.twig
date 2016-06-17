@@ -3,35 +3,35 @@
 {% block title %} Projects | {{ parent() }} {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Projects</h1>
-                <a href="{{ url('projectcreate') }}">Create</a>
-            </div>
-            <table>
-                <tr id="header">
-                    <td>ID</a></td>
-                    <td>Title</a></td>
-                    <td>Type</a></td>
-                    <td>Description</a></td>
-                    <td>Detail</a></td>
-                    <td>Stall</a></td>
-                    <td>Theme</a></td>
-                </tr>
-                {% for project in projects %}
-                <tr id="data">
-                    <td>{{ project.id }}</td>
-                    <td><a href="{{ url('projectshow' , {'id': project.id}) }}"><strong>{{ project.title }}</strong></a></td>
-                    <td>{{ project.type }}</td>
-                    <td>{{ project.description }}</td>
-                    <td>{{ project.detail }}</td>
-                    <td>{{ project.stall.id }}</td>
-                    <td>{{ project.theme.name }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+  {{ parent() }}
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1><span>Projects</h1>
+        <a href="{{ url('projectcreate') }}">Create</a>
+      </div>
+      <table>
+        <tr id="header">
+          <td>ID</a></td>
+          <td>Title</a></td>
+          <td>Type</a></td>
+          <td>Description</a></td>
+          <td>Detail</a></td>
+          <td>Stall</a></td>
+          <td>Theme</a></td>
+        </tr>
+        {% for project in projects %}
+          <tr id="data">
+            <td>{{ project.id }}</td>
+            <td><a href="{{ url('projectshow' , {'id': project.id}) }}"><strong>{{ project.title }}</strong></a></td>
+            <td>{{ project.type }}</td>
+            <td>{{ project.description }}</td>
+            <td>{{ project.detail }}</td>
+            <td>{{ project.stall.id }}</td>
+            <td>{{ project.theme.name }}</td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
+  </div>
 {% endblock %}

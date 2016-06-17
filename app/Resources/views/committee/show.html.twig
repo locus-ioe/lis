@@ -3,17 +3,18 @@
 {% block title %} {{ committee.member.username }} | {{ parent() }} {% endblock %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1>Committee</h1>
-                <a href="{{ url('committeeedit' , {'id': committee.id}) }}"><strong>Edit</strong></a>
-                <a href="{{ url('committeedelete' , {'id': committee.id}) }}"><strong>Delete</strong></a>
-                <p>{{ committee.id }}</p>
-                <p><strong><u>{{ committee.member.firstname }} {{ committee.member.lastname }}</u></strong></p>
-                <p><a href="{{ path('membershow', {'id': committee.member.id}) }}">{{ committee.member.username }}</a></p>
-                <p>{{ committee.post }} {{ committee.year|date('Y') }}</p>
-            </div>
-        </div>
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1>Committee</h1>
+        <a href="{{ url('committeeedit' , {'id': committee.id}) }}"><strong>Edit</strong></a>
+        <a href="{{ url('committeedelete' , {'id': committee.id}) }}"><strong>Delete</strong></a>
+        <p>{{ committee.id }}</p>
+        <p><strong><u>{{ committee.member.firstname }} {{ committee.member.lastname }}</u></strong></p>
+        <p><a href="{{ path('membershow', {'username': committee.member.username}) }}">{{ committee.member.username }}</a></p>
+        <p><a href="{{ path('institutionshow', {'slug': committee.member.institution.slug}) }}">{{ committee.member.institution.name }} </a></p>
+        <p>{{ committee.post }} - Locus {{ committee.year|date('Y') }}</p>
+      </div>
     </div>
+  </div>
 {% endblock %}

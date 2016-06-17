@@ -3,33 +3,33 @@
 {% block title %} Institutions | {{ parent() }} {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Institutions</h1>
-                <a href="{{ url('institutioncreate') }}">Create</a>
-            </div>
-            <table>
-                <tr id="header">
-                    <td>ID</a></td>
-                    <td>Name</a></td>
-                    <td>Address</a></td>
-                    <td>Contact</a></td>
-                    <td>Email</a></td>
-                    <td>Logo</a></td>
-                </tr>
-                {% for institution in institutions %}
-                <tr id="data">
-                    <td>{{ institution.id }}</a></td>
-                    <td><a href="{{ url('institutionshow' , {'slug': institution.slug}) }}"><strong>{{ institution.name }}</strong></a></td>
-                    <td>{{ institution.address }}</a></td>
-                    <td>{{ institution.contact }}</a></td>
-                    <td>{{ institution.email }}</a></td>
-                    <td>{{ institution.logo }}</a></td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+  {{ parent() }}
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1><span>Institutions</h1>
+        <a href="{{ url('institutioncreate') }}">Create</a>
+      </div>
+      <table>
+        <tr id="header">
+          <td>ID</a></td>
+          <td>Name</a></td>
+          <td>Address</a></td>
+          <td>Contact</a></td>
+          <td>Email</a></td>
+          <td>Logo</a></td>
+        </tr>
+        {% for institution in institutions %}
+          <tr id="data">
+            <td>{{ institution.id }}</a></td>
+            <td><a href="{{ url('institutionshow' , {'slug': institution.slug}) }}"><strong>{{ institution.name }}</strong></a></td>
+            <td>{{ institution.address }}</a></td>
+            <td>{{ institution.contact }}</a></td>
+            <td>{{ institution.email }}</a></td>
+            <td>{{ institution.logo }}</a></td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
+  </div>
 {% endblock %}

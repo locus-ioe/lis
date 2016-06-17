@@ -3,57 +3,57 @@
 {% block title %} Locus {{ exhibition.year|date('Y') }} | {{ parent() }} {% endblock %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <a href="{{ url('exhibitionedit' , {'slug': exhibition.slug}) }}"><strong>Edit</strong></a>
-            <a href="{{ url('exhibitiondelete' , {'slug': exhibition.slug}) }}"><strong>Delete</strong></a>
-            <div id="welcome">
-                <h1>Exhibition</h1>
-                <p>{{ exhibition.id }}</p>
-                <p><strong><u>{{ exhibition.theme }}</u></strong></p>
-                <p>{{ exhibition.year|date('Y') }}</p>
-                <p>{{ exhibition.date }}</p>
-                <p>{{ exhibition.locationMap }}</p>
-            </div>
-            <div class="events">
-                <h3>{{ exhibition.events|length }}
-                {% if exhibition.events|length == 1 %}
-                    event
-                {% else %}
-                    events
-                {% endif %}</h3>
-                <p>{% for event in exhibition.events %}
-                <a href="{{ path('eventshow', {'slug': event.slug}) }}">{{ event.title }}</a>,
-                {% else %}
-                no events yet!
-                {% endfor %}</p>
-            </div>
-            <div class="themes">
-                <h3>{{ exhibition.themes|length }}
-                {% if exhibition.themes|length == 1 %}
-                    theme
-                {% else %}
-                    themes
-                {% endif %}</h3>
-                <p>{% for theme in exhibition.themes %}
-                    <a href="{{ path('themeshow', {'id': theme.id}) }}">{{ theme.name }}</a>,
-                {% else %}
-                no themes yet!
-                {% endfor %}</p>
-            </div>
-            <div class="stalls">
-                <h3>{{ exhibition.stalls|length }}
-                {% if exhibition.stalls|length == 1 %}
-                    stall
-                {% else %}
-                    stalls
-                {% endif %}</h3>
-                <p>{% for stall in exhibition.stalls %}
-                    <a href="{{ path('stallshow', {'id': stall.id}) }}">{{ stall.number }} ({{ stall.size }})</a>,
-                {% else %}
-                no stalls yet!
-                {% endfor %}</p>
-            </div>
-        </div>
+  <div id="wrapper">
+    <div id="container">
+      <a href="{{ url('exhibitionedit' , {'slug': exhibition.slug}) }}"><strong>Edit</strong></a>
+      <a href="{{ url('exhibitiondelete' , {'slug': exhibition.slug}) }}"><strong>Delete</strong></a>
+      <div id="welcome">
+        <h1>Exhibition</h1>
+        <p>{{ exhibition.id }}</p>
+        <p><strong><u>{{ exhibition.theme }}</u></strong></p>
+        <p>{{ exhibition.year|date('Y') }}</p>
+        <p>{{ exhibition.date }}</p>
+        <p>{{ exhibition.locationMap }}</p>
+      </div>
+      <div class="events">
+        <h3>{{ exhibition.events|length }}
+        {% if exhibition.events|length == 1 %}
+          event
+        {% else %}
+          events
+        {% endif %}</h3>
+        <p>{% for event in exhibition.events %}
+          <a href="{{ path('eventshow', {'slug': event.slug}) }}">{{ event.title }}</a>,
+        {% else %}
+          no events yet!
+        {% endfor %}</p>
+      </div>
+      <div class="themes">
+        <h3>{{ exhibition.themes|length }}
+        {% if exhibition.themes|length == 1 %}
+          theme
+        {% else %}
+          themes
+        {% endif %}</h3>
+        <p>{% for theme in exhibition.themes %}
+          <a href="{{ path('themeshow', {'id': theme.id}) }}">{{ theme.name }}</a>,
+        {% else %}
+          no themes yet!
+        {% endfor %}</p>
+      </div>
+      <div class="stalls">
+        <h3>{{ exhibition.stalls|length }}
+        {% if exhibition.stalls|length == 1 %}
+          stall
+        {% else %}
+          stalls
+        {% endif %}</h3>
+        <p>{% for stall in exhibition.stalls %}
+          <a href="{{ path('stallshow', {'id': stall.id}) }}">{{ stall.number }} ({{ stall.size }})</a>,
+        {% else %}
+          no stalls yet!
+        {% endfor %}</p>
+      </div>
     </div>
+  </div>
 {% endblock %}

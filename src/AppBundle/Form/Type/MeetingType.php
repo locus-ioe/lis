@@ -7,6 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 // Symfony form
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,6 +24,12 @@ class MeetingType extends AbstractType
         ->add('venue', TextType::class)
         ->add('agenda', TextType::class)
         ->add('minute', TextType::class)
+        ->add('attendees', EntityType::class, array(
+          'class' => 'AppBundle:Member',
+          'choice_label' => 'username',
+          'placeholder' => 'Attendees',
+          'multiple' => false,
+        ))
         ->add('save', SubmitType::class, array('label' => $submitlabel));
     }
 

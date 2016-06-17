@@ -3,41 +3,41 @@
 {% block title %} {{ title }} Institution | {{ parent() }} {% endblock %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1>{{ title }} Institution</h1>
-                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                {{ form_errors(form) }}
-                <table>
-                <tr>
-                    <td>{{ form_label(form.name) }}</td>
-                    <td>{{ form_widget(form.name) }}</td>
-                    <td>{{ form_errors(form.name) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.address) }}</td>
-                    <td>{{ form_widget(form.address) }}</td>
-                    <td>{{ form_errors(form.address) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.contact) }}</td>
-                    <td>{{ form_widget(form.contact) }}</td>
-                    <td>{{ form_errors(form.contact) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.email) }}</td>
-                    <td>{{ form_widget(form.email) }}</td>
-                    <td>{{ form_errors(form.email) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.logo) }}</td>
-                    <td>{{ form_widget(form.logo) }}</td>
-                    <td>{{ form_errors(form.logo) }}</td>
-                </tr>
-                </table>
-                {{ form_end(form) }}
-            </div>
-        </div>
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1>{{ title }} Institution</h1>
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_errors(form) }}
+        <table>
+        <tr>
+          <td>{{ form_label(form.name) }}</td>
+          <td>{{ form_widget(form.name) }}</td>
+          <td>{{ form_errors(form.name) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.address) }}</td>
+          <td>{{ form_widget(form.address) }}</td>
+          <td>{{ form_errors(form.address) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.contact) }}</td>
+          <td>{{ form_widget(form.contact) }}</td>
+          <td>{{ form_errors(form.contact) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.email) }}</td>
+          <td>{{ form_widget(form.email) }}</td>
+          <td>{{ form_errors(form.email) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.logo) }}</td>
+          <td>{{ form_widget(form.logo) }}</td>
+          <td>{{ form_errors(form.logo) }}</td>
+        </tr>
+        </table>
+        {{ form_end(form) }}
+      </div>
     </div>
+  </div>
 {% endblock %}

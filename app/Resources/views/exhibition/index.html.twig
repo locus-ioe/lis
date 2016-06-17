@@ -3,31 +3,31 @@
 {% block title %} Exhibitions | {{ parent() }} {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Exhibitions</h1>
-                <a href="{{ url('exhibitioncreate') }}">Create</a>
-            </div>
-            <table>
-                <tr id="header">
-                    <td>ID</a></td>
-                    <td>Theme</a></td>
-                    <td>Year</a></td>
-                    <td>Date</a></td>
-                    <td>Location</a></td>
-                </tr>
-                {% for exhibition in exhibitions %}
-                <tr id="data">
-                    <td>{{ exhibition.id }}</a></td>
-                    <td><a href="{{ url('exhibitionshow' , {'slug': exhibition.slug}) }}"><strong>{{ exhibition.theme }}</strong></a></td>
-                    <td>{{ exhibition.year|date('Y') }}</a></td>
-                    <td>{{ exhibition.date }}</a></td>
-                    <td>{{ exhibition.locationMap }}</a></td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+  {{ parent() }}
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1><span>Exhibitions</h1>
+        <a href="{{ url('exhibitioncreate') }}">Create</a>
+      </div>
+      <table>
+        <tr id="header">
+          <td>ID</a></td>
+          <td>Theme</a></td>
+          <td>Year</a></td>
+          <td>Date</a></td>
+          <td>Location</a></td>
+        </tr>
+        {% for exhibition in exhibitions %}
+          <tr id="data">
+            <td>{{ exhibition.id }}</a></td>
+            <td><a href="{{ url('exhibitionshow' , {'slug': exhibition.slug}) }}"><strong>{{ exhibition.theme }}</strong></a></td>
+            <td>{{ exhibition.year|date('Y') }}</a></td>
+            <td>{{ exhibition.date }}</a></td>
+            <td>{{ exhibition.locationMap }}</a></td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
+  </div>
 {% endblock %}

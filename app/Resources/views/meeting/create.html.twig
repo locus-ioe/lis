@@ -3,36 +3,36 @@
 {% block title %} {{ title }} Meeting | {{ parent() }} {% endblock %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1>{{ title }} Meeting</h1>
-                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                {{ form_errors(form) }}
-                <table>
-                <tr>
-                    <td>{{ form_label(form.datetime) }}</td>
-                    <td>{{ form_widget(form.datetime) }}</td>
-                    <td>{{ form_errors(form.datetime) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.venue) }}</td>
-                    <td>{{ form_widget(form.venue) }}</td>
-                    <td>{{ form_errors(form.venue) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.agenda) }}</td>
-                    <td>{{ form_widget(form.agenda) }}</td>
-                    <td>{{ form_errors(form.agenda) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.minute) }}</td>
-                    <td>{{ form_widget(form.minute) }}</td>
-                    <td>{{ form_errors(form.minute) }}</td>
-                </tr>
-                </table>
-                {{ form_end(form) }}
-            </div>
-        </div>
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1>{{ title }} Meeting</h1>
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_errors(form) }}
+        <table>
+          <tr>
+            <td>{{ form_label(form.datetime) }}</td>
+            <td>{{ form_widget(form.datetime) }}</td>
+            <td>{{ form_errors(form.datetime) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.venue) }}</td>
+            <td>{{ form_widget(form.venue) }}</td>
+            <td>{{ form_errors(form.venue) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.agenda) }}</td>
+            <td>{{ form_widget(form.agenda) }}</td>
+            <td>{{ form_errors(form.agenda) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.minute) }}</td>
+            <td>{{ form_widget(form.minute) }}</td>
+            <td>{{ form_errors(form.minute) }}</td>
+          </tr>
+        </table>
+        {{ form_end(form) }}
+      </div>
     </div>
+  </div>
 {% endblock %}

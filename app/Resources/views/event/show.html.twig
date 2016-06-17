@@ -3,99 +3,99 @@
 {% block title %} {{ event.title }} | {{ parent() }} {% endblock %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <a href="{{ url('eventedit' , {'slug': event.slug}) }}"><strong>Edit</strong></a>
-            <a href="{{ url('eventdelete' , {'slug': event.slug}) }}"><strong>Delete</strong></a>
-            <div id="welcome">
-                <h1>Event</h1>
-                <p>Id:          {{ event.id }}</p>
-                <p>Title:       <strong><u>{{ event.title }}</u></strong></p>
-                <p>Datetime:    {{ event.datetime|date('M d, Y H:i') }}</p>
-                <p>Venue:       {{ event.venue }}</p>
-                <p>Type:        {{ event.type }}</p>
-                <p>Description: {{ event.description }}</p>
-                <p>Report:      {{ event.report }}</p>
-                <p>Owner:       <a href="{{ path('membershow', {'id': event.owner.id}) }}">{{ event.owner.username }}</a></p>
-                <p>Exhibition:  <a href="{{ path('exhibitionshow', {'slug': event.exhibition.slug}) }}">LOCUS-{{ event.exhibition.year|date('Y') }}</a></p>
-            </div>
-            <div class="organizers">
-                <h3>{{ event.organizers|length }}
-                {% if event.organizers|length == 1 %}
-                    organizer
-                {% else %}
-                    organizers
-                {% endif %}</h3>
-                <p>{% for organizer in event.organizers %}
-                    <a href="{{ path('membershow', {'id': organizer.id}) }}">{{ organizer.username }}</a>,
-                {% endfor %}</p>
-            </div>
-            <div class="collaborators">
-                <h3>{{ event.collaborators|length }}
-                {% if event.collaborators|length == 1 %}
-                    collaborator
-                {% else %}
-                    collaborators
-                {% endif %}</h3>
-                <p>{% for collaborator in event.collaborators %}
-                    <a href="{{ path('institutionshow', {'slug': collaborator.slug}) }}">{{ collaborator.name }}</a>,
-                {% endfor %}</p>
-            </div>
-            <div class="attendees">
-                <h3>{{ event.attendees|length }}
-                {% if event.attendees|length == 1 %}
-                    attendee
-                {% else %}
-                    attendees
-                {% endif %}</h3>
-                <p>{% for attendee in event.attendees %}
-                    <a href="{{ path('membershow', {'id': attendee.id}) }}">{{ attendee.username }}</a>,
-                {% endfor %}</p>
-            </div>
-            <div class="volunteers">
-                <h3>{{ event.volunteers|length }}
-                {% if event.volunteers|length == 1 %}
-                    volunteer
-                {% else %}
-                    volunteers
-                {% endif %}</h3>
-                <p>{% for volunteer in event.volunteers %}
-                    <a href="{{ path('membershow', {'id': volunteer.id}) }}">{{ volunteer.username }}</a>,
-                {% endfor %}</p>
-            </div>
-            <div class="stalls">
-                <h3>{{ event.stalls|length }}
-                {% if event.stalls|length == 1 %}
-                    stall
-                {% else %}
-                    stalls
-                {% endif %}</h3>
-                <p>{% for stall in event.stalls %}
-                    <a href="{{ path('stallshow', {'id': stall.id}) }}">{{ stall.number }}</a>,
-                {% endfor %}</p>
-            </div>
-            <div class="finances">
-                <h3>{{ event.finances|length }}
-                {% if event.finances|length == 1 %}
-                    financial transaction
-                {% else %}
-                    financial transactions
-                {% endif %}</h3>
-                <p>{% for finance in event.finances %}
-                    {{ finance.date|date('M d, Y') }} - <a href="{{ path('financeshow', {'id': finance.id}) }}">{{ finance.billNumber }}</a> - {{ finance.institution.name }} - {{ finance.receiver.username }} - {{ finance.direction }} - {{ finance.amount }} - {{ finance.remarks }}<br>
-                {% endfor %}</p>
-            </div>
-            <div class="projects">
-                <h3>{{ event.projects|length }}
-                {% if event.projects|length == 1 %}
-                    project
-                {% else %}
-                    projects
-                {% endif %} participating</h3>
-                <p>{% for project in event.projects %}
-                    <a href="{{ path('projectshow', {'id': project.id}) }}">{{ project.title }}</a>,
-                {% endfor %}</p>
-            </div>
-        </div>
+  <div id="wrapper">
+    <div id="container">
+      <a href="{{ url('eventedit' , {'slug': event.slug}) }}"><strong>Edit</strong></a>
+      <a href="{{ url('eventdelete' , {'slug': event.slug}) }}"><strong>Delete</strong></a>
+      <div id="welcome">
+        <h1>Event</h1>
+        <p>Id:          {{ event.id }}</p>
+        <p>Title:       <strong><u>{{ event.title }}</u></strong></p>
+        <p>Datetime:    {{ event.datetime|date('M d, Y H:i') }}</p>
+        <p>Venue:       {{ event.venue }}</p>
+        <p>Type:        {{ event.type }}</p>
+        <p>Description: {{ event.description }}</p>
+        <p>Report:      {{ event.report }}</p>
+        <p>Owner:       <a href="{{ path('membershow', {'username': event.owner.username}) }}">{{ event.owner.username }}</a></p>
+        <p>Exhibition:  <a href="{{ path('exhibitionshow', {'slug': event.exhibition.slug}) }}">LOCUS-{{ event.exhibition.year|date('Y') }}</a></p>
+      </div>
+      <div class="organizers">
+        <h3>{{ event.organizers|length }}
+        {% if event.organizers|length == 1 %}
+          organizer
+        {% else %}
+          organizers
+        {% endif %}</h3>
+        <p>{% for organizer in event.organizers %}
+          <a href="{{ path('membershow', {'username': organizer.username}) }}">{{ organizer.username }}</a>,
+        {% endfor %}</p>
+      </div>
+      <div class="collaborators">
+        <h3>{{ event.collaborators|length }}
+        {% if event.collaborators|length == 1 %}
+          collaborator
+        {% else %}
+          collaborators
+        {% endif %}</h3>
+        <p>{% for collaborator in event.collaborators %}
+          <a href="{{ path('institutionshow', {'slug': collaborator.slug}) }}">{{ collaborator.name }}</a>,
+        {% endfor %}</p>
+      </div>
+      <div class="attendees">
+        <h3>{{ event.attendees|length }}
+        {% if event.attendees|length == 1 %}
+          attendee
+        {% else %}
+          attendees
+        {% endif %}</h3>
+        <p>{% for attendee in event.attendees %}
+          <a href="{{ path('membershow', {'username': attendee.username}) }}">{{ attendee.username }}</a>,
+        {% endfor %}</p>
+      </div>
+      <div class="volunteers">
+        <h3>{{ event.volunteers|length }}
+        {% if event.volunteers|length == 1 %}
+          volunteer
+        {% else %}
+          volunteers
+        {% endif %}</h3>
+        <p>{% for volunteer in event.volunteers %}
+          <a href="{{ path('membershow', {'username': volunteer.username}) }}">{{ volunteer.username }}</a>,
+        {% endfor %}</p>
+      </div>
+      <div class="stalls">
+        <h3>{{ event.stalls|length }}
+        {% if event.stalls|length == 1 %}
+          stall
+        {% else %}
+          stalls
+        {% endif %}</h3>
+        <p>{% for stall in event.stalls %}
+          <a href="{{ path('stallshow', {'id': stall.id}) }}">{{ stall.number }}</a>,
+        {% endfor %}</p>
+      </div>
+      <div class="finances">
+        <h3>{{ event.finances|length }} financial
+        {% if event.finances|length == 1 %}
+          transaction
+        {% else %}
+          transactions
+        {% endif %}</h3>
+        <p>{% for finance in event.finances %}
+          {{ finance.date|date('M d, Y') }} - <a href="{{ path('financeshow', {'id': finance.id}) }}">{{ finance.billNumber }}</a> - {{ finance.institution.name }} - {{ finance.receiver.username }} - {{ finance.direction }} - {{ finance.amount }} - {{ finance.remarks }}<br>
+        {% endfor %}</p>
+      </div>
+      <div class="projects">
+        <h3>{{ event.projects|length }}
+        {% if event.projects|length == 1 %}
+          project
+        {% else %}
+          projects
+        {% endif %} participating</h3>
+        <p>{% for project in event.projects %}
+          <a href="{{ path('projectshow', {'id': project.id}) }}">{{ project.title }}</a>,
+        {% endfor %}</p>
+      </div>
     </div>
+  </div>
 {% endblock %}

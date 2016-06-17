@@ -3,35 +3,35 @@
 {% block title %} Letters | {{ parent() }} {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Letters</h1>
-                <a href="{{ url('lettercreate') }}">Create</a>
-            </div>
-            <table>
-                <tr id="header">
-                    <td>ID</a></td>
-                    <td>Date</a></td>
-                    <td>Reg. No.</a></td>
-                    <td>Subject</a></td>
-                    <td>Content</a></td>
-                    <td>Publisher</a></td>
-                    <td>Salutation</a></td>
-                </tr>
-                {% for letter in letters %}
-                <tr id="data">
-                    <td>{{ letter.id }}</td>
-                    <td>{{ letter.date|date('M d, Y') }}</td>
-                    <td><a href="{{ url('lettershow' , {'id': letter.id}) }}"><strong>{{ letter.regNo }}</strong></a></td>
-                    <td>{{ letter.subject }}</td>
-                    <td>{{ letter.content }}</td>
-                    <td>{{ letter.publisher.username }}</td>
-                    <td>{{ letter.salutation.username }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+  {{ parent() }}
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1><span>Letters</h1>
+        <a href="{{ url('lettercreate') }}">Create</a>
+      </div>
+      <table>
+        <tr id="header">
+          <td>ID</a></td>
+          <td>Date</a></td>
+          <td>Reg. No.</a></td>
+          <td>Subject</a></td>
+          <td>Content</a></td>
+          <td>Publisher</a></td>
+          <td>Salutation</a></td>
+        </tr>
+        {% for letter in letters %}
+          <tr id="data">
+            <td>{{ letter.id }}</td>
+            <td>{{ letter.date|date('M d, Y') }}</td>
+            <td><a href="{{ url('lettershow' , {'id': letter.id}) }}"><strong>{{ letter.regNo }}</strong></a></td>
+            <td>{{ letter.subject }}</td>
+            <td>{{ letter.content }}</td>
+            <td>{{ letter.publisher.username }}</td>
+            <td>{{ letter.salutation.username }}</td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
+  </div>
 {% endblock %}

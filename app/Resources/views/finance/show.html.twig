@@ -3,22 +3,23 @@
 {% block title %} {{ finance.billNumber }} | {{ parent() }} {% endblock %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1>Finance</h1>
-                <a href="{{ url('financeedit' , {'id': finance.id}) }}"><strong>Edit</strong></a>
-                <a href="{{ url('financedelete' , {'id': finance.id}) }}"><strong>Delete</strong></a>
-                <p>{{ finance.id }}</p>
-                <p>{{ finance.date|date('M d, Y') }}</p>
-                <p><strong><u>{{ finance.billNumber }}</u></strong></p>
-                <p>NRs. {{ finance.amount }}</p>
-                <p>{{ finance.remarks }}</p>
-                <p>{{ finance.direction }}</p>
-                <p><a href="{{ path('eventshow', {'slug': finance.event.slug}) }}">{{ finance.event.title }}</a></p>
-                <p><a href="{{ path('institutionshow', {'slug': finance.institution.slug}) }}">{{ finance.institution.name }}</a></p>
-                <p><a href="{{ path('membershow', {'id': finance.receiver.id}) }}">{{ finance.receiver.username }}</a></p>
-            </div>
-        </div>
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1>Finance</h1>
+        <a href="{{ url('financecreate') }}"> Add</a>
+        <a href="{{ url('financeedit' , {'billNumber': finance.billNumber}) }}"> Update</a>
+        <a href="{{ url('financedelete' , {'billNumber': finance.billNumber}) }}"> Delete</a>
+        <p>{{ finance.id }}</p>
+        <p>{{ finance.date|date('M d, Y') }}</p>
+        <p><strong><u>{{ finance.billNumber }}</u></strong></p>
+        <p>NRs. {{ finance.amount }}</p>
+        <p>{{ finance.remarks }}</p>
+        <p>{{ finance.direction }}</p>
+        <p><a href="{{ path('eventshow', {'slug': finance.event.slug}) }}">{{ finance.event.title }}</a></p>
+        <p><a href="{{ path('institutionshow', {'slug': finance.institution.slug}) }}">{{ finance.institution.name }}</a></p>
+        <p><a href="{{ path('membershow', {'username': finance.receiver.username}) }}">{{ finance.receiver.username }}</a></p>
+      </div>
     </div>
+  </div>
 {% endblock %}

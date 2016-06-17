@@ -3,39 +3,39 @@
 {% block title %} Finances | {{ parent() }} {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Financial Transactions</h1>
-                <a href="{{ url('financecreate') }}">Create</a>
-            </div>
-            <table>
-                <tr id="header">
-                    <td>ID</a></td>
-                    <td>Date</a></td>
-                    <td>billNumber</a></td>
-                    <td>Amount</a></td>
-                    <td>Remarks</a></td>
-                    <td>Dr/Cr</a></td>
-                    <td>Event</a></td>
-                    <td>Institution</a></td>
-                    <td>Receiver</a></td>
-                </tr>
-                {% for finance in finances %}
-                <tr id="data">
-                    <td>{{ finance.id }}</td>
-                    <td>{{ finance.date|date('M d, Y') }}</td>
-                    <td><a href="{{ url('financeshow' , {'id': finance.id}) }}"><strong>{{ finance.billNumber }}</strong></a></td>
-                    <td>{{ finance.amount }}</td>
-                    <td>{{ finance.remarks }}</td>
-                    <td>{{ finance.direction }}</td>
-                    <td>{{ finance.event.title }}</td>
-                    <td>{{ finance.institution.name }}</td>
-                    <td>{{ finance.receiver.username }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+  {{ parent() }}
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1><span>Financial Transactions {{ finances|length }}</span></h1>
+        <h4><a href="{{ url('financecreate') }}"><small> Add</small></a></h1>
+      </div>
+      <table>
+        <tr id="header">
+          <td>ID</a></td>
+          <td>Date</a></td>
+          <td>billNumber</a></td>
+          <td>Amount</a></td>
+          <td>Remarks</a></td>
+          <td>Dr/Cr</a></td>
+          <td>Event</a></td>
+          <td>Institution</a></td>
+          <td>Receiver</a></td>
+        </tr>
+        {% for finance in finances %}
+          <tr id="data">
+            <td>{{ finance.id }}</td>
+            <td>{{ finance.date|date('M d, Y') }}</td>
+            <td><a href="{{ url('financeshow' , {'billNumber': finance.billNumber}) }}"><strong>{{ finance.billNumber }}</strong></a></td>
+            <td>{{ finance.amount }}</td>
+            <td>{{ finance.remarks }}</td>
+            <td>{{ finance.direction }}</td>
+            <td>{{ finance.event.title }}</td>
+            <td>{{ finance.institution.name }}</td>
+            <td>{{ finance.receiver.username }}</td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
+  </div>
 {% endblock %}

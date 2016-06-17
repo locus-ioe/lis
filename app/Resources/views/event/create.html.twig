@@ -3,46 +3,46 @@
 {% block title %} {{ title }} Event | {{ parent() }} {% endblock %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1>{{ title }} Event</h1>
-                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                {{ form_errors(form) }}
-                <table>
-                <tr>
-                    <td>{{ form_label(form.title) }}</td>
-                    <td>{{ form_widget(form.title) }}</td>
-                    <td>{{ form_errors(form.title) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.datetime) }}</td>
-                    <td>{{ form_widget(form.datetime) }}</td>
-                    <td>{{ form_errors(form.datetime) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.venue) }}</td>
-                    <td>{{ form_widget(form.venue) }}</td>
-                    <td>{{ form_errors(form.venue) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.type) }}</td>
-                    <td>{{ form_widget(form.type) }}</td>
-                    <td>{{ form_errors(form.type) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.description) }}</td>
-                    <td>{{ form_widget(form.description) }}</td>
-                    <td>{{ form_errors(form.description) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form_label(form.report) }}</td>
-                    <td>{{ form_widget(form.report) }}</td>
-                    <td>{{ form_errors(form.report) }}</td>
-                </tr>
-                </table>
-                {{ form_end(form) }}
-            </div>
-        </div>
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1>{{ title }} Event</h1>
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_errors(form) }}
+        <table>
+        <tr>
+          <td>{{ form_label(form.title) }}</td>
+          <td>{{ form_widget(form.title) }}</td>
+          <td>{{ form_errors(form.title) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.datetime) }}</td>
+          <td>{{ form_widget(form.datetime) }}</td>
+          <td>{{ form_errors(form.datetime) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.venue) }}</td>
+          <td>{{ form_widget(form.venue) }}</td>
+          <td>{{ form_errors(form.venue) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.type) }}</td>
+          <td>{{ form_widget(form.type) }}</td>
+          <td>{{ form_errors(form.type) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.description) }}</td>
+          <td>{{ form_widget(form.description) }}</td>
+          <td>{{ form_errors(form.description) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.report) }}</td>
+          <td>{{ form_widget(form.report) }}</td>
+          <td>{{ form_errors(form.report) }}</td>
+        </tr>
+        </table>
+        {{ form_end(form) }}
+      </div>
     </div>
+  </div>
 {% endblock %}

@@ -2,8 +2,9 @@
 
 namespace AppBundle\Controller;
 // Sensio bundles
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +34,7 @@ class MeetingController extends BaseController
         return $this->render('meeting/index.html.twig', array('meetings' => $meetings));
     }
 
-    // Show the meeting-create form
+    // Show the meeting-create form * @Security("has_role('ROLE_ADMIN')")
     /**
      * @Route("/meeting/create", name="meetingcreate")
      * @Method({"GET", "HEAD"})
@@ -69,7 +70,7 @@ class MeetingController extends BaseController
 
     // Show the meeting-edit form
     /**
-     * @Route("/meeting/edit/{slug}", name="meetingedit")
+     * @Route("/meeting/{slug}/edit", name="meetingedit")
      * @Method({"GET", "HEAD"})
      */
     public function editAction(Request $request, $slug)
