@@ -3,27 +3,27 @@
 {% block title %} Themes | {{ parent() }} {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Themes</h1>
-                <a href="{{ url('themecreate') }}">Create</a>
-            </div>
-            <table>
-                <tr id="header">
-                    <td>ID</a></td>
-                    <td>Name</a></td>
-                    <td>Exhibition</a></td>
-                </tr>
-                {% for theme in themes %}
-                <tr id="data">
-                    <td>{{ theme.id }}</td>
-                    <td><a href="{{ url('themeshow' , {'id': theme.id}) }}"><strong>{{ theme.name }}</strong></a></td>
-                    <td>{{ theme.exhibition.year|date('Y') }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+{{ parent() }}
+<div id="wrapper">
+  <div id="container">
+  <div id="welcome">
+    <h1><span>Themes {{ themes|length }}</span></h1>
+    <h4><a href="{{ url('themecreate') }}"><small> Add</small></a></h1>
+      </div>
+      <table>
+        <tr id="header">
+          <td>ID</a></td>
+          <td>Name</a></td>
+          <td>Exhibition</a></td>
+        </tr>
+        {% for theme in themes %}
+          <tr id="data">
+            <td>{{ theme.id }}</td>
+            <td><a href="{{ url('themeshow' , {'slug': theme.slug}) }}"><strong>{{ theme.name }}</strong></a></td>
+            <td>{{ theme.exhibition.year|date('Y') }}</td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
+  </div>
 {% endblock %}

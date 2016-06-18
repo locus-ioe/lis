@@ -3,11 +3,65 @@
 {% block title %} {{ title }} Member | {{ parent() }} {% endblock %}
 
 {% block body %}
-  {{ parent() }}
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
-        <h1><span>{{ title }} Member</h1>
+        <h1>{{ title }} Member</h1>
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_errors(form) }}
+        <table>
+        <tr>
+          <td>{{ form_label(form.firstname) }}</td>
+          <td>{{ form_widget(form.firstname) }}</td>
+          <td>{{ form_errors(form.firstname) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.lastname) }}</td>
+          <td>{{ form_widget(form.lastname) }}</td>
+          <td>{{ form_errors(form.lastname) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.username) }}</td>
+          <td>{{ form_widget(form.username) }}</td>
+          <td>{{ form_errors(form.username) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.email) }}</td>
+          <td>{{ form_widget(form.email) }}</td>
+          <td>{{ form_errors(form.email) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.address) }}</td>
+          <td>{{ form_widget(form.address) }}</td>
+          <td>{{ form_errors(form.address) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.contact) }}</td>
+          <td>{{ form_widget(form.contact) }}</td>
+          <td>{{ form_errors(form.contact) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.password) }}</td>
+          <td>{{ form_widget(form.password) }}</td>
+          <td>{{ form_errors(form.password) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.crnPost) }}</td>
+          <td>{{ form_widget(form.crnPost) }}</td>
+          <td>{{ form_errors(form.crnPost) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.institution) }}</td>
+          <td>{{ form_widget(form.institution) }}</td>
+          <td>{{ form_errors(form.institution) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.privilege) }}</td>
+          <td>{{ form_widget(form.privilege) }}</td>
+          <td>{{ form_errors(form.privilege) }}</td>
+        </tr>
+        </table>
+        {{ form_end(form) }}
       </div>
     </div>
   </div>

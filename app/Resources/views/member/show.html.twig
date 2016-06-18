@@ -7,8 +7,9 @@
     <div id="container">
       <div id="welcome">
         <h1>Member</h1>
-        <a href="{{ url('memberedit' , {'username': member.username}) }}"><strong>Edit</strong></a>
-        <a href="{{ url('memberdelete' , {'username': member.username}) }}"><strong>Delete</strong></a>
+        <a href="{{ url('membercreate') }}"> Add</a>
+        <a href="{{ url('memberedit' , {'username': member.username}) }}"> Update</a>
+        <a href="{{ url('memberdelete' , {'username': member.username}) }}"> Delete</a>
         <p>{{ member.id }}</p>
         <p>{{ member.firstname }} {{ member.lastname}}</p>
         <p><strong><u>{{ member.username }}</u></strong></p>
@@ -61,7 +62,7 @@
           projects
         {% endif %}</h3>
         <p>{% for project in member.developing %}
-          <a href="{{ path('projectshow', {'id': project.id}) }}">{{ project.title }}</a>,
+          <a href="{{ path('projectshow', {'slug': project.slug}) }}">{{ project.title }}</a>,
         {% endfor %}</p>
       </div>
       <div class="volunteering">
@@ -105,7 +106,7 @@
           transactions
         {% endif %}</h3>
         <p>{% for finance in member.receiving %}
-          <a href="{{ path('financeshow', {'id': finance.id}) }}">{{ finance.billNumber }}</a>,
+          <a href="{{ path('financeshow', {'billNumber': finance.billNumber}) }}">{{ finance.billNumber }}</a>,
         {% endfor %}</p>
       </div>
     </div>

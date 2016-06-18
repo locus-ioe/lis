@@ -5,10 +5,11 @@
 {% block body %}
   <div id="wrapper">
     <div id="container">
-      <a href="{{ url('exhibitionedit' , {'slug': exhibition.slug}) }}"><strong>Edit</strong></a>
-      <a href="{{ url('exhibitiondelete' , {'slug': exhibition.slug}) }}"><strong>Delete</strong></a>
       <div id="welcome">
         <h1>Exhibition</h1>
+        <a href="{{ url('exhibitioncreate') }}"> Add</a>
+        <a href="{{ url('exhibitionedit' , {'slug': exhibition.slug}) }}"> Update</a>
+        <a href="{{ url('exhibitiondelete' , {'slug': exhibition.slug}) }}"> Delete</a>
         <p>{{ exhibition.id }}</p>
         <p><strong><u>{{ exhibition.theme }}</u></strong></p>
         <p>{{ exhibition.year|date('Y') }}</p>
@@ -24,8 +25,6 @@
         {% endif %}</h3>
         <p>{% for event in exhibition.events %}
           <a href="{{ path('eventshow', {'slug': event.slug}) }}">{{ event.title }}</a>,
-        {% else %}
-          no events yet!
         {% endfor %}</p>
       </div>
       <div class="themes">
@@ -36,9 +35,7 @@
           themes
         {% endif %}</h3>
         <p>{% for theme in exhibition.themes %}
-          <a href="{{ path('themeshow', {'id': theme.id}) }}">{{ theme.name }}</a>,
-        {% else %}
-          no themes yet!
+          <a href="{{ path('themeshow', {'slug': theme.slug}) }}">{{ theme.name }}</a>,
         {% endfor %}</p>
       </div>
       <div class="stalls">
@@ -49,9 +46,7 @@
           stalls
         {% endif %}</h3>
         <p>{% for stall in exhibition.stalls %}
-          <a href="{{ path('stallshow', {'id': stall.id}) }}">{{ stall.number }} ({{ stall.size }})</a>,
-        {% else %}
-          no stalls yet!
+          <a href="{{ path('stallshow', {'slug': stall.slug}) }}">{{ stall.number }} ({{ stall.size }})</a>,
         {% endfor %}</p>
       </div>
     </div>

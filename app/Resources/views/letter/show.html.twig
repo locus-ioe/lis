@@ -1,21 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ letter.regNo }} | {{ parent() }} {% endblock %}
+{% block title %} {{ letter.subject }} | {{ parent() }} {% endblock %}
 
 {% block body %}
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
         <h1>Letter</h1>
-        <a href="{{ url('letteredit' , {'id': letter.id}) }}"><strong>Edit</strong></a>
-        <a href="{{ url('letterdelete' , {'id': letter.id}) }}"><strong>Delete</strong></a>
+        <a href="{{ url('lettercreate') }}"> Add</a>
+        <a href="{{ url('letteredit' , {'regNo': letter.regNo}) }}"> Update</a>
+        <a href="{{ url('letterdelete' , {'regNo': letter.regNo}) }}"> Delete</a>
         <p>{{ letter.id }}</p>
         <p><strong><u>{{ letter.regNo }}</u></strong></p>
         <p>{{ letter.date|date('M d, Y') }}</p>
-        <p><a href="{{ url('membershow', {'username': letter.publisher.username}) }}">{{ letter.publisher.username }}</a></p>
         <p><a href="{{ url('membershow', {'username': letter.salutation.username}) }}">{{ letter.salutation.username }}</a></p>
         <p>{{ letter.subject }}</p>
         <p>{{ letter.content }}</p>
+        <p><a href="{{ url('membershow', {'username': letter.publisher.username}) }}">{{ letter.publisher.username }}</a></p>
       </div>
     </div>
   </div>

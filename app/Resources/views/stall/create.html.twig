@@ -1,14 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ title }} Stall | {{ parent() }} {% endblock %}
+{% block title %} {{ title }} Theme | {{ parent() }} {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>{{ title }} Stall</h1>
-            </div>
-        </div>
+  <div id="wrapper">
+    <div id="container">
+      <div id="welcome">
+        <h1>{{ title }} Theme</h1>
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_errors(form) }}
+        <table>
+        <tr>
+          <td>{{ form_label(form.number) }}</td>
+          <td>{{ form_widget(form.number) }}</td>
+          <td>{{ form_errors(form.number) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.size) }}</td>
+          <td>{{ form_widget(form.size) }}</td>
+          <td>{{ form_errors(form.size) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.exhibition) }}</td>
+          <td>{{ form_widget(form.exhibition) }}</td>
+          <td>{{ form_errors(form.exhibition) }}</td>
+        </tr>
+        </table>
+        {{ form_end(form) }}
+      </div>
     </div>
+  </div>
 {% endblock %}

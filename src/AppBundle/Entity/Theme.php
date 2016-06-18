@@ -40,6 +40,20 @@ class Theme
     }
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=35, unique=true)
+     */
+    private $slug;
+    public function setSlug($slug) {
+      $this->slug = $slug;
+      return $this;
+    }
+    public function getSlug() {
+      return $this->slug;
+    }
+
+    /**
      * @ORM\ManyToOne(targetEntity="Exhibition", inversedBy="themes")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */

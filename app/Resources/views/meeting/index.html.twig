@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Meeting | {{ parent() }} {% endblock %}
+{% block title %} Meetings | {{ parent() }} {% endblock %}
 
 {% block body %}
   {{ parent() }}
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
-        <h1><span>Meeting</h1>
-        <a href="{{ url('meetingcreate') }}">Create</a>
+        <h1><span>Meetings {{ meetings|length }}</span></h1>
+        <h4><a href="{{ url('meetingcreate') }}"><small> Add</small></a></h1>
       </div>
       <table>
         <tr id="header">

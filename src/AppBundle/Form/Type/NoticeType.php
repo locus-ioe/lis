@@ -6,13 +6,13 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 // Symfony form
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class MeetingType extends AbstractType
+class NoticeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,39 +20,35 @@ class MeetingType extends AbstractType
       else $submitlabel = " Save";
 
         $builder
-        ->add('datetime', DateTimeType::class, array(
+        ->add('date', DateType::class, array(
           'widget' => 'single_text',
           'attr' => array(
-            'placeholder' => 'Date-Time'
+            'placeholder' => 'Date'
           )
         ))
-        ->add('venue', TextType::class, array(
+        ->add('subject', TextType::class, array(
           'attr' => array(
-            'placeholder' => 'Venue'
+            'placeholder' => 'Subject'
           )
         ))
-        ->add('agenda', TextType::class, array(
+        ->add('content', TextType::class, array(
           'attr' => array(
-            'placeholder' => 'Agenda'
+            'placeholder' => 'Content'
           )
         ))
-        ->add('minute', TextType::class, array(
-          'attr' => array(
-            'placeholder' => 'Minute'
-          )
-        ))
-        ->add('attendees', EntityType::class, array(
+        ->add('publisher', EntityType::class, array(
           'class' => 'AppBundle:Member',
           'choice_label' => 'username',
-          'placeholder' => 'Attendees',
-          'multiple' => true,
+          'placeholder' => 'Publisher',
+          'multiple' => false,
+          'expanded' => false,
         ))
         ->add('save', SubmitType::class, array('label' => $submitlabel));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' =>'AppBundle\Entity\Meeting',));
+        $resolver->setDefaults(array('data_class' =>'AppBundle\Entity\Notice',));
         $resolver->setRequired(array('forupdate'));
     }
 }

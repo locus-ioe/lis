@@ -5,10 +5,11 @@
 {% block body %}
   <div id="wrapper">
     <div id="container">
-        <a href="{{ url('institutionedit' , {'slug': institution.slug}) }}"><strong>Edit</strong></a>
-        <a href="{{ url('institutiondelete' , {'slug': institution.slug}) }}"><strong>Delete</strong></a>
       <div id="welcome">
         <h1>Institution</h1>
+        <a href="{{ url('institutioncreate') }}"> Add</a>
+        <a href="{{ url('institutionedit' , {'slug': institution.slug}) }}"> Update</a>
+        <a href="{{ url('institutiondelete' , {'slug': institution.slug}) }}"> Delete</a>
         <p>{{ institution.id }}</p>
         <p><strong><u>{{ institution.name }}</u></strong></p>
         <p>{{ institution.address }}</p>
@@ -36,8 +37,6 @@
         {% endif %}</h3>
         <p>{% for collaboration in institution.collaborating %}
           <a href="{{ path('eventshow', {'slug': collaboration.slug}) }}">{{ collaboration.title }}</a>,
-        {% else %}
-          no collaborations yet!
         {% endfor %}</p>
       </div>
       <div class="finances">
@@ -48,7 +47,7 @@
           financial transactions
         {% endif %}</h3>
         <p>{% for finance in institution.finances %}
-          {{ finance.date|date('M d, Y') }} - <a href="{{ path('financeshow', {'id': finance.id}) }}">{{ finance.billNumber }}</a> - {{ finance.event.title }} - {{ finance.receiver.username }} - {{ finance.direction }} - {{ finance.amount }} - {{ finance.remarks }}<br>
+          <a href="{{ path('financeshow', {'billNumber': finance.billNumber}) }}">{{ finance.billNumber }}</a>,
         {% endfor %}</p>
       </div>
       <div class="stalls">
@@ -59,7 +58,7 @@
           stalls
         {% endif %}</h3>
         <p>{% for stall in institution.stalls %}
-          <a href="{{ path('stallshow', {'id': stall.id}) }}">{{ stall.number }}</a>,
+          <a href="{{ path('stallshow', {'slug': stall.slug}) }}">{{ stall.slug }}</a>,
         {% endfor %}</p>
       </div>
     </div>

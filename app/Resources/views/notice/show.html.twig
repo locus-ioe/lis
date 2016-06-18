@@ -7,8 +7,9 @@
     <div id="container">
       <div id="welcome">
         <h1>Notice</h1>
-        <a href="{{ url('noticeedit' , {'id': notice.id}) }}"><strong>Edit</strong></a>
-        <a href="{{ url('noticedelete' , {'id': notice.id}) }}"><strong>Delete</strong></a>
+        <a href="{{ url('noticecreate') }}"> Add</a>
+        <a href="{{ url('noticeedit' , {'slug': notice.slug}) }}"> Update</a>
+        <a href="{{ url('noticedelete' , {'slug': notice.slug}) }}"> Delete</a>
         <p>{{ notice.id }}</p>
         <p>{{ notice.date|date('M d, Y') }}</p>
         <p><strong><u>{{ notice.subject }}</u></strong></p>

@@ -22,7 +22,7 @@ class Stall
      */
     private $id;
     public function getId() {
-        return $this->id;
+      return $this->id;
     }
 
     /**
@@ -32,11 +32,25 @@ class Stall
      */
     private $number;
     public function setNumber($number) {
-        $this->number = $number;
-        return $this;
+      $this->number = $number;
+      return $this;
     }
     public function getNumber() {
-        return $this->number;
+      return $this->number;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=16, unique=true)
+     */
+    private $slug;
+    public function setSlug($slug) {
+      $this->slug = $slug;
+      return $this;
+    }
+    public function getSlug() {
+      return $this->slug;
     }
 
     /**
@@ -46,11 +60,11 @@ class Stall
      */
     private $size;
     public function setSize($size) {
-        $this->size = $size;
-        return $this;
+      $this->size = $size;
+      return $this;
     }
     public function getSize() {
-        return $this->size;
+      return $this->size;
     }
 
     /**
@@ -58,7 +72,7 @@ class Stall
      */
     protected $events;
     public function getEvents() {
-        return $this->events;
+      return $this->events;
     }
 
     /**
@@ -67,11 +81,11 @@ class Stall
      */
     private $exhibition;
     public function setExhibition($exhibition) {
-        $this->exhibition = $exhibition;
-        return $this;
+      $this->exhibition = $exhibition;
+      return $this;
     }
     public function getExhibition() {
-        return $this->exhibition;
+      return $this->exhibition;
     }
 
     /**
@@ -79,7 +93,7 @@ class Stall
      */
     protected $institutions;
     public function getInstitutions() {
-        return $this->institutions;
+      return $this->institutions;
     }
 
     /**
@@ -87,12 +101,12 @@ class Stall
      */
     protected $projects;
     public function getProjects(){
-        return $this->projects;
+      return $this->projects;
     }
 
     public function __construct() {
-        $this->events = new ArrayCollection();
-        $this->institutions = new ArrayCollection();
-        $this->projects = new ArrayCollection();
+      $this->events = new ArrayCollection();
+      $this->institutions = new ArrayCollection();
+      $this->projects = new ArrayCollection();
     }
 }

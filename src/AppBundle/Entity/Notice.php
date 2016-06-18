@@ -55,6 +55,20 @@ class Notice
     /**
      * @var string
      *
+     * @ORM\Column(name="slug", type="string", length=55, unique=true)
+     */
+    private $slug;
+    public function setSlug($slug) {
+        $this->slug = $slug;
+        return $this;
+    }
+    public function getSlug() {
+        return $this->slug;
+    }
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="content", type="text")
      */
     private $content;

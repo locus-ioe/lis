@@ -7,6 +7,32 @@
     <div id="container">
       <div id="welcome">
         <h1>{{ title }} Advisor</h1>
+        {% if title == 'Delete' %}
+          {{ form_start(form) }}
+          {{ form_widget(form) }}
+          {{ form_end(form) }}
+        {% else %}
+          {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+          {{ form_errors(form) }}
+          <table>
+          <tr>
+            <td>{{ form_label(form.member) }}</td>
+            <td>{{ form_widget(form.member) }}</td>
+            <td>{{ form_errors(form.member) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.post) }}</td>
+            <td>{{ form_widget(form.post) }}</td>
+            <td>{{ form_errors(form.post) }}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.year) }}</td>
+            <td>{{ form_widget(form.year) }}</td>
+            <td>{{ form_errors(form.year) }}</td>
+          </tr>
+          </table>
+          {{ form_end(form) }}
+        {% endif %}
       </div>
     </div>
   </div>

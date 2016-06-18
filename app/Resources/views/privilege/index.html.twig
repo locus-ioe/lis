@@ -7,8 +7,8 @@
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
-        <h1><span>Privileges</h1>
-        <a href="{{ url('privilegecreate') }}">Create</a>
+        <h1><span>Privileges {{ privileges|length }}</span></h1>
+        <h4><a href="{{ url('privilegecreate') }}"><small> Add</small></a></h1>
       </div>
       <table>
         <tr id="header">

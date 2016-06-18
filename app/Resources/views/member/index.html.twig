@@ -7,8 +7,8 @@
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
-        <h1><span>Members</h1>
-        <a href="{{ url('membercreate') }}">Create</a>
+        <h1><span>Members {{ members|length }}</span></h1>
+        <h4><a href="{{ url('membercreate') }}"><small> Add</small></a></h1>
       </div>
       <table>
         <tr id="header">

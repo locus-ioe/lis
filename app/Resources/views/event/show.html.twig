@@ -5,10 +5,11 @@
 {% block body %}
   <div id="wrapper">
     <div id="container">
-      <a href="{{ url('eventedit' , {'slug': event.slug}) }}"><strong>Edit</strong></a>
-      <a href="{{ url('eventdelete' , {'slug': event.slug}) }}"><strong>Delete</strong></a>
       <div id="welcome">
         <h1>Event</h1>
+        <a href="{{ url('eventcreate') }}"> Add</a>
+        <a href="{{ url('eventedit' , {'slug': event.slug}) }}"> Update</a>
+        <a href="{{ url('eventdelete' , {'slug': event.slug}) }}"> Delete</a>
         <p>Id:          {{ event.id }}</p>
         <p>Title:       <strong><u>{{ event.title }}</u></strong></p>
         <p>Datetime:    {{ event.datetime|date('M d, Y H:i') }}</p>
@@ -71,7 +72,7 @@
           stalls
         {% endif %}</h3>
         <p>{% for stall in event.stalls %}
-          <a href="{{ path('stallshow', {'id': stall.id}) }}">{{ stall.number }}</a>,
+          <a href="{{ path('stallshow', {'slug': stall.slug}) }}">{{ stall.number }}</a>,
         {% endfor %}</p>
       </div>
       <div class="finances">
@@ -82,7 +83,7 @@
           transactions
         {% endif %}</h3>
         <p>{% for finance in event.finances %}
-          {{ finance.date|date('M d, Y') }} - <a href="{{ path('financeshow', {'id': finance.id}) }}">{{ finance.billNumber }}</a> - {{ finance.institution.name }} - {{ finance.receiver.username }} - {{ finance.direction }} - {{ finance.amount }} - {{ finance.remarks }}<br>
+          <a href="{{ path('financeshow', {'billNumber': finance.billNumber}) }}">{{ finance.billNumber }}</a>,
         {% endfor %}</p>
       </div>
       <div class="projects">
@@ -93,7 +94,7 @@
           projects
         {% endif %} participating</h3>
         <p>{% for project in event.projects %}
-          <a href="{{ path('projectshow', {'id': project.id}) }}">{{ project.title }}</a>,
+          <a href="{{ path('projectshow', {'slug': project.slug}) }}">{{ project.title }}</a>,
         {% endfor %}</p>
       </div>
     </div>

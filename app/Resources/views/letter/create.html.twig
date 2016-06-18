@@ -3,11 +3,45 @@
 {% block title %} {{ title }} Letter | {{ parent() }} {% endblock %}
 
 {% block body %}
-  {{ parent() }}
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
-        <h1><span>{{ title }} Letter</h1>
+        <h1>{{ title }} Letter</h1>
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_errors(form) }}
+        <table>
+        <tr>
+          <td>{{ form_label(form.date) }}</td>
+          <td>{{ form_widget(form.date) }}</td>
+          <td>{{ form_errors(form.date) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.regNo) }}</td>
+          <td>{{ form_widget(form.regNo) }}</td>
+          <td>{{ form_errors(form.regNo) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.salutation) }}</td>
+          <td>{{ form_widget(form.salutation) }}</td>
+          <td>{{ form_errors(form.salutation) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.subject) }}</td>
+          <td>{{ form_widget(form.subject) }}</td>
+          <td>{{ form_errors(form.subject) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.content) }}</td>
+          <td>{{ form_widget(form.content) }}</td>
+          <td>{{ form_errors(form.content) }}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.publisher) }}</td>
+          <td>{{ form_widget(form.publisher) }}</td>
+          <td>{{ form_errors(form.publisher) }}</td>
+        </tr>
+        </table>
+        {{ form_end(form) }}
       </div>
     </div>
   </div>

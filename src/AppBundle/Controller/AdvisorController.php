@@ -8,8 +8,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+// Symfony form types
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 // User-defined classes
 use AppBundle\Entity\Advisor;
+use AppBundle\Form\Type\AdvisorType;
 
 class AdvisorController extends BaseController
 {
@@ -50,7 +55,7 @@ class AdvisorController extends BaseController
   public function editAction(Request $request, $id)
   {
     $advisor = $this->getDoctrine()
-    ->getRepository('AppBundle:Advisor')->find($id);
+      ->getRepository('AppBundle:Advisor')->find($id);
     $form = $this->createForm(AdvisorType::class, $advisor, array('forupdate' => true));
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -67,7 +72,7 @@ class AdvisorController extends BaseController
    */
   public function deleteAction(Request $request, $id)
   {
-    return new Response('<html><title>Delete Advisor</title><body><h1>Delete Advisor <small><i>with id ' .$id. '</i></small></h1></body></html>');
+    return new Response('<html><title>Delete advisor</title><body><h1>Delete advisor <small><i>with id ' .$id. '</i></small></h1></body></html>');
   }
 
   /**

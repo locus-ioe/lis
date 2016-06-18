@@ -7,8 +7,8 @@
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
-        <h1><span>Letters</h1>
-        <a href="{{ url('lettercreate') }}">Create</a>
+        <h1><span>Letters {{ letters|length }}</span></h1>
+        <h4><a href="{{ url('lettercreate') }}"><small> Add</small></a></h1>
       </div>
       <table>
         <tr id="header">
@@ -24,7 +24,7 @@
           <tr id="data">
             <td>{{ letter.id }}</td>
             <td>{{ letter.date|date('M d, Y') }}</td>
-            <td><a href="{{ url('lettershow' , {'id': letter.id}) }}"><strong>{{ letter.regNo }}</strong></a></td>
+            <td><a href="{{ url('lettershow' , {'regNo': letter.regNo}) }}"><strong>{{ letter.regNo }}</strong></a></td>
             <td>{{ letter.subject }}</td>
             <td>{{ letter.content }}</td>
             <td>{{ letter.publisher.username }}</td>

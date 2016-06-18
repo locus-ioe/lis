@@ -7,8 +7,8 @@
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
-        <h1><span>Event</h1>
-        <a href="{{ url('eventcreate') }}">Create</a>
+        <h1><span>Events {{ events|length }}</span></h1>
+        <h4><a href="{{ url('eventcreate') }}"><small> Add</small></a></h1>
       </div>
       <table>
         <tr id="header">

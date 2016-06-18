@@ -42,6 +42,20 @@ class Project
     /**
      * @var string
      *
+     * @ORM\Column(name="slug", type="string", length=55, unique=true)
+     */
+    private $slug;
+    public function setSlug($slug) {
+      $this->slug = $slug;
+      return $this;
+    }
+    public function getSlug() {
+      return $this->slug;
+    }
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="type", type="string", length=20)
      */
     private $type;
@@ -108,7 +122,8 @@ class Project
     }
 
     /**
-     * @ORM\ManyToMany(targetEntity="Event", mappedBy="projects")
+     * @ORM\ManyToMany(targetEntity="Event", inversedBy="projects")
+     * @ORM\JoinTable("event_projects")
      */
     protected $events;
     public function getEvents() {

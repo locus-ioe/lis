@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ committee.member.username }} | {{ parent() }} {% endblock %}
+{% block title %} {{ committee.post }} {{ committee.year|date('Y') }} | {{ parent() }} {% endblock %}
 
 {% block body %}
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
         <h1>Committee</h1>
-        <a href="{{ url('committeeedit' , {'id': committee.id}) }}"><strong>Edit</strong></a>
-        <a href="{{ url('committeedelete' , {'id': committee.id}) }}"><strong>Delete</strong></a>
+        <a href="{{ url('committeecreate') }}"> Add</a>
+        <a href="{{ url('committeeedit' , {'id': committee.id}) }}"> Update</a>
+        <a href="{{ url('committeedelete' , {'id': committee.id}) }}"> Delete</a>
         <p>{{ committee.id }}</p>
         <p><strong><u>{{ committee.member.firstname }} {{ committee.member.lastname }}</u></strong></p>
         <p><a href="{{ path('membershow', {'username': committee.member.username}) }}">{{ committee.member.username }}</a></p>
-        <p><a href="{{ path('institutionshow', {'slug': committee.member.institution.slug}) }}">{{ committee.member.institution.name }} </a></p>
-        <p>{{ committee.post }} - Locus {{ committee.year|date('Y') }}</p>
+        <p><a href="{{ path('institutionshow', {'slug': committee.member.institution.slug}) }}">{{ committee.member.institution.name }} <small>({{ committee.post }})</small></a></p>
+        <p>Locus {{ committee.year|date('Y') }}</p>
       </div>
     </div>
   </div>

@@ -15,14 +15,31 @@ class ExhibitionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if ($options['forupdate']) $submitlabel = "Save";
-        else $submitlabel = "Add";
+      if ($options['forupdate']) $submitlabel = " Update";
+      else $submitlabel = " Save";
 
         $builder
-        ->add('theme', TextType::class)
-        ->add('year', DateType::class, array('widget' => 'single_text'))
-        ->add('date', TextType::class)
-        ->add('locationMap', TextType::class)
+        ->add('theme', TextType::class, array(
+          'attr' => array(
+            'placeholder' => 'Exhibition Theme'
+          )
+        ))
+        ->add('year', DateType::class, array(
+          'widget' => 'single_text',
+          'attr' => array(
+            'placeholder' => 'Exhibition Year (yyyy/mm/dd)'
+          )
+        ))
+        ->add('date', TextType::class, array(
+          'attr' => array(
+            'placeholder' => 'Exhibition Date'
+          )
+        ))
+        ->add('locationMap', TextType::class, array(
+          'attr' => array(
+            'placeholder' => 'Exhibition Layout Map'
+          )
+        ))
         ->add('save', SubmitType::class, array('label' => $submitlabel));
     }
 

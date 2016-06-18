@@ -5,10 +5,11 @@
 {% block body %}
   <div id="wrapper">
     <div id="container">
-      <a href="{{ url('privilegeedit' , {'slug': privilege.slug}) }}"><strong>Edit</strong></a>
-      <a href="{{ url('privilegedelete' , {'slug': privilege.slug}) }}"><strong>Delete</strong></a>
       <div id="welcome">
         <h1>Privilege</h1>
+        <a href="{{ url('privilegecreate') }}"> Add</a>
+        <a href="{{ url('privilegeedit' , {'slug': privilege.slug}) }}"> Update</a>
+        <a href="{{ url('privilegedelete' , {'slug': privilege.slug}) }}"> Delete</a>
         <p>{{ privilege.id }}</p>
         <p><strong><u>{{ privilege.name }}</u></strong></p>
       </div>

@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ advisor.member.username }} | {{ parent() }} {% endblock %}
+{% block title %} {{ advisor.post }} {{ advisor.year|date('Y') }} | {{ parent() }} {% endblock %}
 
 {% block body %}
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
         <h1>Advisor</h1>
-        <a href="{{ url('advisoredit' , {'id': advisor.id}) }}"><strong>Edit</strong></a>
-        <a href="{{ url('advisordelete' , {'id': advisor.id}) }}"><strong>Delete</strong></a>
+        <a href="{{ url('advisorcreate') }}"> Add</a>
+        <a href="{{ url('advisoredit' , {'id': advisor.id}) }}"> Update</a>
+        <a href="{{ url('advisordelete' , {'id': advisor.id}) }}"> Delete</a>
         <p>{{ advisor.id }}</p>
         <p><strong><u>{{ advisor.member.firstname }} {{ advisor.member.lastname }}</u></strong></p>
         <p><a href="{{ path('membershow', {'username': advisor.member.username}) }}">{{ advisor.member.username }}</a></p>

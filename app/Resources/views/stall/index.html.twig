@@ -3,29 +3,29 @@
 {% block title %} Stalls | {{ parent() }} {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Stall</h1>
-                <a href="{{ url('stallcreate') }}">Create</a>
-            </div>
-            <table>
-                <tr id="header">
-                    <td>ID</a></td>
-                    <td>Number</a></td>
-                    <td>Size</a></td>
-                    <td>Exhibition</a></td>
-                </tr>
-                {% for stall in stalls %}
-                <tr id="data">
-                    <td>{{ stall.id }}</td>
-                    <td><a href="{{ url('stallshow' , {'id': stall.id}) }}"><strong>{{ stall.number }}</strong></a></td>
-                    <td>{{ stall.size }}</td>
-                    <td>Locus {{ stall.exhibition.year|date('Y') }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+{{ parent() }}
+<div id="wrapper">
+<div id="container">
+  <div id="welcome">
+    <h1><span>Stalls {{ stalls|length }}</span></h1>
+    <h4><a href="{{ url('stallcreate') }}"><small> Add</small></a></h1>
+      </div>
+      <table>
+        <tr id="header">
+          <td>ID</a></td>
+          <td>Number</a></td>
+          <td>Size</a></td>
+          <td>Exhibition</a></td>
+        </tr>
+        {% for stall in stalls %}
+          <tr id="data">
+            <td>{{ stall.id }}</td>
+            <td><a href="{{ url('stallshow' , {'slug': stall.slug}) }}"><strong>{{ stall.number }}</strong></a></td>
+            <td>{{ stall.size }}</td>
+            <td>Locus {{ stall.exhibition.year|date('Y') }}</td>
+          </tr>
+          {% endfor %}
+      </table>
     </div>
+  </div>
 {% endblock %}

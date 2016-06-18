@@ -8,8 +8,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+// Symfony form types
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 // User-defined classes
 use AppBundle\Entity\Committee;
+use AppBundle\Form\Type\CommitteeType;
 
 class CommitteeController extends BaseController
 {
@@ -50,7 +55,7 @@ class CommitteeController extends BaseController
   public function editAction(Request $request, $id)
   {
     $committee = $this->getDoctrine()
-    ->getRepository('AppBundle:Committee')->find($id);
+      ->getRepository('AppBundle:Committee')->find($id);
     $form = $this->createForm(CommitteeType::class, $committee, array('forupdate' => true));
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -67,7 +72,7 @@ class CommitteeController extends BaseController
    */
   public function deleteAction(Request $request, $id)
   {
-    return new Response('<html><title>Delete Committee</title><body><h1>Delete Committee <small><i>with id ' .$id. '</i></small></h1></body></html>');
+    return new Response('<html><title>Delete committee</title><body><h1>Delete committee <small><i>with id ' .$id. '</i></small></h1></body></html>');
   }
 
   /**

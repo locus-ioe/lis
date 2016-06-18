@@ -44,7 +44,7 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="slug", type="string", length=50, nullable=true, unique=true)
+     * @ORM\Column(name="slug", type="string", length=50, unique=true)
      */
     private $slug;
     public function setSlug($slug) {
@@ -176,8 +176,7 @@ class Event
     }
 
     /**
-     * @ORM\ManyToMany(targetEntity="Project", inversedBy="events")
-     * @ORM\JoinTable("event_projects")
+     * @ORM\ManyToMany(targetEntity="Project", mappedBy="events")
      */
     protected $projects;
     public function getProjects() {

@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Committees | {{ parent() }} {% endblock %}
+{% block title %} Committee Members | {{ parent() }} {% endblock %}
 
 {% block body %}
   {{ parent() }}
   <div id="wrapper">
     <div id="container">
       <div id="welcome">
-        <h1><span>Advisors</h1>
-        <a href="{{ url('committeecreate') }}">Create</a>
+        <h1><span>Committee Members {{ committees|length }}</span></h1>
+        <h4><a href="{{ url('committeecreate') }}"><small> Add</small></a></h1>
       </div>
       <table>
         <tr id="header">

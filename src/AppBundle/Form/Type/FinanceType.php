@@ -24,6 +24,9 @@ class FinanceType extends AbstractType
     $builder
     ->add('date', DateType::class, array(
       'widget' => 'single_text',
+      'attr' => array(
+        'placeholder' => "Transaction Date"
+      )
     ))
     ->add('billNumber', TextType::class, array(
       'attr' => array(
@@ -32,7 +35,7 @@ class FinanceType extends AbstractType
       'disabled' => $options['forupdate'],
     ))
     ->add('amount', MoneyType::class, array(
-      'currency' => 'INR',//'NPR',
+      'currency' => 'INR',
       'grouping' => true,
       'attr' => array(
         'placeholder' => 'Amount'

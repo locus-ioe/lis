@@ -7,15 +7,16 @@
     <div id="container">
       <div id="welcome">
         <h1>Project</h1>
-        <a href="{{ url('projectedit' , {'id': project.id}) }}"><strong>Edit</strong></a>
-        <a href="{{ url('projectdelete' , {'id': project.id}) }}"><strong>Delete</strong></a>
+        <a href="{{ url('projectcreate') }}"> Add</a>
+        <a href="{{ url('projectedit' , {'slug': project.slug}) }}"> Update</a>
+        <a href="{{ url('projectdelete' , {'slug': project.slug}) }}"> Delete</a>
         <p>{{ project.id }}</p>
         <p><strong><u>{{ project.title }}</u></strong></p>
         <p>{{ project.type }}</p>
         <p>{{ project.description }}</p>
         <p>{{ project.detail }}</p>
         <p><a href="{{ path('exhibitionshow', {'slug': project.stall.exhibition.slug}) }}">Locus {{ project.stall.exhibition.year|date('Y') }} - {{ project.stall.id }}</a></p>
-        <p><a href="{{ path('themeshow', {'id': project.theme.id}) }}">{{ project.theme.name }}</a></p>
+        <p><a href="{{ path('themeshow', {'slug': project.theme.slug}) }}">{{ project.theme.name }}</a></p>
       </div>
       <div class="members">
         <h3>{{ project.members|length }}

@@ -5,71 +5,90 @@ namespace AppBundle\Controller;
 // Sensio bundles
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
 // Symfony components
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+// Symfony form types
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 // User-defined classes
 use AppBundle\Entity\Project;
+use AppBundle\Form\Type\ProjectType;
 
 class ProjectController extends BaseController
 {
-    // Show Project Index Page
-    /**
-     * @Route("/project", name="projectpage")
-     */
-    public function indexAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $projects = $em
-        ->getRepository('AppBundle:Project')->findall();
-        if (!$projects) {
-            return $this->redirectToRoute('projectcreate', array());
-        }
-        return $this->render('project/index.html.twig', array('projects' => $projects));
+  /**
+   * @Route("/project", name="projectpage")
+   */
+  public function indexAction(Request $request)
+  {
+    $em = $this->getDoctrine()->getManager();
+    $projects = $em
+    ->getRepository('AppBundle:Project')->findall();
+    if (!$projects) {
+      return $this->redirectToRoute('projectcreate', array());
     }
+    return $this->render('project/index.html.twig', array('projects' => $projects));
+  }
 
-    // Show the project-create form
-    /**
-     * @Route("/project/create", name="projectcreate")
-     * @Method({"GET", "HEAD"})
-     */
-    public function createAction(Request $request)
-    {
-        return $this->render('project/create.html.twig', array('title' => 'Create'));
+  /**
+   * @Route("/project/create", name="projectcreate")
+   */
+  public function createAction(Request $request)
+  {
+    $project = new Project();
+    $form = $this->createForm(ProjectType::class, $project, array('forupdate' => false));
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $toSlugify = $project->getTitle(). ' '.$project->getStall()->getExhibition()->getYear()->format('Y');
+      $project->setSlug($this->get('app.slugger')->slugify($toSlugify));
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($project);
+      $em->flush();
+      return $this->redirectToRoute('projectshow', array('slug' => $form->getData()->getSlug()));
     }
+    return $this->render('project/create.html.twig', array('form' => $form->createView(), 'title' => 'Create', 'message' => 'Unable to proceed the submitted form and/or form data'));
+  }
 
-    // Show the project-edit form
-    /**
-     * @Route("/project/edit/{id}", name="projectedit")
-     * @Method({"GET", "HEAD"})
-     */
-    public function editAction(Request $request, $id)
-    {
-        return $this->render('project/create.html.twig', array('title' => 'Edit'));
+  /**
+   * @Route("/project/{slug}/edit", name="projectedit")
+   */
+  public function editAction(Request $request, $slug)
+  {
+    $project = $this->getDoctrine()
+      ->getRepository('AppBundle:Project')->findOneBySlug($slug);
+    $form = $this->createForm(ProjectType::class, $project, array('forupdate' => true));
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      $toSlugify = $project->getTitle(). ' '.$project->getStall()->getExhibition()->getYear()->format('Y');
+      $project->setSlug($this->get('app.slugger')->slugify($toSlugify));
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($project);
+      $em->flush();
+      return $this->redirectToRoute('projectshow', array('slug' => $form->getData()->getSlug()));
     }
+    return $this->render('project/create.html.twig', array('form' => $form->createView(), 'title' => 'Edit', 'message' => 'Unable to proceed the submitted form and/or form data'));
+  }
 
-    // Display the specified project
-    /**
-     * @Route("/project/delete/{id}", name="projectdelete", requirements={"page": "\d+"})
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        return new Response('<html><title>Delete Project</title><body><h1>Delete Project <small><i>with id ' .$id. '</i></small></h1></body></html>');
-    }
+  /**
+   * @Route("/project/{slug}/delete", name="projectdelete")
+   */
+  public function deleteAction(Request $request, $slug)
+  {
+    return new Response('<html><title>Delete project</title><body><h1>Delete project <small><i>with slug ' .$slug. '</i></small></h1></body></html>');
+  }
 
-    // Display the specified project
-    /**
-     * @Route("/project/{id}", name="projectshow")
-     */
-    public function showAction(Request $request, $id)
-    {
-        $project = $this->getDoctrine()
-        ->getRepository('AppBundle:Project')->find($id);
-        if (!$project) {
-            throw $this->createNotFoundException('No project found for id '.$id);
-        }
-        return $this->render('project/show.html.twig', array('project' => $project));
+  /**
+   * @Route("/project/{slug}", name="projectshow")
+   */
+  public function showAction(Request $request, $slug)
+  {
+    $project = $this->getDoctrine()
+    ->getRepository('AppBundle:Project')->findOneBySlug($slug);
+    if (!$project) {
+      throw $this->createNotFoundException('No project found for slug '.$slug);
     }
+    return $this->render('project/show.html.twig', array('project' => $project));
+  }
 }
